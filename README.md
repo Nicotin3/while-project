@@ -4,7 +4,7 @@ Documentation LUA :
 https://www.lua.org/manual/5.3/manual.html
 
 Membres de l'équipe :
-Amir Louis Oussama Sylvain Allan Erwann Nicolas
+Amir Louis Oussama Sylvain Allan Erwan Nicolas
 
 Reponsable de projet :
 Nicolas
