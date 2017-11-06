@@ -10,7 +10,7 @@ Reponsable de projet :
 Nicolas
 
 Responsable de validation : (organiser l'automatisation des tests)
-Erwann
+Erwan
 
 Petit diapo à chaque séance : Ce qui a été fait, problèmes rencontrés et ce qu'il reste à faire.
 
