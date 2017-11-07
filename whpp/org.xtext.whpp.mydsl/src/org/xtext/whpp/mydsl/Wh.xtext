@@ -1,0 +1,57 @@
+grammar org.xtext.whpp.mydsl.Wh with org.eclipse.xtext.common.Terminals hidden (WS)
+
+generate wh "http://www.xtext.org/whpp/mydsl/Wh"
+
+Model:
+	program += Program
+;
+
+Program:
+	function=Function ('
+')+ (program=Program)?
+;
+
+Function:
+	'function' name=ID ':' definition=Definition 
+;
+
+Definition:
+	('read' input=Input)
+	('%' commands=Commands)
+	('%''write' output=Output)
+;
+
+Input:
+	(variable=Variable ',' input=Input) | (variable=Variable)
+;
+
+Output:
+	(variable=Variable ',' output=Output) | (variable=Variable)
+;
+
+Variable:
+	MAJUSCULE // base
+	// confort
+	//(MAJUSCULE | MINUSCULE | DIGIT)* 
+	//(('-' | '+' | '.' | '/' | '_' | '&' | '->') (MAJUSCULE | MINUSCULE | DIGIT)+)* ('?'|'!')
+;
+
+Commands:
+	(command=Command ';' commands=Commands) | (command=Command)
+;
+
+Command:
+	'nop' 
+;
+
+terminal MAJUSCULE:
+	('A'..'Z')
+;
+
+terminal MINUSCULE:
+	('a'..'z')
+;
+
+terminal DIGIT:
+	('0'..'9')
+;

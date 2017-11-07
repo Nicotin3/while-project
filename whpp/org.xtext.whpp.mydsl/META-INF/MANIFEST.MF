@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.xtext.whpp.mydsl
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtext.whpp.mydsl; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.13.0",
+ org.antlr.runtime,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.eclipse.xtend.lib;bundle-version="2.13.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.xtext.whpp.mydsl,
+ org.xtext.whpp.mydsl.wh.util,
+ org.xtext.whpp.mydsl.parser.antlr,
+ org.xtext.whpp.mydsl.scoping,
+ org.xtext.whpp.mydsl.parser.antlr.internal,
+ org.xtext.whpp.mydsl.wh,
+ org.xtext.whpp.mydsl.wh.impl,
+ org.xtext.whpp.mydsl.serializer,
+ org.xtext.whpp.mydsl.services,
+ org.xtext.whpp.mydsl.validation,
+ org.xtext.whpp.mydsl.generator
+Import-Package: org.apache.log4j
