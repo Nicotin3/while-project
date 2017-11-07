@@ -7,8 +7,7 @@ Model:
 ;
 
 Program:
-	function=Function ('
-')+ (program=Program)?
+	function=Function ('\n')+ (program=Program)?
 ;
 
 Function:
