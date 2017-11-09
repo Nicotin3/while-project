@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.xtext.whpp.mydsl"/>
+	<classpathentry kind="lib" path="C:/Users/Allan/.p2/pool/plugins/com.google.inject_3.0.0.v201312141243.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Allan/.p2/pool/plugins/org.eclipse.emf.ecore_2.13.0.v20170609-0707.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Allan/.p2/pool/plugins/org.eclipse.emf.common_2.13.0.v20170609-0707.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

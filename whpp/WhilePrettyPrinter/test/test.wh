@@ -1,0 +1,20 @@
+function test1:read A%nop%write B
+
+function test2
+:                read     C
+ %  nop;nop
+ ;nop
+              %
+write
+D
+
+function
+	test3
+		:
+			read
+				E
+					%
+						nop
+							%
+								write
+									F
