@@ -1,13 +1,9 @@
-grammar org.xtext.whpp.mydsl.Wh with org.eclipse.xtext.common.Terminals hidden (WS)
+grammar org.xtext.whpp.mydsl.Wh with org.eclipse.xtext.common.Terminals
 
 generate wh "http://www.xtext.org/whpp/mydsl/Wh"
 
 Model:
-	program += Program
-;
-
-Program:
-	function=Function ('\n')+ (program=Program)?
+	(functions+=Function)*
 ;
 
 Function:
@@ -21,11 +17,15 @@ Definition:
 ;
 
 Input:
-	(variable=Variable ',' input=Input) | (variable=Variable)
+	variables=Variables
 ;
 
 Output:
-	(variable=Variable ',' output=Output) | (variable=Variable)
+	variables=Variables
+;
+
+Variables:
+	variables+=Variable (',' variables+=Variable)*	
 ;
 
 Variable:
@@ -36,7 +36,7 @@ Variable:
 ;
 
 Commands:
-	(command=Command ';' commands=Commands) | (command=Command)
+	commands+=Command (';' commands+=Command)*
 ;
 
 Command:
