@@ -10,11 +10,11 @@ OPTIONS
     
     -if   set the specific value for "if" indentation, default = -all argument
     
-    -...  same for all other control structures
+    -...  same for all other control structures (-while -for)
     
     -o    set the output file name, default = sth.whpp
     
-BUGS	
-SEE	ALSO	
+BUGS
+SEE	ALSO
 AUTHORS	
-    Beyou Nicolas
+    Oussama Atarchi, Nicolas Beyou, Allan Bonhomme, Erwan Bouet, Louis Boureau, Sylvain Lotout, Amir Romdhane
