@@ -10,33 +10,55 @@ import org.xtext.whpp.mydsl.wh.Input;
 
 public class PrettyPrinter {
 	
-	// Valeurs par défaut des options
+	// Valeurs par dï¿½faut des options
 	private static final int OPT_INDENT_DEFAULT = 2;
 	
 	// Options
 	private int optIndent;
+	private int optForIndent;
+	private int optWhileIndent;
+	private int optIfIndent;
+	
 	
 	/**
-	 * Constructeur initialisant toutes les options du pretty printer avec leur valeur par défaut
+	 * Constructeur initialisant toutes les options du pretty printer avec leur valeur par dï¿½faut
 	 */
 	public PrettyPrinter() {
 		optIndent = OPT_INDENT_DEFAULT;
+		optForIndent = OPT_INDENT_DEFAULT;
+		optIfIndent = OPT_INDENT_DEFAULT;
+		optWhileIndent = OPT_INDENT_DEFAULT;
 	}
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Méthodes de modification des options
+	////////// Mï¿½thodes de modification des options
 	
 	/**
-	 * Indentation par défaut (c.a.d. pas spécifique à une structure if, while etc.)
+	 * Indentation par dï¿½faut (c.a.d. pas spï¿½cifique ï¿½ une structure if, while etc.)
 	 */
 	public void setIndent(int newIndent) {
 		optIndent = newIndent;
+		optIfIndent = newIndent;
+		optWhileIndent = newIndent;
+		optForIndent = newIndent;
+	}
+	
+	public void setIfIndent(int newIndent) {
+		optIfIndent = newIndent;
+	}
+	
+	public void setWhileIndent(int newIndent) {
+		optWhileIndent = newIndent;
+	}
+	
+	public void setForIndent(int newIndent) {
+		optForIndent = newIndent;
 	}
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Méthodes de pretty print des non terminaux
+	////////// Mï¿½thodes de pretty print des non terminaux
 	
 	/**
 	 * Model
@@ -129,10 +151,10 @@ public class PrettyPrinter {
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Méthodes utilitaires
+	////////// Mï¿½thodes utilitaires
 	
 	/**
-	 * Retourne la chaine indent à laquelle ont été ajoutés spacesToAdd espaces
+	 * Retourne la chaine indent ï¿½ laquelle ont ï¿½tï¿½ ajoutï¿½s spacesToAdd espaces
 	 */
 	private String newIndent(String indent, int spacesToAdd) {
 		for (int i = 0; i < spacesToAdd; i++) {
