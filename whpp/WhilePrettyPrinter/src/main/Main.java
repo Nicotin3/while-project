@@ -21,30 +21,26 @@ public class Main {
 		// Création du pretty printer
 		PrettyPrinter whpp = new PrettyPrinter();
 		
-		//Gestion des options
-		String stringOpt = args[0];
-		String[] tableOpt = stringOpt.split(" ");
-		if(tableOpt.length%2 != 0){
-			throw new Exception("Nombre d'argument incorrect\n");
-		}
+		// Gestion des options
+		//Premier argument : nom du fichier source, vérification du nombre d'arguments dans le script.
 		
-		String fichierSource = tableOpt[0];
-		String fichierResultat = new String ("pretty-" + tableOpt[0]);
+		String fichierSource = args[0];
+		String fichierResultat = new String (fichierSource + "pp"); //Par défaut : sth.whpp si l'entrée est sth.wh
 		
-		for (int i = 0; i < tableOpt.length; i++) {
-			if(tableOpt[i].equalsIgnoreCase("-all")){
+		for (int i = 0; i < args.length; i++) {
+			if(args[i].equalsIgnoreCase("-all")){
 				whpp.setIndent(Integer.parseInt(tableOpt[i+1]));
 			}
-			if(tableOpt[i].equalsIgnoreCase("-if")){
+			if(args[i].equalsIgnoreCase("-if")){
 				whpp.setIfIndent(Integer.parseInt(tableOpt[i+1]));
 			}
-			if(tableOpt[i].equalsIgnoreCase("-while")){
+			if(args[i].equalsIgnoreCase("-while")){
 				whpp.setWhileIndent(Integer.parseInt(tableOpt[i+1]));
 			}
-			if(tableOpt[i].equalsIgnoreCase("-for")){
+			if(args[i].equalsIgnoreCase("-for")){
 				whpp.setForIndent(Integer.parseInt(tableOpt[i+1]));
 			}
-			if(tableOpt[i].equalsIgnoreCase("-o")){
+			if(args[i].equalsIgnoreCase("-o")){
 				fichierResultat = tableOpt[i+1];
 			}
 		}
