@@ -64,11 +64,11 @@ public class PrettyPrinter {
 	/**
 	 * Model
 	 */
-	public String prettyPrint(Model m) {
-		String res = "";
+	public StringBuilder prettyPrint(Model m) {
+		StringBuilder res = new StringBuilder();
 		
 		for (Function f : m.getFunctions()) {
-            res += prettyPrint(f, "") + "\n";
+            res.append(prettyPrint(f,new StringBuilder())).append("\n");
         }
 		
 		return res;
@@ -77,11 +77,10 @@ public class PrettyPrinter {
 	/**
 	 * Function
 	 */
-	private String prettyPrint(Function f, String curIndent) {
-		String res = "";
+	private StringBuilder prettyPrint(Function f, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
 		
-		res += curIndent + "function " + f.getName() + ":\n"
-				+ prettyPrint(f.getDefinition(), curIndent);
+		res.append(curIndent).append("function ").append(f.getName()).append(":\n").append(prettyPrint(f.getDefinition(), curIndent));
 		
 		return res;
 	}
@@ -89,14 +88,11 @@ public class PrettyPrinter {
 	/**
 	 * Definition
 	 */
-	private String prettyPrint(Definition d, String curIndent) {
-		String res = "";
+	private StringBuilder prettyPrint(Definition d, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
 		
-		res += prettyPrint(d.getInput(), curIndent)
-				+ curIndent + "%\n"
-				+ prettyPrint(d.getCommands(), newIndent(curIndent, optIndent))
-				+ curIndent + "%\n"
-				+ prettyPrint(d.getOutput(), curIndent);
+		res.append(prettyPrint(d.getInput(), curIndent)).append(curIndent).append("%\n").append(prettyPrint(d.getCommands(), newIndent(curIndent, optIndent)));
+		res.append(curIndent).append("%\n").append(prettyPrint(d.getOutput(), curIndent));
 		
 		return res;
 	}
@@ -104,10 +100,10 @@ public class PrettyPrinter {
 	/**
 	 * Input
 	 */
-	private String prettyPrint(Input i, String curIndent) {
-		String res = "";
+	private StringBuilder prettyPrint(Input i, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
 		
-		res += curIndent + "read " + prettyPrint(i.getVariables()) + "\n";
+		res.append(curIndent).append("read ").append(prettyPrint(i.getVariables())).append("\n");
 		
 		return res;
 	}
@@ -115,10 +111,10 @@ public class PrettyPrinter {
 	/**
 	 * Output
 	 */
-	private String prettyPrint(Output o, String curIndent) {
-		String res = "";
+	private StringBuilder prettyPrint(Output o, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
 		
-		res += curIndent + "write " + prettyPrint(o.getVariables()) + "\n";;
+		res.append(curIndent).append("write ").append(prettyPrint(o.getVariables())).append("\n");
 		
 		return res;
 	}
@@ -126,13 +122,13 @@ public class PrettyPrinter {
 	/**
 	 * Variables
 	 */
-	private String prettyPrint(Variables v) {
-		String res = "";
+	private StringBuilder prettyPrint(Variables v) {
+		StringBuilder res = new StringBuilder();
 		
 		for (String var : v.getVariables()) {
-			res += var + ",";
+			res.append(var).append(",");
 		}
-		res = res.substring(0, res.length() - 1);
+		res.deleteCharAt(res.length() - 1);
 		
 		return res;
 	}
@@ -140,26 +136,26 @@ public class PrettyPrinter {
 	/**
 	 * Commands
 	 */
-	private String prettyPrint(Commands c, String curIndent) {
-		String res = "";
+	private StringBuilder prettyPrint(Commands c, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
 		
 		for (Command com : c.getCommands()) {
 			if(com.getCommand().equals("nop")) {
-				res += curIndent + "nop \n";
+				res.append(curIndent).append("nop \n");
 			}
 			
 			else if (com.getCommand().equals(":=")){
-				res += curIndent + prettyPrint(com.getVariables()) + " := Exprs ;\n";
+				res.append(curIndent).append(prettyPrint(com.getVariables())).append(" := Exprs ;\n");
 			}
 			
 			else if (com.getCommand().equals("while")){
-				res += curIndent + "while Expr do\n" + prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT)) + curIndent + "od \n";
+				res.append(curIndent).append("while Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append(curIndent).append("od \n");
 			}
 			else if (com.getCommand().equals("for")) {
-				res += curIndent + "for Expr do\n" + prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT)) + curIndent + "od \n";
+				res.append(curIndent).append("for Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append(curIndent).append("od \n");
 			}
 			else if (com.getCommand().equals("if")) {
-				res += curIndent + "if Expr then\n" + prettyPrint(com.getCommands_then(), newIndent(curIndent, OPT_INDENT_DEFAULT)) + "\n else\n" + prettyPrint(com.getCommands_else(),"") + curIndent + "fi\n";
+				res.append(curIndent).append("if Expr then\n").append(prettyPrint(com.getCommands_then(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append("\n else\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append(curIndent).append("fi\n");
 			}
 		}
 		return res;
@@ -174,10 +170,11 @@ public class PrettyPrinter {
 	/**
 	 * Retourne la chaine indent à laquelle ont été ajoutés spacesToAdd espaces
 	 */
-	private String newIndent(String indent, int spacesToAdd) {
+	private StringBuilder newIndent(StringBuilder indent, int spacesToAdd) {
+		StringBuilder res = new StringBuilder().append(indent);
 		for (int i = 0; i < spacesToAdd; i++) {
-			indent += " ";
+			res.append(" ");
 		}
-		return indent;
+		return res;
 	}
 }
