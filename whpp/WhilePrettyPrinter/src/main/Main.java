@@ -29,19 +29,19 @@ public class Main {
 		
 		for (int i = 0; i < args.length; i++) {
 			if(args[i].equalsIgnoreCase("-all")){
-				whpp.setIndent(Integer.parseInt(tableOpt[i+1]));
+				whpp.setIndent(Integer.parseInt(args[i+1]));
 			}
 			if(args[i].equalsIgnoreCase("-if")){
-				whpp.setIfIndent(Integer.parseInt(tableOpt[i+1]));
+				whpp.setIfIndent(Integer.parseInt(args[i+1]));
 			}
 			if(args[i].equalsIgnoreCase("-while")){
-				whpp.setWhileIndent(Integer.parseInt(tableOpt[i+1]));
+				whpp.setWhileIndent(Integer.parseInt(args[i+1]));
 			}
 			if(args[i].equalsIgnoreCase("-for")){
-				whpp.setForIndent(Integer.parseInt(tableOpt[i+1]));
+				whpp.setForIndent(Integer.parseInt(args[i+1]));
 			}
 			if(args[i].equalsIgnoreCase("-o")){
-				fichierResultat = tableOpt[i+1];
+				fichierResultat = args[i+1];
 			}
 		}
 		
