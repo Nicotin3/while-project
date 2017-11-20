@@ -7,10 +7,11 @@ import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
 import org.xtext.whpp.mydsl.wh.Function;
 import org.xtext.whpp.mydsl.wh.Input;
+import org.xtext.whpp.mydsl.wh.Command;
 
 public class PrettyPrinter {
 	
-	// Valeurs par dï¿½faut des options
+	// Valeurs par défaut des options
 	private static final int OPT_INDENT_DEFAULT = 2;
 	
 	// Options
@@ -21,7 +22,7 @@ public class PrettyPrinter {
 	
 	
 	/**
-	 * Constructeur initialisant toutes les options du pretty printer avec leur valeur par dï¿½faut
+	 * Constructeur initialisant toutes les options du pretty printer avec leur valeur par défaut
 	 */
 	public PrettyPrinter() {
 		optIndent = OPT_INDENT_DEFAULT;
@@ -32,10 +33,10 @@ public class PrettyPrinter {
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Mï¿½thodes de modification des options
+	////////// Méthodes de modification des options
 	
 	/**
-	 * Indentation par dï¿½faut (c.a.d. pas spï¿½cifique ï¿½ une structure if, while etc.)
+	 * Indentation par défaut (c.a.d. pas spécifique à une structure if, while etc.)
 	 */
 	public void setIndent(int newIndent) {
 		optIndent = newIndent;
@@ -58,7 +59,7 @@ public class PrettyPrinter {
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Mï¿½thodes de pretty print des non terminaux
+	////////// Méthodes de pretty print des non terminaux
 	
 	/**
 	 * Model
@@ -142,19 +143,36 @@ public class PrettyPrinter {
 	private String prettyPrint(Commands c, String curIndent) {
 		String res = "";
 		
-		for (String com : c.getCommands()) {
-			res += curIndent + com + " ;\n";
+		for (Command com : c.getCommands()) {
+			if(com.getCommand().equals("nop")) {
+				res += curIndent + "nop \n";
+			}
+			
+			else if (com.getCommand().equals(":=")){
+				res += curIndent + prettyPrint(com.getVariables()) + " := Exprs ;\n";
+			}
+			
+			else if (com.getCommand().equals("while")){
+				res += curIndent + "while Expr do\n" + prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT)) + curIndent + "od \n";
+			}
+			else if (com.getCommand().equals("for")) {
+				res += curIndent + "for Expr do\n" + prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT)) + curIndent + "od \n";
+			}
+			else if (com.getCommand().equals("if")) {
+				res += curIndent + "if Expr then\n" + prettyPrint(com.getCommands_then(), newIndent(curIndent, OPT_INDENT_DEFAULT)) + "\n else\n" + prettyPrint(com.getCommands_else(),"") + curIndent + "fi\n";
+			}
 		}
-		
 		return res;
 	}
 	
 	
+	
+	
 	////////////////////////////////////////////////////////////
-	////////// Mï¿½thodes utilitaires
+	////////// Méthodes utilitaires
 	
 	/**
-	 * Retourne la chaine indent ï¿½ laquelle ont ï¿½tï¿½ ajoutï¿½s spacesToAdd espaces
+	 * Retourne la chaine indent à laquelle ont été ajoutés spacesToAdd espaces
 	 */
 	private String newIndent(String indent, int spacesToAdd) {
 		for (int i = 0; i < spacesToAdd; i++) {
