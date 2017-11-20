@@ -47,7 +47,7 @@ public class Main {
 		
 		
 		
-		// R�cup�ration de la racine de l'ASA correspondant au programme
+		// Récupération de la racine de l'ASA correspondant au programme
 		// Sources :
 		//		https://stackoverflow.com/questions/44716914/text-file-parsing-java-bean-instantiation-with-mwe2-xtext#44787099
 		//		https://typefox.io/how-and-why-use-xtext-without-the-ide
@@ -58,12 +58,12 @@ public class Main {
 		Model model = (Model) resource.getContents().get(0);
 		
 		
-		// Execution du pretty printer sur le programme mal format�
-		String prettyWh = whpp.prettyPrint(model);
+		// Execution du pretty printer sur le programme mal formaté
+		StringBuilder prettyWh = whpp.prettyPrint(model);
 		
-		// Stockage du programme bien format� dans un nouveau fichier
+		// Stockage du programme bien formaté dans un nouveau fichier
 		try (PrintWriter out = new PrintWriter(fichierResultat, "UTF-8")) {
-            out.write(prettyWh);
+            out.write(prettyWh.toString());
         }
 	}
 }
