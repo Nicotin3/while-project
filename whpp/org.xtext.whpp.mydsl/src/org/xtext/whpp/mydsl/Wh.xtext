@@ -40,8 +40,40 @@ Commands:
 ;
 
 Command:
-	'nop' 
+	command='nop' | variables=Variables command=':=' 'Exprs' | command='while' 'Expr' 'do' commands=Commands 'od'| command='for' 'Expr' 'do' commands=Commands 'od' 
+	| command='if' 'Expr' 'then' commands_then=Commands 'else' commands_else=Commands 'fi'
 ;
+/*
+Exprs:
+	Expr ',' Exprs | Expr
+
+Expr:
+	exrp=ExprSimple | expr=ExprAnd
+;
+
+ExprSimple:
+	'nil' | Variable | MINUSCULE | '(' 'cons' LExpr ')' | '(' 'list' LExpr ')' | '(' 'hd' Expr ')' | '(' 'tl' Expr ')' | '(' MINUSCULE LExpr ')'
+;
+
+LExpr:
+	expr=Expr lexpr=LExpr
+;
+
+ExprAnd:
+	exprOr=ExprOr 'and' exrpAnd=ExprAnd | exprOr=ExprOr
+;
+
+ExprOr:
+	exprNot=ExprNot	'or' exprOr=ExprOr	| exprNot=ExprNot
+;
+
+ExprNot:
+	'not' exprEq=ExprEq | exprEq=ExprEq
+;
+
+ExprEq:
+	expr1=ExprSimple '=?' expr2=ExprSimple | '(' expr=Expr ')'
+;*/
 
 terminal MAJUSCULE:
 	('A'..'Z')
