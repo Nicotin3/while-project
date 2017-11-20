@@ -149,13 +149,13 @@ public class PrettyPrinter {
 			}
 			
 			else if (com.getCommand().equals("while")){
-				res.append(curIndent).append("while Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append(curIndent).append("od \n");
+				res.append(curIndent).append("while Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optWhileIndent))).append(curIndent).append("od \n");
 			}
 			else if (com.getCommand().equals("for")) {
-				res.append(curIndent).append("for Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append(curIndent).append("od \n");
+				res.append(curIndent).append("for Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optForIndent))).append(curIndent).append("od \n");
 			}
 			else if (com.getCommand().equals("if")) {
-				res.append(curIndent).append("if Expr then\n").append(prettyPrint(com.getCommands_then(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append("\n else\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, OPT_INDENT_DEFAULT))).append(curIndent).append("fi\n");
+				res.append(curIndent).append("if Expr then\n").append(prettyPrint(com.getCommands_then(), newIndent(curIndent, optIfIndent))).append("\n else\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent))).append(curIndent).append("fi\n");
 			}
 		}
 		return res;
