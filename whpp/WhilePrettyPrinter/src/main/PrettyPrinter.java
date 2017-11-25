@@ -5,8 +5,11 @@ import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
+import org.xtext.whpp.mydsl.wh.Expr;
+import org.xtext.whpp.mydsl.wh.Exprs;
 import org.xtext.whpp.mydsl.wh.Function;
 import org.xtext.whpp.mydsl.wh.Input;
+import org.eclipse.emf.common.util.EList;
 import org.xtext.whpp.mydsl.wh.Command;
 
 public class PrettyPrinter {
@@ -151,31 +154,157 @@ public class PrettyPrinter {
 			}
 			
 			else if (com.getCommand().equals(":=")){
-				res.append(curIndent).append(prettyPrint(com.getVariables())).append(" := Exprs");
+				res.append(curIndent).append(prettyPrint(com.getVariables())).append(" := ").append(prettyPrint(com.getExrps(), curIndent));
 			}
 			
 			else if (com.getCommand().equals("while")){
-				res.append(curIndent).append("while Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optWhileIndent)));
+				res.append(curIndent).append("while ").append(prettyPrint(com.getExpr(), curIndent)).append(" do\n");
+				res.append(prettyPrint(com.getCommands(), newIndent(curIndent, optWhileIndent)));
 				res.append("\n").append(curIndent).append("od");
 			}
+			
 			else if (com.getCommand().equals("for")) {
-				res.append(curIndent).append("for Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optForIndent)));
-				res.append("\n").append(curIndent).append("od");
+				res.append(curIndent).append("for ").append(prettyPrint(com.getExpr(), curIndent)).append(" do\n");
+				res.append(prettyPrint(com.getCommands(), newIndent(curIndent, optForIndent))).append("\n").append(curIndent).append("od");
 			}
+			
 			else if (com.getCommand().equals("if")) {
-				res.append(curIndent).append("if Expr then\n").append(prettyPrint(com.getCommands_then(), newIndent(curIndent, optIfIndent)));
-				res.append("\nelse\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent))).append(curIndent).append("fi");
+				res.append(curIndent).append("if ").append(prettyPrint(com.getExpr(), curIndent)).append(" then\n");
+				res.append(prettyPrint(com.getCommands_then(), newIndent(curIndent, optIfIndent))).append("\n");
+				res.append(curIndent).append("else\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent))).append(curIndent).append("fi");
+			}
+			
+			else if (com.getCommand().equals("foreach")) {
+				res.append(curIndent).append("foreach ").append(prettyPrint(com.getExpr(), curIndent)).append(" in ");
+				res.append(prettyPrint(com.getExpr_in(), curIndent)).append(" do\n");
+				res.append(prettyPrint(com.getCommands(), newIndent(curIndent, optForIndent))).append("\n").append(curIndent).append("od");
 			}
 		}
 		return res;
 	}
 	
+	/**
+	 * Exprs
+	 */
+	private Object prettyPrint(Exprs e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		boolean virgule = false;
+		for (Expr exp : e.getExprs()) {
+			if (!virgule)
+				virgule = true;
+			else
+				res.append(", ");
+			res.append(prettyPrint(exp, curIndent));
+		}
+		return res;
+	}
+
+
+	/**
+	 * Expr
+	 */
+	private StringBuilder prettyPrint(Expr e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();		
+		if(e.getExpr().equals("nil")) {
+			res.append("nil");
+		}
+			
+		else if(e.getExpr().equals("cons")) {
+			res.append("( cons ").append(prettyPrint(e.getExprs(), curIndent)).append(" )");
+		}
+		
+		else if(e.getExpr().equals("list")) {
+			res.append("( list ").append(prettyPrint(e.getExprs(), curIndent)).append(" )");
+		}
+		
+		else if(e.getExpr().equals("hd")) {
+			res.append("( hd ").append(prettyPrint(e.getExpr2(), curIndent)).append(" )");
+		}
+		
+		else if(e.getExpr().equals("tl")) {
+			res.append("( tl ").append(prettyPrint(e.getExpr2(), curIndent)).append(" )");
+		}
+		
+		else if(e.getExpr().equals("and")) {
+			res.append("( ").append(prettyPrint(e.getExprG(), curIndent)).append(" and ").append(prettyPrint(e.getExprD(), curIndent));
+			res.append(" )");
+		}
+		
+		else if(e.getExpr().equals("or")) {
+			res.append("( ").append(prettyPrint(e.getExprG(), curIndent)).append(" or ").append(prettyPrint(e.getExprD(), curIndent));
+			res.append(" )");
+		}
+		
+		else if(e.getExpr().equals("=?")) {
+			res.append("( ").append(prettyPrint(e.getExprG(), curIndent)).append(" =? ").append(prettyPrint(e.getExprD(), curIndent));
+			res.append(" )");
+		}
+		
+		else if(e.getExpr().equals("not")) {
+			res.append("not ").append(prettyPrint(e.getExpr2(), curIndent));
+		}
+			
+		else {
+			res.append(e.getVariable());
+		}
+		return res;
+	}
 	
-	
+	private Object prettyPrint(EList<Expr> e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		for (Expr exp : e){
+			if(exp.getExpr().equals("nil")) {
+				res.append("nil");
+			}
+			
+			else if(exp.getExpr().equals("cons")) {
+				res.append("( cons ").append(prettyPrint(exp.getExprs(), curIndent));
+			}
+			
+			else if(exp.getExpr().equals("list")) {
+				res.append("( list ").append(prettyPrint(exp.getExprs(), curIndent));
+			}
+			
+			else if(exp.getExpr().equals("hd")) {
+				res.append("( hd ").append(prettyPrint(exp.getExpr2(), curIndent)).append(" )");
+			}
+			
+			else if(exp.getExpr().equals("tl")) {
+				res.append("( tl ").append(prettyPrint(exp.getExpr2(), curIndent)).append(" )");
+			}
+			
+			else if(exp.getExpr().equals("and")) {
+				res.append("( ").append(prettyPrint(exp.getExprG(), curIndent)).append(" and ").append(prettyPrint(exp.getExprD(), curIndent));
+				res.append(" )");
+			}
+			
+			else if(exp.getExpr().equals("or")) {
+				res.append("( ").append(prettyPrint(exp.getExprG(), curIndent)).append(" or ").append(prettyPrint(exp.getExprD(), curIndent));
+				res.append(" )");
+			}
+			
+			else if(exp.getExpr().equals("=?")) {
+				res.append("( ").append(prettyPrint(exp.getExprG(), curIndent)).append(" =? ").append(prettyPrint(exp.getExprD(), curIndent));
+				res.append(" )");
+			}
+			
+			else if(exp.getExpr().equals("not")) {
+				res.append("not ").append(prettyPrint(exp.getExpr2(), curIndent));
+			}
+				
+			else {
+				res.append(exp.getVariable());
+			}
+		}
+		return res;
+	}
 	
 	////////////////////////////////////////////////////////////
 	////////// Methodes utilitaires
 	
+	
+
+
 	/**
 	 * Retourne la chaine indent a laquelle ont ete ajoute spacesToAdd espaces
 	 */
