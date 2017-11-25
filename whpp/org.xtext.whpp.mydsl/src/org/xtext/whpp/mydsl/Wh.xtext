@@ -40,40 +40,29 @@ Commands:
 ;
 
 Command:
-	command='nop' | variables=Variables command=':=' 'Exprs' | command='while' 'Expr' 'do' commands=Commands 'od'| command='for' 'Expr' 'do' commands=Commands 'od' 
-	| command='if' 'Expr' 'then' commands_then=Commands 'else' commands_else=Commands 'fi'
+	command='nop' 
+	| variables=Variables command=':=' exrps=Exprs 
+	| command='while' expr=Expr 'do' commands=Commands 'od'
+	| command='for' expr=Expr 'do' commands=Commands 'od' 
+	| command='if' expr=Expr 'then' commands_then=Commands 'else' commands_else=Commands 'fi'
+	| command='foreach' expr=Expr 'in' expr_in=Expr 'do' commands=Commands 'od'
 ;
-/*
+
 Exprs:
-	Expr ',' Exprs | Expr
+	exprs+=Expr (',' exprs+=Expr)*
+;
 
 Expr:
-	exrp=ExprSimple | expr=ExprAnd
+	expr='nil' 
+	| variable=Variable | variable=MINUSCULE // ==>> fonctionne pas 
+	| '(' expr='cons' exprs+=Expr+ ')' 
+	| '(' expr='list' exprs+=Expr+ ')' 
+	| '(' expr='hd'  expr2=Expr ')' 
+	| '(' expr='tl'  expr2=Expr ')' 
+	//| '(' SYMBOLE Expr+ ')'
+	| '(' exprG=Expr (expr='and' | expr='or' | expr='=?') exprD=Expr ')' 
+	| expr='not' expr2=Expr
 ;
-
-ExprSimple:
-	'nil' | Variable | MINUSCULE | '(' 'cons' LExpr ')' | '(' 'list' LExpr ')' | '(' 'hd' Expr ')' | '(' 'tl' Expr ')' | '(' MINUSCULE LExpr ')'
-;
-
-LExpr:
-	expr=Expr lexpr=LExpr
-;
-
-ExprAnd:
-	exprOr=ExprOr 'and' exrpAnd=ExprAnd | exprOr=ExprOr
-;
-
-ExprOr:
-	exprNot=ExprNot	'or' exprOr=ExprOr	| exprNot=ExprNot
-;
-
-ExprNot:
-	'not' exprEq=ExprEq | exprEq=ExprEq
-;
-
-ExprEq:
-	expr1=ExprSimple '=?' expr2=ExprSimple | '(' expr=Expr ')'
-;*/
 
 terminal MAJUSCULE:
 	('A'..'Z')
