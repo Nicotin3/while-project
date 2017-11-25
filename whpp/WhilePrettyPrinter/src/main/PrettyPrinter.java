@@ -11,7 +11,7 @@ import org.xtext.whpp.mydsl.wh.Command;
 
 public class PrettyPrinter {
 	
-	// Valeurs par défaut des options
+	// Valeurs par defaut des options
 	private static final int OPT_INDENT_DEFAULT = 2;
 	
 	// Options
@@ -22,7 +22,7 @@ public class PrettyPrinter {
 	
 	
 	/**
-	 * Constructeur initialisant toutes les options du pretty printer avec leur valeur par défaut
+	 * Constructeur initialisant toutes les options du pretty printer avec leur valeur par defaut
 	 */
 	public PrettyPrinter() {
 		optIndent = OPT_INDENT_DEFAULT;
@@ -33,10 +33,10 @@ public class PrettyPrinter {
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Méthodes de modification des options
+	////////// Methodes de modification des options
 	
 	/**
-	 * Indentation par défaut (c.a.d. pas spécifique à une structure if, while etc.)
+	 * Indentation par defaut (c.a.d. pas specifique a une structure if, while etc.)
 	 */
 	public void setIndent(int newIndent) {
 		optIndent = newIndent;
@@ -59,7 +59,7 @@ public class PrettyPrinter {
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Méthodes de pretty print des non terminaux
+	////////// Methodes de pretty print des non terminaux
 	
 	/**
 	 * Model
@@ -92,7 +92,7 @@ public class PrettyPrinter {
 		StringBuilder res = new StringBuilder();
 		
 		res.append(prettyPrint(d.getInput(), curIndent)).append(curIndent).append("%\n").append(prettyPrint(d.getCommands(), newIndent(curIndent, optIndent)));
-		res.append(curIndent).append("%\n").append(prettyPrint(d.getOutput(), curIndent));
+		res.append(curIndent).append("\n%\n").append(prettyPrint(d.getOutput(), curIndent));
 		
 		return res;
 	}
@@ -138,24 +138,33 @@ public class PrettyPrinter {
 	 */
 	private StringBuilder prettyPrint(Commands c, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
+		boolean point_virg = false;
 		
 		for (Command com : c.getCommands()) {
+			if (!point_virg)
+				point_virg = true;
+			else
+				res.append(" ;\n");
+			
 			if(com.getCommand().equals("nop")) {
-				res.append(curIndent).append("nop \n");
+				res.append(curIndent).append("nop");
 			}
 			
 			else if (com.getCommand().equals(":=")){
-				res.append(curIndent).append(prettyPrint(com.getVariables())).append(" := Exprs ;\n");
+				res.append(curIndent).append(prettyPrint(com.getVariables())).append(" := Exprs");
 			}
 			
 			else if (com.getCommand().equals("while")){
-				res.append(curIndent).append("while Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optWhileIndent))).append(curIndent).append("od \n");
+				res.append(curIndent).append("while Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optWhileIndent)));
+				res.append("\n").append(curIndent).append("od");
 			}
 			else if (com.getCommand().equals("for")) {
-				res.append(curIndent).append("for Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optForIndent))).append(curIndent).append("od \n");
+				res.append(curIndent).append("for Expr do\n").append(prettyPrint(com.getCommands(), newIndent(curIndent, optForIndent)));
+				res.append("\n").append(curIndent).append("od");
 			}
 			else if (com.getCommand().equals("if")) {
-				res.append(curIndent).append("if Expr then\n").append(prettyPrint(com.getCommands_then(), newIndent(curIndent, optIfIndent))).append("\n else\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent))).append(curIndent).append("fi\n");
+				res.append(curIndent).append("if Expr then\n").append(prettyPrint(com.getCommands_then(), newIndent(curIndent, optIfIndent)));
+				res.append("\nelse\n").append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent))).append(curIndent).append("fi");
 			}
 		}
 		return res;
@@ -165,10 +174,10 @@ public class PrettyPrinter {
 	
 	
 	////////////////////////////////////////////////////////////
-	////////// Méthodes utilitaires
+	////////// Methodes utilitaires
 	
 	/**
-	 * Retourne la chaine indent à laquelle ont été ajoutés spacesToAdd espaces
+	 * Retourne la chaine indent a laquelle ont ete ajoute spacesToAdd espaces
 	 */
 	private StringBuilder newIndent(StringBuilder indent, int spacesToAdd) {
 		StringBuilder res = new StringBuilder().append(indent);
