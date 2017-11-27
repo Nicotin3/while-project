@@ -210,34 +210,34 @@ public class PrettyPrinter {
 		}
 			
 		else if(e.getExpr().equals("cons")) {
-			res.append("( cons ").append(prettyPrint(e.getExprs(), curIndent)).append(" )");
+			res.append("(cons ").append(prettyPrint(e.getExprs(), curIndent)).append(")");
 		}
 		
 		else if(e.getExpr().equals("list")) {
-			res.append("( list ").append(prettyPrint(e.getExprs(), curIndent)).append(" )");
+			res.append("(list ").append(prettyPrint(e.getExprs(), curIndent)).append(")");
 		}
 		
 		else if(e.getExpr().equals("hd")) {
-			res.append("( hd ").append(prettyPrint(e.getExpr2(), curIndent)).append(" )");
+			res.append("(hd ").append(prettyPrint(e.getExpr2(), curIndent)).append(")");
 		}
 		
 		else if(e.getExpr().equals("tl")) {
-			res.append("( tl ").append(prettyPrint(e.getExpr2(), curIndent)).append(" )");
+			res.append("(tl ").append(prettyPrint(e.getExpr2(), curIndent)).append(")");
 		}
 		
 		else if(e.getExpr().equals("and")) {
-			res.append("( ").append(prettyPrint(e.getExprG(), curIndent)).append(" and ").append(prettyPrint(e.getExprD(), curIndent));
-			res.append(" )");
+			res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append(" and ").append(prettyPrint(e.getExprD(), curIndent));
+			res.append(")");
 		}
 		
 		else if(e.getExpr().equals("or")) {
-			res.append("( ").append(prettyPrint(e.getExprG(), curIndent)).append(" or ").append(prettyPrint(e.getExprD(), curIndent));
-			res.append(" )");
+			res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append(" or ").append(prettyPrint(e.getExprD(), curIndent));
+			res.append(")");
 		}
 		
 		else if(e.getExpr().equals("=?")) {
-			res.append("( ").append(prettyPrint(e.getExprG(), curIndent)).append(" =? ").append(prettyPrint(e.getExprD(), curIndent));
-			res.append(" )");
+			res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append(" =? ").append(prettyPrint(e.getExprD(), curIndent));
+			res.append(")");
 		}
 		
 		else if(e.getExpr().equals("not")) {
@@ -258,34 +258,34 @@ public class PrettyPrinter {
 			}
 			
 			else if(exp.getExpr().equals("cons")) {
-				res.append("( cons ").append(prettyPrint(exp.getExprs(), curIndent));
+				res.append("(cons ").append(prettyPrint(exp.getExprs(), curIndent)).append(")");;
 			}
 			
 			else if(exp.getExpr().equals("list")) {
-				res.append("( list ").append(prettyPrint(exp.getExprs(), curIndent));
+				res.append("(list ").append(prettyPrint(exp.getExprs(), curIndent)).append(")");;
 			}
 			
 			else if(exp.getExpr().equals("hd")) {
-				res.append("( hd ").append(prettyPrint(exp.getExpr2(), curIndent)).append(" )");
+				res.append("(hd ").append(prettyPrint(exp.getExpr2(), curIndent)).append(")");
 			}
 			
 			else if(exp.getExpr().equals("tl")) {
-				res.append("( tl ").append(prettyPrint(exp.getExpr2(), curIndent)).append(" )");
+				res.append("(tl ").append(prettyPrint(exp.getExpr2(), curIndent)).append(")");
 			}
 			
 			else if(exp.getExpr().equals("and")) {
-				res.append("( ").append(prettyPrint(exp.getExprG(), curIndent)).append(" and ").append(prettyPrint(exp.getExprD(), curIndent));
-				res.append(" )");
+				res.append("(").append(prettyPrint(exp.getExprG(), curIndent)).append(" and ").append(prettyPrint(exp.getExprD(), curIndent));
+				res.append(")");
 			}
 			
 			else if(exp.getExpr().equals("or")) {
-				res.append("( ").append(prettyPrint(exp.getExprG(), curIndent)).append(" or ").append(prettyPrint(exp.getExprD(), curIndent));
-				res.append(" )");
+				res.append("(").append(prettyPrint(exp.getExprG(), curIndent)).append(" or ").append(prettyPrint(exp.getExprD(), curIndent));
+				res.append(")");
 			}
 			
 			else if(exp.getExpr().equals("=?")) {
-				res.append("( ").append(prettyPrint(exp.getExprG(), curIndent)).append(" =? ").append(prettyPrint(exp.getExprD(), curIndent));
-				res.append(" )");
+				res.append("(").append(prettyPrint(exp.getExprG(), curIndent)).append(" =? ").append(prettyPrint(exp.getExprD(), curIndent));
+				res.append(")");
 			}
 			
 			else if(exp.getExpr().equals("not")) {
