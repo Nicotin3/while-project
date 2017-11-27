@@ -1,20 +1,80 @@
-function test1:read A%nop%write B
+function                     test1:read A%nop%write B
 
-function test2
+function                          test2
 :                read     C
- %  nop;nop
- ;nop
-              %
+ %  nop ;                  
+ 
+ 
+ 
+ while nil do nop od ;
+          nop  
+                 %          
 write
 D
 
-function
+   function
 	test3
 		:
 			read
-				E
-					%
-						nop
-							%
-								write
-									F
+			  	                  E
+			   		%
+		                	A := nil 	
+			%
+								              write
+				F
+function test4:
+read P
+% for nil 				do 	
+
+while ( cons nil )
+
+
+		do 
+		
+		
+		
+		A := nil ;
+		nop od 
+		od
+	
+% write P
+
+function test5:
+read A
+%
+nop ;
+nop ;
+nop ;
+nop ;
+nop
+%
+write B
+
+function test6:
+read A,B,C,D
+%
+while ( 	hd nil ) do nop od;
+for ( list nil ) do 
+if (hd(tl nil )) then 
+nop
+else
+A := nil
+fi od
+%
+write B
+
+function test7:
+read A,B,C,D,E,F,G,H
+%
+while ((((nil and nil) or nil) and nil ) =? nil) do
+A := ((nil or nil) and (nil =? not     nil)); nop;
+
+nop
+od;nop
+%   write A,B,C,D,E
+
+function test8:
+read A,B
+%
+foreach nil in (cons ( hd nil ) ) do nop; nop od
+% write A
