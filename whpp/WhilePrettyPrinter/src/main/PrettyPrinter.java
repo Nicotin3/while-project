@@ -117,7 +117,7 @@ public class PrettyPrinter {
 	private StringBuilder prettyPrint(Output o, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
 		
-		res.append(curIndent).append("write ").append(prettyPrint(o.getVariables())).append("\n");
+		res.append(curIndent).append("write ").append(prettyPrint(o.getVariables()));
 		
 		return res;
 	}
