@@ -174,7 +174,7 @@ public class PrettyPrinter {
 				res.append(curIndent).append("if ").append(prettyPrint(com.getExpr(), curIndent)).append(" then\n");
 				res.append(prettyPrint(com.getCommands_then(), newIndent(curIndent, optIfIndent))).append("\n");
 				res.append(curIndent).append("else\n")
-						.append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent)))
+						.append(prettyPrint(com.getCommands_else(), newIndent(curIndent, optIfIndent))).append("\n")
 						.append(curIndent).append("fi");
 			}
 
@@ -191,7 +191,7 @@ public class PrettyPrinter {
 	/**
 	 * Exprs
 	 */
-	private Object prettyPrint(Exprs e, StringBuilder curIndent) {
+	private StringBuilder prettyPrint(Exprs e, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
 		boolean virgule = false;
 		for (Expr exp : e.getExprs()) {
@@ -252,12 +252,12 @@ public class PrettyPrinter {
 		}
 
 		else {
-			res.append(e.getVariable());
+			res.append(e.getExpr());
 		}
 		return res;
 	}
 
-	private Object prettyPrint(EList<Expr> e, StringBuilder curIndent) {
+	private StringBuilder prettyPrint(EList<Expr> e, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
 		for (Expr exp : e) {
 			if (exp.getExpr().equals("nil")) {
@@ -305,7 +305,7 @@ public class PrettyPrinter {
 			}
 
 			else {
-				res.append(exp.getVariable());
+				res.append(exp.getExpr());
 			}
 		}
 		return res;

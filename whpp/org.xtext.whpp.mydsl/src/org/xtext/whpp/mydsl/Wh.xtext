@@ -7,7 +7,7 @@ Model:
 ;
 
 Function:
-	'function' name=ID ':' definition=Definition 
+	'function' name=SYMBOLE ':' definition=Definition 
 ;
 
 Definition:
@@ -25,14 +25,7 @@ Output:
 ;
 
 Variables:
-	variables+=Variable (',' variables+=Variable)*	
-;
-
-Variable:
-	MAJUSCULE // base
-	// confort
-	//(MAJUSCULE | MINUSCULE | DIGIT)* 
-	//(('-' | '+' | '.' | '/' | '_' | '&' | '->') (MAJUSCULE | MINUSCULE | DIGIT)+)* ('?'|'!')
+	variables+=VARIABLE (',' variables+=VARIABLE)*	
 ;
 
 Commands:
@@ -54,7 +47,6 @@ Exprs:
 
 Expr:
 	expr='nil' 
-	| variable=Variable | variable=MINUSCULE // ==>> fonctionne pas 
 	| '(' expr='cons' exprs+=Expr+ ')' 
 	| '(' expr='list' exprs+=Expr+ ')' 
 	| '(' expr='hd'  expr2=Expr ')' 
@@ -62,14 +54,18 @@ Expr:
 	//| '(' SYMBOLE Expr+ ')'
 	| '(' exprG=Expr (expr='and' | expr='or' | expr='=?') exprD=Expr ')' 
 	| expr='not' expr2=Expr
+	| expr=VARIABLE | expr=SYMBOLE // ==>> fonctionne pas 
 ;
 
-terminal MAJUSCULE:
-	('A'..'Z')
+terminal VARIABLE:
+	('A'..'Z') (('A'..'Z') | ('a'..'z') | DIGIT)* 
+	(('-' | '+' | '.' | '/' | '_' | '&' | '->') (('A'..'Z') | ('a'..'z') | DIGIT)+)* ('?'|'!')?
 ;
 
-terminal MINUSCULE:
-	('a'..'z')
+
+terminal SYMBOLE:
+	('a'..'z') (('A'..'Z') | ('a'..'z') | DIGIT)* 
+	(('-' | '+' | '.' | '/' | '_' | '&' | '->') (('A'..'Z') | ('a'..'z') | DIGIT)+)* ('?'|'!')?
 ;
 
 terminal DIGIT:

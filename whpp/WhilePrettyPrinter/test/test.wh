@@ -1,8 +1,12 @@
-function                     test1:read A%nop%write B
+function                     test1?:read A%nop%write Bazd0azd!
 
 function                          test2
 :                read     C
- %  nop ;                  
+ %  nop ;  if (hd(tl nil )) then 
+nop
+else
+nop
+fi   ;             
  
  
  
@@ -18,7 +22,7 @@ D
 			read
 			  	                  E
 			   		%
-		                	A := nil 	
+		                	A := a15F! 	
 			%
 								              write
 				F
@@ -33,7 +37,7 @@ while ( cons nil )
 		
 		
 		
-		A := nil ;
+		A := D ;
 		nop od 
 		od
 	
