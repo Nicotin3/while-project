@@ -3,8 +3,6 @@ package main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
-
 import com.google.inject.Injector;
 import org.xtext.whpp.mydsl.WhStandaloneSetup;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,7 +20,7 @@ public class Main {
 		PrettyPrinter whpp = new PrettyPrinter();
 		
 		// Gestion des options
-		//Premier argument : nom du fichier source, vérification du nombre d'arguments dans le script.
+		//Premier argument : nom du fichier source .wh, vérification du nombre d'arguments dans le script.
 		
 		String fichierSource = args[0];
 		String fichierResultat = new String (fichierSource + "pp"); //Par défaut : sth.whpp si l'entrée est sth.wh
