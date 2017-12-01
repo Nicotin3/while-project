@@ -1,0 +1,9 @@
+grammar whc.wh.Wh with org.eclipse.xtext.common.Terminals
+
+generate wh "http://www.wh.whc/Wh"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
