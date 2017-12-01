@@ -1,0 +1,6 @@
+function test:
+read X1a2!, Y->a.2?
+%
+nop
+%
+write A

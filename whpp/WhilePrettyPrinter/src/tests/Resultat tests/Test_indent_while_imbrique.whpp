@@ -1,0 +1,12 @@
+function test:
+read X,Y
+%
+  while nil do
+    nop ;
+    while nil do
+      nop
+    od
+  od ;
+  nop
+%
+write A

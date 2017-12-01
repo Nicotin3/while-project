@@ -1,0 +1,13 @@
+function test:
+read X, Y
+%
+for nil do
+  nop ;
+  for nil do
+    nop
+  od ;
+  nop
+od ;
+nop
+%
+write A

@@ -1,0 +1,6 @@
+function test:
+read X,Y
+%
+  nop
+%
+write A

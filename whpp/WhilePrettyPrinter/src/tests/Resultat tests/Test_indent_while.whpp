@@ -1,0 +1,9 @@
+function test:
+read X,Y
+%
+  while nil do
+    nop
+  od ;
+  nop
+%
+write A

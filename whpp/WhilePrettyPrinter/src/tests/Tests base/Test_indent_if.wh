@@ -1,0 +1,11 @@
+function test:
+read X, Y
+%
+if nil then
+  nop
+else
+  nop
+fi ;
+nop
+%
+write A
