@@ -2,6 +2,9 @@ package production;
 
 import table_des_symboles.Table;
 
+/**
+ * While Compiler
+ */
 public class Main {
 
 	public static void main(String[] args) {

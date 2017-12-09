@@ -16,71 +16,50 @@ public class Compiler {
 //	Exemple d'instanciation de Quadruplet :
 //	Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("", "", "", "");
 	
-//	Liste d'instructions
-	List<Quadruplet<String, String, String, String>> instructions = new ArrayList<Quadruplet<String, String, String, String>>();
+//	Table globale qui doit Ãªtre correctement instanciÃ©e
+	Table tableFonctions;
 	
-//	Table globale qui doit être correctement instanciée
-	Table table;
-	
-	public List<Quadruplet<String, String, String, String>> getInstructions() {
-		return instructions;
-	}
-
 	public Table getTable() {
-		return table;
+		return tableFonctions;
 	}
 
 	
-/* __________________________Méthodes compile__________________________*/
+/* __________________________MÃ©thodes compile__________________________*/
 	
 	/**
 	 * Model
 	 */
 	public void compile(Model m) {
 		for (Function f : m.getFunctions()) {
-			TableVar tablef = null; //Instanciée correctement
-			instructions.add(compile(f, tablef));
-//			table.add_function(name, nb_in, nb_out);
+			compile(f);
+//			Peut-Ãªtre mieux de le faire ici, pour donner une clÃ© aux fontions plutot que leurs nom auquel cas
+//			virer l'ajout de la tableFonction dans le compile(Fonction)
+//			tableFonctions.add_function(name, nb_in, nb_out);
 		}
 	}
 	
 	/**
 	 * Function
 	 */
-	private Quadruplet<String,String,String,String> compile(Function f, TableVar table) {
-		Quadruplet<String, String, String, String> res = new Quadruplet<String, String, String, String>("Bouchon", "", "", "");
-//
-//		res.append(curIndent).append("function ").append(f.getName()).append(":\n")
-//				.append(prettyPrint(f.getDefinition(), curIndent));
-
-		return res;
-	}
-	
-	/**
-	 * Definition
-	 */
-	private Quadruplet<String,String,String,String> compile(Definition f, TableVar table) {
-		Quadruplet<String, String, String, String> res = new Quadruplet<String, String, String, String>("Bouchon", "", "", "");
-
-//		res.append(prettyPrint(d.getInput(), curIndent)).append(curIndent).append("%\n")
-//				.append(prettyPrint(d.getCommands(), newIndent(curIndent, optIndent)));
-//		res.append(curIndent).append("\n%\n").append(prettyPrint(d.getOutput(), curIndent));
-
-		return res;
-	}
-	
-	/**
-	 * Input
-	 */
-	private Quadruplet<String,String,String,String> compile(Input i, TableVar table) {
-		Quadruplet<String, String, String, String> res = new Quadruplet<String, String, String, String>("Bouchon", "", "", "");
-
-//		Ajout dans la table des symboles ? key : nom, value : case mémoire allouée ? -> modifier TableVar ?
+	private List<Quadruplet<String,String,String,String>> compile(Function f) {
+//		TableVar tablef = new TableVar();
+//		Table3@ table3@ = new Table3@();
+//		Liste d'instructions de la fonction f
+		List<Quadruplet<String, String, String, String>> instructions = new ArrayList<Quadruplet<String, String, String, String>>();
 		
-//		res.append(curIndent).append("read ").append(prettyPrint(i.getVariables())).append("\n");
+//		Ajout des instructions Ã  la List de Quadruplet
+		Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("Bouchon", "", "", "");
+		instructions.add(quad);
+		
+//		Ajout des variables dans la table des variables
+		
+//		compile(f.getDefinition()); doit apparaitre Ã  un moment. RÃ©cupÃ©rer tableVar 
 
-		return res;
+//		Ajout de la liste d'instructions dans la Table3@ correspondante Ã  f
+//		table3@.put(key, instructions);
+//		tableFonctions.add_function("clÃ© de f"(ou f.getName() dans un premier temps), nb_in, nb_out, tablef, table3@);
+		
+		return instructions;
 	}
-
 	
 }
