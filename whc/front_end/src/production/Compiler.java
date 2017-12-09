@@ -8,6 +8,7 @@ import org.xtext.whpp.mydsl.wh.Model;
 import org.eclipse.emf.common.util.EList;
 
 import structure_interne.Quadruplet;
+import table_des_symboles.Instructions;
 import table_des_symboles.Table;
 import table_des_symboles.TableVar;
 
@@ -33,7 +34,7 @@ public class Compiler {
 		for (Function f : m.getFunctions()) {
 			compile(f);
 //			Peut-être mieux de le faire ici, pour donner une clé aux fontions plutot que leurs nom auquel cas
-//			virer l'ajout de la tableFonction dans le compile(Fonction)
+//			virer l'ajout de la tableFonction dans le compile(Fonction). Mais nécessiterais de récupérer tableVar et List d'instr.
 //			tableFonctions.add_function(name, nb_in, nb_out);
 		}
 	}
@@ -41,25 +42,21 @@ public class Compiler {
 	/**
 	 * Function
 	 */
-	private List<Quadruplet<String,String,String,String>> compile(Function f) {
-//		TableVar tablef = new TableVar();
-//		Table3@ table3@ = new Table3@();
+	private void compile(Function f) {
+		TableVar tablef = new TableVar();
+		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		List<Quadruplet<String, String, String, String>> instructions = new ArrayList<Quadruplet<String, String, String, String>>();
-		
-//		Ajout des instructions à la List de Quadruplet
 		Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("Bouchon", "", "", "");
-		instructions.add(quad);
+		
+//		Ajout de la liste d'instructions dans l'instance d'Instructions correspondante à f
+		code3a.add_instruction(quad);
 		
 //		Ajout des variables dans la table des variables
 		
 //		compile(f.getDefinition()); doit apparaitre à un moment. Récupérer tableVar 
 
-//		Ajout de la liste d'instructions dans la Table3@ correspondante à f
-//		table3@.put(key, instructions);
-//		tableFonctions.add_function("clé de f"(ou f.getName() dans un premier temps), nb_in, nb_out, tablef, table3@);
+//		tableFonctions.add_function("clé de f"(ou f.getName() dans un premier temps), nb_in, nb_out, tablef, code3a);
 		
-		return instructions;
 	}
 	
 }

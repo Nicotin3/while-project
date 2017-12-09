@@ -10,9 +10,8 @@ public class TableVar {
 		table.put(name, value);
 	}
 	
-	public Integer get_function(String name) {
+	public Integer get_variable(String name) {
 		return table.get(name);
 	}
-
 	
 }

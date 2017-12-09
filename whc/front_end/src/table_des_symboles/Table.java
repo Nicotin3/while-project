@@ -2,22 +2,19 @@ package table_des_symboles;
 
 import java.util.*;
 
+import structure_interne.Quadruplet;
+
 public class Table {
 	//map de fonctions (nom -> paramtre,return, key_tablesymbole_locale, key_table_code3adresse)
-	private HashMap<String, int[]> table = new HashMap<String, int[]>();
+	private HashMap<String, Quadruplet<Integer, Integer, TableVar, Instructions>> table = new HashMap<String, Quadruplet<Integer, Integer, TableVar, Instructions>>();
 
-	public void add_function(String name, int nb_in, int nb_out) {
+	public void add_function(String name, int nb_in, int nb_out, TableVar tableV, Instructions table3a) {
 		//les deux dernier paramtres seront traiter dans la fonction
-		
-		int tab[] = new int [4];
-		tab[0]= nb_in;
-		tab[1]= nb_out;
-		
-		table.put(name, tab);
+		Quadruplet<Integer, Integer, TableVar, Instructions> quad = new Quadruplet<Integer, Integer, TableVar, Instructions>(nb_in, nb_out, tableV, table3a);
+		table.put(name, quad);
 	}
 	
-	public int[] get_function(String name) {
+	public Quadruplet<Integer, Integer, TableVar, Instructions> get_function(String name) {
 		return table.get(name);
-		
 	}
 }
