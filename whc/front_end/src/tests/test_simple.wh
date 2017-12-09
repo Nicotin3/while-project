@@ -1,0 +1,6 @@
+function f12:
+read X, Y
+%
+  X, Y := Y, X
+%
+write X, Y
