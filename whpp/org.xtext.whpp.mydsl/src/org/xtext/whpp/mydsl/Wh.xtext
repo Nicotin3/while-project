@@ -46,17 +46,34 @@ Exprs:
 ;
 
 Expr:
-	expr='nil' 
-	| '(' expr='cons' exprs+=Expr+ ')' 
-	| '(' expr='list' exprs+=Expr+ ')' 
-	| '(' expr='hd'  expr2=Expr ')' 
-	| '(' expr='tl'  expr2=Expr ')' 
-	//| '(' SYMBOLE Expr+ ')'
-	| '(' exprG=Expr (expr='and' | expr='or' | expr='=?') exprD=Expr ')' 
-	| expr='not' expr2=Expr
-	| expr=VARIABLE | expr=SYMBOLE // ==>> fonctionne pas 
+	=>exprs+=Exprsimple (expr='=?' expsrD=Exprsimple)? | exprs+=Exprand
 ;
 
+Exprsimple:
+	expr=('nil'|VARIABLE|SYMBOLE) |
+	'(' expr=('cons'|'list') exprs=Lexpr ')' |
+	'(' expr=('hd'|'tl')  expr2=Expr ')'   |
+	'(' expr=SYMBOLE exprs=Lexpr ')' 
+;
+
+Exprand :
+	exprG=Expror ( expr='and'  exprD=Exprand)?
+;
+Expror :
+	exprG=Exprnot ( expr='or'  exprD=Expror)?
+;
+Exprnot :
+	(expr='not' )? expr2=Expreq
+;
+Expreq :
+	 '('expr=Expr')'
+;
+Lexpr :
+	exprs+=Expr (exprs+=Lexpr)?
+;
+
+
+	
 terminal VARIABLE:
 	('A'..'Z') (('A'..'Z') | ('a'..'z') | DIGIT)* 
 	(('-' | '+' | '.' | '/' | '_' | '&' | '->') (('A'..'Z') | ('a'..'z') | DIGIT)+)* ('?'|'!')?
