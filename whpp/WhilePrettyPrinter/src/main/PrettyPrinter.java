@@ -3,12 +3,21 @@ package main;
 import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
+
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
 import org.xtext.whpp.mydsl.wh.Expr;
+import org.xtext.whpp.mydsl.wh.Exprand;
+import org.xtext.whpp.mydsl.wh.Expreq;
+import org.xtext.whpp.mydsl.wh.Exprnot;
+import org.xtext.whpp.mydsl.wh.Expror;
 import org.xtext.whpp.mydsl.wh.Exprs;
+import org.xtext.whpp.mydsl.wh.Exprsimple;
 import org.xtext.whpp.mydsl.wh.Function;
 import org.xtext.whpp.mydsl.wh.Input;
+import org.xtext.whpp.mydsl.wh.Lexpr;
 import org.eclipse.emf.common.util.EList;
 import org.xtext.whpp.mydsl.wh.Command;
 
@@ -38,7 +47,8 @@ public class PrettyPrinter {
 	////////// Methodes de modification des options
 
 	/**
-	 * Indentation par defaut (c.a.d. pas specifique a une structure if, while etc.)
+	 * Indentation par defaut (c.a.d. pas specifique a une structure if, while
+	 * etc.)
 	 */
 	public void setIndent(int newIndent) {
 		optIndent = newIndent;
@@ -204,16 +214,27 @@ public class PrettyPrinter {
 		return res;
 	}
 
-	/**
-	 * Expr
-	 */
 	private StringBuilder prettyPrint(Expr e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		
+		res.append(prettyPrint(e.getExprsimple1(), curIndent));
+		if ((e.getExpr() != null) && e.getExpr().equals("!=")) {
+			res.append("!=").append(prettyPrint(e.getExprsimple2(), curIndent));
+		}
+		if ((e.getExprand() != null)) {
+			res.append(prettyPrint(e.getExprand(), curIndent));
+		}
+		return res;
+	}
+
+	/**
+	 * Exprsimple
+	 */
+	private StringBuilder prettyPrint(Exprsimple e, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
 		if (e.getExpr().equals("nil")) {
 			res.append("nil");
-		}
-
-		else if (e.getExpr().equals("cons")) {
+		} else if (e.getExpr().equals("cons")) {
 			res.append("(cons ").append(prettyPrint(e.getExprs(), curIndent)).append(")");
 		}
 
@@ -229,84 +250,135 @@ public class PrettyPrinter {
 			res.append("(tl ").append(prettyPrint(e.getExpr2(), curIndent)).append(")");
 		}
 
-		else if (e.getExpr().equals("and")) {
-			res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append(" and ")
-					.append(prettyPrint(e.getExprD(), curIndent));
-			res.append(")");
-		}
-
-		else if (e.getExpr().equals("or")) {
-			res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append(" or ")
-					.append(prettyPrint(e.getExprD(), curIndent));
-			res.append(")");
-		}
-
-		else if (e.getExpr().equals("=?")) {
-			res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append(" =? ")
-					.append(prettyPrint(e.getExprD(), curIndent));
-			res.append(")");
-		}
-
-		else if (e.getExpr().equals("not")) {
-			res.append("not ").append(prettyPrint(e.getExpr2(), curIndent));
-		}
-
 		else {
 			res.append(e.getExpr());
 		}
 		return res;
 	}
 
+	private StringBuilder prettyPrint(Lexpr exprs, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		for (Expr e : exprs.getExprs()) {
+			res.append(prettyPrint(e, curIndent)).append(" ");
+		}
+		res.deleteCharAt(res.length() - 1);
+		return res;
+	}
+
+	private StringBuilder prettyPrint(Exprand e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+
+		res.append(prettyPrint(e.getExprG(), curIndent));
+
+		if ((e.getExpr() != null) && e.getExpr().equals("and")) {
+			res.append(" and ").append(prettyPrint(e.getExprD(), curIndent));
+		}
+
+		// else if (e.getExpr().equals("or")) {
+		// res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append("
+		// or ")
+		// .append(prettyPrint(e.getExprD(), curIndent));
+		// res.append(")");
+		// }
+		//
+		// else if (e.getExpr().equals("=?")) {
+		// res.append("(").append(prettyPrint(e.getExprG(), curIndent)).append("
+		// =? ")
+		// .append(prettyPrint(e.getExprD(), curIndent));
+		// res.append(")");
+		// }
+		//
+		// else if (e.getExpr().equals("not")) {
+		// res.append("not ").append(prettyPrint(e.get, curIndent));
+		// }
+
+		return res;
+	}
+
+	private StringBuilder prettyPrint(Expror e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		res.append(prettyPrint(e.getExprG(), curIndent));
+		if ((e.getExpr() != null) && e.getExpr().equals("or")) {
+			res.append(" or ").append(prettyPrint(e.getExprD(), curIndent));
+		}
+		return res;
+	}
+
+	private StringBuilder prettyPrint(Exprnot e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		if ((e.getExpr() != null) && e.getExpr().equals("not")) {
+			res.append("not ");
+		}
+		res.append(prettyPrint(e.getExpr2(), curIndent));
+		return res;
+	}
+
+	private StringBuilder prettyPrint(Expreq e, StringBuilder curIndent) {
+		StringBuilder res = new StringBuilder();
+		res.append("(").append(prettyPrint(e.getExpr(), curIndent)).append(")");
+		return res;
+	}
+
 	private StringBuilder prettyPrint(EList<Expr> e, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
 		for (Expr exp : e) {
-			if (exp.getExpr().equals("nil")) {
-				res.append("nil");
-			}
 
-			else if (exp.getExpr().equals("cons")) {
-				res.append("(cons ").append(prettyPrint(exp.getExprs(), curIndent)).append(")");
-				;
-			}
-
-			else if (exp.getExpr().equals("list")) {
-				res.append("(list ").append(prettyPrint(exp.getExprs(), curIndent)).append(")");
-				;
-			}
-
-			else if (exp.getExpr().equals("hd")) {
-				res.append("(hd ").append(prettyPrint(exp.getExpr2(), curIndent)).append(")");
-			}
-
-			else if (exp.getExpr().equals("tl")) {
-				res.append("(tl ").append(prettyPrint(exp.getExpr2(), curIndent)).append(")");
-			}
-
-			else if (exp.getExpr().equals("and")) {
-				res.append("(").append(prettyPrint(exp.getExprG(), curIndent)).append(" and ")
-						.append(prettyPrint(exp.getExprD(), curIndent));
-				res.append(")");
-			}
-
-			else if (exp.getExpr().equals("or")) {
-				res.append("(").append(prettyPrint(exp.getExprG(), curIndent)).append(" or ")
-						.append(prettyPrint(exp.getExprD(), curIndent));
-				res.append(")");
-			}
-
-			else if (exp.getExpr().equals("=?")) {
-				res.append("(").append(prettyPrint(exp.getExprG(), curIndent)).append(" =? ")
-						.append(prettyPrint(exp.getExprD(), curIndent));
-				res.append(")");
-			}
-
-			else if (exp.getExpr().equals("not")) {
-				res.append("not ").append(prettyPrint(exp.getExpr2(), curIndent));
-			}
-
-			else {
-				res.append(exp.getExpr());
-			}
+			res.append(prettyPrint(exp, curIndent));
+			// if (exp.getExpr().equals("nil")) {
+			// res.append("nil");
+			// }
+			//
+			// else if (exp.getExpr().equals("cons")) {
+			// res.append("(cons ").append(prettyPrint(exp.getExprs(),
+			// curIndent)).append(")");
+			// ;
+			// }
+			//
+			// else if (exp.getExpr().equals("list")) {
+			// res.append("(list ").append(prettyPrint(exp.getExprs(),
+			// curIndent)).append(")");
+			// ;
+			// }
+			//
+			// else if (exp.getExpr().equals("hd")) {
+			// res.append("(hd ").append(prettyPrint(exp.getExpr2(),
+			// curIndent)).append(")");
+			// }
+			//
+			// else if (exp.getExpr().equals("tl")) {
+			// res.append("(tl ").append(prettyPrint(exp.getExpr2(),
+			// curIndent)).append(")");
+			// }
+			//
+			// else if (exp.getExpr().equals("and")) {
+			// res.append("(").append(prettyPrint(exp.getExprG(),
+			// curIndent)).append(" and ")
+			// .append(prettyPrint(exp.getExprD(), curIndent));
+			// res.append(")");
+			// }
+			//
+			// else if (exp.getExpr().equals("or")) {
+			// res.append("(").append(prettyPrint(exp.getExprG(),
+			// curIndent)).append(" or ")
+			// .append(prettyPrint(exp.getExprD(), curIndent));
+			// res.append(")");
+			// }
+			//
+			// else if (exp.getExpr().equals("=?")) {
+			// res.append("(").append(prettyPrint(exp.getExprG(),
+			// curIndent)).append(" =? ")
+			// .append(prettyPrint(exp.getExprD(), curIndent));
+			// res.append(")");
+			// }
+			//
+			// else if (exp.getExpr().equals("not")) {
+			// res.append("not ").append(prettyPrint(exp.getExpr2(),
+			// curIndent));
+			// }
+			//
+			// else {
+			// res.append(exp.getExpr());
+			// }
 		}
 		return res;
 	}

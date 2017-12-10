@@ -1,0 +1,83 @@
+function test1?:
+read A
+%
+  nop
+%
+write Bazd0azd!
+function test2:
+read C
+%
+  nop ;
+  if (hd (tl nil)) then
+    nop
+  else
+    nop
+  fi ;
+  while nil do
+    nop
+  od ;
+  nop
+%
+write D
+function test3:
+read E
+%
+  A := a15F!
+%
+write F
+function test4:
+read P
+%
+  for nil do
+    while (cons nil) do
+      A := D ;
+      nop
+    od
+  od
+%
+write P
+function test5:
+read A
+%
+  nop ;
+  nop ;
+  nop ;
+  nop ;
+  nop
+%
+write B
+function test6:
+read A,B,C,D
+%
+  while (hd nil) do
+    nop
+  od ;
+  for (list nil) do
+    if (hd (tl nil)) then
+      nop
+    else
+      A := nil
+    fi
+  od
+%
+write B
+function test7:
+read A,B,C,D,E,F,G,H
+%
+  while nil do
+    A := Q ;
+    nop ;
+    nop
+  od ;
+  nop
+%
+write A,B,C,D,E
+function test8:
+read A,B
+%
+  foreach nil in (cons (hd nil)) do
+    nop ;
+    nop
+  od
+%
+write A

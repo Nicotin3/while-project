@@ -46,7 +46,7 @@ Exprs:
 ;
 
 Expr:
-	=>exprs+=Exprsimple (expr='=?' expsrD=Exprsimple)? | exprs+=Exprand
+	=>exprsimple1=Exprsimple (expr='=?' exprsimple2=Exprsimple)? | exprand=Exprand
 ;
 
 Exprsimple:
@@ -69,7 +69,7 @@ Expreq :
 	 '('expr=Expr')'
 ;
 Lexpr :
-	exprs+=Expr (exprs+=Lexpr)?
+	(exprs+=Expr)+
 ;
 
 
