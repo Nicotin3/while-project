@@ -37,7 +37,7 @@ Command:
 	| variables=Variables command=':=' exrps=Exprs 
 	| command='while' expr=Expr 'do' commands=Commands 'od'
 	| command='for' expr=Expr 'do' commands=Commands 'od' 
-	| command='if' expr=Expr 'then' commands_then=Commands 'else' commands_else=Commands 'fi'
+	| command='if' expr=Expr 'then' commands_then=Commands ('else' commands_else=Commands)? 'fi'
 	| command='foreach' expr=Expr 'in' expr_in=Expr 'do' commands=Commands 'od'
 ;
 

@@ -216,8 +216,9 @@ public class PrettyPrinter {
 
 	private StringBuilder prettyPrint(Expr e, StringBuilder curIndent) {
 		StringBuilder res = new StringBuilder();
-		
+		if (e.getExprsimple1()!=null){
 		res.append(prettyPrint(e.getExprsimple1(), curIndent));
+		}
 		if ((e.getExpr() != null) && e.getExpr().equals("!=")) {
 			res.append("!=").append(prettyPrint(e.getExprsimple2(), curIndent));
 		}

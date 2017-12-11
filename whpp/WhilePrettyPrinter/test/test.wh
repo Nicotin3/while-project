@@ -70,8 +70,8 @@ write B
 function test7:
 read A,B,C,D,E,F,G,H
 %
-while ((((nil and nil) or nil) and nil ) =? nil) do
-A := ((nil or nil) and (nil =? not     nil)); nop;
+while (hd nil)=?(hd nil) do
+A := ( ((nil) or (nil)) and (nil =? (tl not     (nil)))); nop;
 
 nop
 od;nop
