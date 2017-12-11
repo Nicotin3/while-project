@@ -24,6 +24,10 @@ public class Table {
 	
 	@Override
 	public String toString() {
-		return table.toString();
+		StringBuilder s = new StringBuilder();
+		for (String func : table.keySet()) {
+			s.append(func + " : " + table.get(func).toString() + "\n");
+		}
+		return s.toString();
 	}
 }

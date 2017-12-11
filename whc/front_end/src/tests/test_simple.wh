@@ -1,6 +1,14 @@
 function test:
 read X, Y, Z
 %
-  nop
+  nop ;
+  X := Y
 %
 write X, Y
+
+function test2:
+read A
+%
+  nop
+%
+write A

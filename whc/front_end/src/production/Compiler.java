@@ -1,7 +1,5 @@
 package production;
 
-import java.util.*;
-
 import org.xtext.whpp.mydsl.wh.Command;
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
@@ -10,7 +8,6 @@ import org.xtext.whpp.mydsl.wh.Input;
 import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
-import org.eclipse.emf.common.util.EList;
 import structure_interne.Quadruplet;
 import table_des_symboles.Instructions;
 import table_des_symboles.Table;
@@ -61,11 +58,14 @@ public class Compiler {
 		
 //		Ajout des variables dans la table des variables
 		
-		code3a.add_instructions(compile(f.getDefinition(), tableVar)); //Récupérer tableVar
+		code3a.add_instructions(compile(f.getDefinition(), tableVar));
 		
 		tableFonctions.add_function(f.getName(), getNbInput(f), getNbOutput(f), tableVar, code3a); 
 	}
 	
+	/**
+	 * Definition
+	 */
 	private Instructions compile(Definition d, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
@@ -82,34 +82,60 @@ public class Compiler {
 		return code3a;
 	}
 	
-	private Instructions compile(Input i, TableVar table) {
+	/**
+	 * Variables
+	 */
+	private Instructions compile(Variables v, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("Bouchon Input", "", "", "");
-		int j =0;
-		for (String var : i.getVariables().getVariables()){
-			table.add_variable(var, j);
-			j++;
-		}
-//		Ajout de la liste d'instructions dans l'instance d'Instructions correspondante à f
+		Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("Bouchon Variables", "", "", "");
 		code3a.add_instruction(quad);
+//		Evaluer la Variable pour les conditions ? (si_vrai, si_faux)
 		
 		return code3a;
 	}
 	
-	private Instructions compile(Output o, TableVar table) {
+	/**
+	 * Input
+	 */
+	private Instructions compile(Input i, TableVar table) {
 		Instructions code3a = new Instructions();
-//		Liste d'instructions de la fonction f
-		Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("Bouchon Output", "", "", "");
-
-		for (String var : o.getVariables().getVariables()){
-			quad = new Quadruplet<String, String, String, String>("write", table.get_variable(var).toString(), "", "");
+		Quadruplet<String, String, String, String> quad;
+		int j =0;
+		for (String var : i.getVariables().getVariables()){
+			table.add_variable(var, j);
+			j++;
+			quad = new Quadruplet<String, String, String, String>("Bouchon Input", var, table.get_variable(var).toString(), "");
 			code3a.add_instruction(quad);
 		}
 		
 		return code3a;
 	}
 	
+	/**
+	 * Output
+	 */
+	private Instructions compile(Output o, TableVar table) {
+		Instructions code3a = new Instructions();
+//		Liste d'instructions de la fonction f
+		Quadruplet<String, String, String, String> quad;
+
+		for (String var : o.getVariables().getVariables()){
+			try {
+				quad = new Quadruplet<String, String, String, String>("write "+var, table.get_variable(var).toString(), "", "");
+				code3a.add_instruction(quad);
+			} catch (NullPointerException e) {
+				System.err.println("Output inconnue de la table des variables !");
+			}
+			
+		}
+		
+		return code3a;
+	}
+	
+	/**
+	 * Commands
+	 */
 	private Instructions compile(Commands c, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
@@ -119,6 +145,14 @@ public class Compiler {
 			if (com.getCommand().equals("nop")) {
 				quad = new Quadruplet<String, String, String, String>("nop", "", "", "");
 				code3a.add_instruction(quad);
+			}
+			else if (com.getCommand().equals(":=")) {
+//				for (Variables var : com.getVariables()) {
+					//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
+					quad = new Quadruplet<String, String, String, String>("Bouchon :=", "","" , "");
+					code3a.add_instruction(quad);
+//				}
+			
 			}
 			else {
 				quad = new Quadruplet<String, String, String, String>("Bouchon autre commande", "", "", "");
@@ -136,7 +170,7 @@ public class Compiler {
 	private int getNbInput (Function f) {
 		int nbInput = 0;
 		Variables vars = f.getDefinition().getInput().getVariables();
-		for (String var : vars.getVariables()) {
+		for (@SuppressWarnings("unused") String var : vars.getVariables()) {
 			nbInput++;
 		}
 		return nbInput;
@@ -145,7 +179,7 @@ public class Compiler {
 	private int getNbOutput (Function f) {
 		int nbOutput = 0;
 		Variables vars = f.getDefinition().getOutput().getVariables();
-		for (String var : vars.getVariables()) {
+		for (@SuppressWarnings("unused") String var : vars.getVariables()) {
 			nbOutput++;
 		}
 		return nbOutput;
