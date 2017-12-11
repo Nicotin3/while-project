@@ -21,4 +21,9 @@ public class Table {
 	public Quadruplet<Integer, Integer, TableVar, Instructions> get_function(String name) {
 		return table.get(name);
 	}
+	
+	@Override
+	public String toString() {
+		return table.toString();
+	}
 }

@@ -23,4 +23,9 @@ public class Instructions {
 	public void add_instructions(Instructions listInstr) {
 		instructions.addAll(listInstr.get_instructions());
 	}
+	
+	@Override
+	public String toString() {
+		return instructions.toString();
+	}
 }

@@ -35,8 +35,7 @@ public class Main {
 		comp.compile(model);
 		Table table_globale = comp.getTable();
 		
-		System.out.println(table_globale.get_function("test").getElement4().get_instructions().toString());
-		System.out.println(table_globale.get_function("test").getElement3().get_variables().toString());
+		System.out.println(table_globale.toString());
 	}
 
 }

@@ -22,4 +22,9 @@ public class TableVar {
 	public Collection<Integer> get_variables() {
 		return table.values();
 	}
+	
+	@Override
+	public String toString() {
+		return table.toString();
+	}
 }

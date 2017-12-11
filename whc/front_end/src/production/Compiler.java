@@ -63,8 +63,7 @@ public class Compiler {
 		
 		code3a.add_instructions(compile(f.getDefinition(), tableVar)); //Récupérer tableVar
 		
-		tableFonctions.add_function(f.getName(), 0, 0, tableVar, code3a); //A incrémenter à chaque fois qu'on tombe sur une Input/Output
-		
+		tableFonctions.add_function(f.getName(), getNbInput(f), getNbOutput(f), tableVar, code3a); 
 	}
 	
 	private Instructions compile(Definition d, TableVar table) {
@@ -129,4 +128,27 @@ public class Compiler {
 		
 		return code3a;
 	}
+	
+	
+////////////////////////////////////////////////////////////
+////////// Methodes utilitaires
+
+	private int getNbInput (Function f) {
+		int nbInput = 0;
+		Variables vars = f.getDefinition().getInput().getVariables();
+		for (String var : vars.getVariables()) {
+			nbInput++;
+		}
+		return nbInput;
+	}
+	
+	private int getNbOutput (Function f) {
+		int nbOutput = 0;
+		Variables vars = f.getDefinition().getOutput().getVariables();
+		for (String var : vars.getVariables()) {
+			nbOutput++;
+		}
+		return nbOutput;
+	}
+	
 }
