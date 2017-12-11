@@ -1,14 +1,12 @@
 package production;
 
 import java.io.IOException;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.xtext.whpp.mydsl.WhStandaloneSetup;
 import org.xtext.whpp.mydsl.wh.Model;
 import com.google.inject.Injector;
-
 import table_des_symboles.Table;
 
 /**
@@ -33,11 +31,12 @@ public class Main {
 		Model model = (Model) resource.getContents().get(0);
 		
 		
-		// Execution du pretty printer sur le programme mal formaté
+		//Execution
 		comp.compile(model);
 		Table table_globale = comp.getTable();
 		
-		table_globale.toString();
+		System.out.println(table_globale.get_function("test").getElement4().get_instructions().toString());
+		System.out.println(table_globale.get_function("test").getElement3().get_variables().toString());
 	}
 
 }

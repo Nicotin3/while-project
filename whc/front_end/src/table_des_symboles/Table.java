@@ -6,7 +6,11 @@ import structure_interne.Quadruplet;
 
 public class Table {
 	//map de fonctions (nom -> paramtre,return, key_tablesymbole_locale, key_table_code3adresse)
-	private HashMap<String, Quadruplet<Integer, Integer, TableVar, Instructions>> table = new HashMap<String, Quadruplet<Integer, Integer, TableVar, Instructions>>();
+	private HashMap<String, Quadruplet<Integer, Integer, TableVar, Instructions>> table;
+	
+	public Table() {
+		table = new HashMap<String, Quadruplet<Integer, Integer, TableVar, Instructions>>();
+	}
 
 	public void add_function(String name, int nb_in, int nb_out, TableVar tableV, Instructions table3a) {
 		//les deux dernier paramtres seront traiter dans la fonction

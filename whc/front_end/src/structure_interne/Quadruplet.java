@@ -76,7 +76,7 @@ public class Quadruplet<E1, E2, E3, E4> {
 
     @Override
     public String toString() {
-    	String res = new String("<" + element1.toString() + ", " + element2.toString() + ", " + element3.toString() + ", " + element4.toString() + ", ");
+    	String res = new String("<" + element1.toString() + ", " + element2.toString() + ", " + element3.toString() + ", " + element4.toString() + ">");
         return res;
     }
 }
