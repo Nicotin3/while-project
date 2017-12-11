@@ -8,6 +8,9 @@ import org.xtext.whpp.mydsl.wh.Input;
 import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
+
+import com.sun.xml.internal.ws.api.server.AbstractInstanceResolver;
+
 import structure_interne.Quadruplet;
 import table_des_symboles.Instructions;
 import table_des_symboles.Table;
@@ -147,12 +150,38 @@ public class Compiler {
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals(":=")) {
-//				for (Variables var : com.getVariables()) {
+				for (String var : com.getVariables().getVariables()) {
+					table.add_variable(var, 12);
 					//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
-					quad = new Quadruplet<String, String, String, String>("Bouchon :=", "","" , "");
+					quad = new Quadruplet<String, String, String, String>(":=", var,"" , "");
 					code3a.add_instruction(quad);
-//				}
-			
+				}
+
+			}
+			else if (com.getCommand().equals("while")) {
+				quad = new Quadruplet<String, String, String, String>("Bouchon while", "", "", "");
+				code3a.add_instruction(quad);
+			}
+			else if (com.getCommand().equals("for")) {
+//				CONDITION : compile(com.getExpr(), table)
+//				DO : compile(com.getCommands(), table)
+				quad = new Quadruplet<String, String, String, String>("Bouchon for", "", "", "");
+				code3a.add_instruction(quad);
+			}
+			else if (com.getCommand().equals("if")) {
+//				CONDITION : compile(com.getExpr(), table)
+//				THEN : compile(com.getCommands_then(), table)
+//				Else : compile(com.getCommands_else(), table)
+				
+				quad = new Quadruplet<String, String, String, String>("Bouchon if", "", "", "");
+				code3a.add_instruction(quad);
+			}
+			else if (com.getCommand().equals("foreach")) {
+//				CONDITION : compile(com.getExpr(), table)
+//				IN : compile(com.getExpr_in(), table)
+//				THEN : compile(com.getCommands(), table)
+				quad = new Quadruplet<String, String, String, String>("Bouchon foreach", "", "", "");
+				code3a.add_instruction(quad);
 			}
 			else {
 				quad = new Quadruplet<String, String, String, String>("Bouchon autre commande", "", "", "");
