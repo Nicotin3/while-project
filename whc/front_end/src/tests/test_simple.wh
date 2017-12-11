@@ -1,6 +1,6 @@
-function f12:
-read X, Y
+function test:
+read X, Y, Z
 %
-  X, Y := Y, X
+  nop
 %
 write X, Y
