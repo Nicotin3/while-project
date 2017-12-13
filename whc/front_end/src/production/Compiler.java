@@ -8,9 +8,6 @@ import org.xtext.whpp.mydsl.wh.Input;
 import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
-
-import com.sun.xml.internal.ws.api.server.AbstractInstanceResolver;
-
 import structure_interne.Quadruplet;
 import table_des_symboles.Instructions;
 import table_des_symboles.Table;
@@ -94,6 +91,8 @@ public class Compiler {
 		Quadruplet<String, String, String, String> quad = new Quadruplet<String, String, String, String>("Bouchon Variables", "", "", "");
 		code3a.add_instruction(quad);
 //		Evaluer la Variable pour les conditions ? (si_vrai, si_faux)
+
+//		Les nouvelles variables valent nil à leur déclaration.
 		
 		return code3a;
 	}
@@ -196,6 +195,11 @@ public class Compiler {
 ////////////////////////////////////////////////////////////
 ////////// Methodes utilitaires
 
+	/**
+	 * Donne le nombre d'entrées d'une fonction
+	 * @param f : fonction dont on doit déterminer le nombre d'entrées
+	 * @return le nombre d'entrées
+	 */
 	private int getNbInput (Function f) {
 		int nbInput = 0;
 		Variables vars = f.getDefinition().getInput().getVariables();
@@ -205,6 +209,11 @@ public class Compiler {
 		return nbInput;
 	}
 	
+	/**
+	 * Donne le nombre de sorties d'une fonction
+	 * @param f : fonction dont on doit déterminer le nombre de sorties
+	 * @return le nombre de sorties
+	 */
 	private int getNbOutput (Function f) {
 		int nbOutput = 0;
 		Variables vars = f.getDefinition().getOutput().getVariables();

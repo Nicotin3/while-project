@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.xtext.whpp.mydsl.WhStandaloneSetup;
 import org.xtext.whpp.mydsl.wh.Model;
 import com.google.inject.Injector;
+
+import structure_interne.ABin;
 import table_des_symboles.Table;
 
 /**
@@ -30,11 +32,11 @@ public class Main {
 		resource.load(null);
 		Model model = (Model) resource.getContents().get(0);
 		
-		
+
 		//Execution
 		comp.compile(model);
 		Table table_globale = comp.getTable();
-		
+
 		System.out.println(table_globale.toString());
 	}
 
