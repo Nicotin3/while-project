@@ -2,7 +2,12 @@ package structure_interne;
 
 public class Op {
 
-	public Op() {
-		// TODO Auto-generated constructor stub
+	String name;
+	public Op(String name) {
+		this.name = name;
+	}
+	
+	public String toString() {
+		return name;
 	}
 }
