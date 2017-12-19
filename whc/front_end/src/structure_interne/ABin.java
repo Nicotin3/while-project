@@ -27,13 +27,6 @@ public class ABin {
 
 	public String toString(String s) {
 		String valeur = "•";
-//		if (gauche == null && droit== null)
-//			return s+valeur+"\nnil"+s+s+"nil";
-//		else if (gauche==null)
-//			return s+valeur+"\nnil"+s+s+droit.toString();
-//		else
-//			return s+valeur+"\n"+gauche.toString()+s+s+"nil";
-		
 		if (gauche != null) {
 			if (droit != null)
 				return (s + valeur + "\n" + gauche.toString(s + "\t") + droit.toString(s + "\t"));
@@ -114,6 +107,11 @@ public class ABin {
 			return (1 + Math.max(hauteur(a.hd()), hauteur(a.tl())));
 	}
 
+	/**
+	 * Convertit un arbre binaire en entier
+	 * @param a l'arbre
+	 * @return l'entier obtenu
+	 */
 	public static int ABinToInt(ABin a) {
 		if (a == null)
 			return 0;
@@ -121,6 +119,11 @@ public class ABin {
 			return (1 + ABinToInt(a.tl()));
 	}
 
+	/**
+	 * Convertit un entier en arbre binaire
+	 * @param i l'entier
+	 * @return l'arbre obtenu
+	 */
 	public static ABin IntToABin(int i) {
 		if (i == 0)
 			return null;
@@ -128,4 +131,17 @@ public class ABin {
 			return (new ABin(null, IntToABin(i - 1)));
 	}
 
+	/**
+	 * Permet de savoir si l'arbre passé en paramètre n'est pas Nil
+	 * @param a l'arbre à tester
+	 * @return Vrai si l'arbre est nil, faux sinon.
+	 */
+	public static boolean isNotNil(ABin a) {
+		if(a.equals(null))
+			return false;
+		return true;
+	}
+	
+	
+	
 }
