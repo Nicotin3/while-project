@@ -103,10 +103,8 @@ public class Compiler {
 	private Instructions compile(Input i, TableVar table) {
 		Instructions code3a = new Instructions();
 		Quadruplet<String, String, String, String> quad;
-		int j =0;
 		for (String var : i.getVariables().getVariables()){
-			table.add_variable(var, j);
-			j++;
+			table.add_variable(var);
 			quad = new Quadruplet<String, String, String, String>("Bouchon Input", var, table.get_variable(var).toString(), "");
 			code3a.add_instruction(quad);
 		}
@@ -150,7 +148,7 @@ public class Compiler {
 			}
 			else if (com.getCommand().equals(":=")) {
 				for (String var : com.getVariables().getVariables()) {
-					table.add_variable(var, 12);
+					table.add_variable(var);
 					//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
 					quad = new Quadruplet<String, String, String, String>(":=", var,"" , "");
 					code3a.add_instruction(quad);

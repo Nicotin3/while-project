@@ -6,13 +6,16 @@ import java.util.HashMap;
 public class TableVar {
 
 	private HashMap<String, Integer> table;
+	private int nextAddr;
 	
 	public TableVar() {
 		table = new HashMap<String, Integer>();
+		nextAddr = 0;
 	}
 	
-	public void add_variable(String name, int value) {
-		table.put(name, value);
+	public void add_variable(String name) {
+		table.put(name, nextAddr);
+		nextAddr++;
 	}
 	
 	public Integer get_variable(String name) {
