@@ -18,7 +18,7 @@ import table_des_symboles.TableVar;
 public class Compiler {
 
 //	Exemple d'instanciation de Quadruplet :
-//	Quadruplet<Op, String, String, String> quad = new Quadruplet<Op, String, String, String>(new Op(""), "", "", "");
+//	Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op(""), null, null, null);
 	
 //	Table globale qui doit être correctement instanciée
 	Table tableFonctions;
@@ -53,7 +53,7 @@ public class Compiler {
 		TableVar tableVar = new TableVar();
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		Quadruplet<Op, String, String, String> quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon fonction"), "", "", "");
+		Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon fonction"), null, null, null);
 		
 //		Ajout de la liste d'instructions dans l'instance d'Instructions correspondante à f
 		code3a.add_instruction(quad);
@@ -71,7 +71,7 @@ public class Compiler {
 	private Instructions compile(Definition d, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		Quadruplet<Op, String, String, String> quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon Definition"), "", "", "");
+		Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon Definition"), null, null, null);
 //		Ajout dans la liste d'instructions
 		code3a.add_instruction(quad);
 		
@@ -90,7 +90,7 @@ public class Compiler {
 	private Instructions compile(Variables v, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		Quadruplet<Op, String, String, String> quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon Variables"), "", "", "");
+		Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon Variables"), null, null, null);
 		code3a.add_instruction(quad);
 //		Evaluer la Variable pour les conditions ? (si_vrai, si_faux)
 
@@ -104,10 +104,10 @@ public class Compiler {
 	 */
 	private Instructions compile(Input i, TableVar table) {
 		Instructions code3a = new Instructions();
-		Quadruplet<Op, String, String, String> quad;
+		Quadruplet<Op, Integer, Integer, Integer> quad;
 		for (String var : i.getVariables().getVariables()){
 			table.add_variable(var);
-			quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon Input"), var, table.get_variable(var).toString(), "");
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon Input"), var, table.get_variable(var), null);
 			code3a.add_instruction(quad);
 		}
 		
@@ -120,11 +120,11 @@ public class Compiler {
 	private Instructions compile(Output o, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		Quadruplet<Op, String, String, String> quad;
+		Quadruplet<Op, Integer, Integer, Integer> quad;
 
 		for (String var : o.getVariables().getVariables()){
 			try {
-				quad = new Quadruplet<Op, String, String, String>(new Op("write "+var), table.get_variable(var).toString(), "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("write "+var), table.get_variable(var), null, null);
 				code3a.add_instruction(quad);
 			} catch (NullPointerException e) {
 				System.err.println("Output inconnue de la table des variables !");
@@ -141,30 +141,30 @@ public class Compiler {
 	private Instructions compile(Commands c, TableVar table) {
 		Instructions code3a = new Instructions();
 //		Liste d'instructions de la fonction f
-		Quadruplet<Op, String, String, String> quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon Commands"), "", "", "");
+		Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon Commands"), null, null, null);
 		code3a.add_instruction(quad);
 		for (Command com : c.getCommands()) {
 			if (com.getCommand().equals("nop")) {
-				quad = new Quadruplet<Op, String, String, String>(new Op("nop"), "", "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("nop"), null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals(":=")) {
 				for (String var : com.getVariables().getVariables()) {
 					table.add_variable(var);
 					//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
-					quad = new Quadruplet<Op, String, String, String>(new Op(":="), var,"" , "");
+					quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op(":="), var, null, null);
 					code3a.add_instruction(quad);
 				}
 
 			}
 			else if (com.getCommand().equals("while")) {
-				quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon while"), "", "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon while"), null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("for")) {
 //				CONDITION : compile(com.getExpr(), table)
 //				DO : compile(com.getCommands(), table)
-				quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon for"), "", "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon for"), null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("if")) {
@@ -172,18 +172,18 @@ public class Compiler {
 //				THEN : compile(com.getCommands_then(), table)
 //				Else : compile(com.getCommands_else(), table)
 				
-				quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon if"), "", "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon if"), null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("foreach")) {
 //				CONDITION : compile(com.getExpr(), table)
 //				IN : compile(com.getExpr_in(), table)
 //				THEN : compile(com.getCommands(), table)
-				quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon foreach"), "", "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon foreach"), null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else {
-				quad = new Quadruplet<Op, String, String, String>(new Op("Bouchon autre commande"), "", "", "");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon autre commande"), null, null, null);
 				code3a.add_instruction(quad);
 			}
 		}

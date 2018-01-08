@@ -7,17 +7,17 @@ import structure_interne.Op;
 import structure_interne.Quadruplet;
 
 public class Instructions {
-	List<Quadruplet<Op, String, String, String>> instructions;
+	List<Quadruplet<Op, Integer, Integer, Integer>> instructions;
 	
 	public Instructions() {
-		instructions = new ArrayList<Quadruplet<Op, String, String, String>>();
+		instructions = new ArrayList<Quadruplet<Op, Integer, Integer, Integer>>();
 	}
 	
-	public void add_instruction(Quadruplet<Op, String, String, String> instr) {
+	public void add_instruction(Quadruplet<Op, Integer, Integer, Integer> instr) {
 		instructions.add(instr);
 	}
 	
-	public List<Quadruplet<Op, String, String, String>> get_instructions() {
+	public List<Quadruplet<Op, Integer, Integer, Integer>> get_instructions() {
 		return instructions;
 	}
 
