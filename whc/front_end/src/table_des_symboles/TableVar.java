@@ -26,6 +26,10 @@ public class TableVar {
 		return table.values();
 	}
 	
+	public Collection<String> getKeys(){
+		return table.keySet();
+	}
+	
 	@Override
 	public String toString() {
 		return table.toString();
