@@ -21,5 +21,10 @@ public class IF extends Op {
 		this.Then = Then;
 		this.Else = null;
 	}
+	
+	@Override
+	public String toString() {
+		return "if";
+	}
 
 }

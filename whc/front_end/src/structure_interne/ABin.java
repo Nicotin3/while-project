@@ -142,6 +142,4 @@ public class ABin {
 		return true;
 	}
 	
-	
-	
 }

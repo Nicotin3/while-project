@@ -10,4 +10,9 @@ public class WHILE extends Op {
 			this.Condition = Condition;
 			this.Boucle = Boucle;
 	}
+	
+	@Override
+	public String toString() {
+		return "while";
+	}
 }

@@ -7,8 +7,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.xtext.whpp.mydsl.WhStandaloneSetup;
 import org.xtext.whpp.mydsl.wh.Model;
 import com.google.inject.Injector;
-
-import structure_interne.ABin;
 import table_des_symboles.Table;
 
 /**

@@ -13,4 +13,9 @@ public class FOREACH extends Op{
 		this.In = In;
 		this.Then = Then;
 	}
+	
+	@Override
+	public String toString() {
+		return "foreach";
+	}
 }

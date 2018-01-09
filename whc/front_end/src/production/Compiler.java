@@ -10,6 +10,7 @@ import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
 
+import structure_interne.BOUCHON;
 import structure_interne.FOR;
 import structure_interne.FOREACH;
 import structure_interne.IF;
@@ -113,8 +114,8 @@ public class Compiler {
 		Quadruplet<Op, Integer, Integer, Integer> quad;
 		for (String var : i.getVariables().getVariables()){
 			table.add_variable(var);
-//			quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("write "), var, table.get_variable(var), null);
-//			code3a.add_instruction(quad);
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("write "), table.get_variable(var), table.get_variable(var), null);
+			code3a.add_instruction(quad);
 		}
 		
 		return code3a;
@@ -130,8 +131,8 @@ public class Compiler {
 
 		for (String var : o.getVariables().getVariables()){
 			try {
-//				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("write "+var), table.get_variable(var), null, null);
-//				code3a.add_instruction(quad);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("write "+var), table.get_variable(var), null, null);
+				code3a.add_instruction(quad);
 			} catch (NullPointerException e) {
 				System.err.println("Output inconnue de la table des variables !");
 			}
@@ -186,14 +187,14 @@ public class Compiler {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(Foreach, null, null, null);
 				code3a.add_instruction(quad);
 			}
-//			else if (com.getCommand().equals(":=")) {
-//			for (String var : com.getVariables().getVariables()) {
-//				table.add_variable(var);
-//				//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
-//				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op(":="), var, null, null);
-//				code3a.add_instruction(quad);
-//			}
-//		}
+			else if (com.getCommand().equals(":=")) {
+			for (String var : com.getVariables().getVariables()) {
+				table.add_variable(var);
+				//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON(":="), table.get_variable(var), null, null);
+				code3a.add_instruction(quad);
+			}
+		}
 			else {
 //				quad = new Quadruplet<Op, Integer, Integer, Integer>(new Op("Bouchon autre commande"), null, null, null);
 //				code3a.add_instruction(quad);

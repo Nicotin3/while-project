@@ -7,5 +7,9 @@ public class AFFECT extends Op{
 	public AFFECT() {
 	}
 	
+	@Override
+	public String toString() {
+		return ":=";
+	}
 	
 }

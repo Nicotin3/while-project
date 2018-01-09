@@ -11,4 +11,9 @@ public class FOR extends Op {
 		this.Condition = Condition;
 		this.Boucle = Boucle;
 	}
+	
+	@Override
+	public String toString() {
+		return "for";
+	}
 }
