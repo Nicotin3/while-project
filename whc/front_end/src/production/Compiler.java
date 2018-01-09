@@ -114,7 +114,7 @@ public class Compiler {
 		Quadruplet<Op, Integer, Integer, Integer> quad;
 		for (String var : i.getVariables().getVariables()){
 			table.add_variable(var);
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("write "), table.get_variable(var), table.get_variable(var), -1);
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("write "), table.get_variable(var), table.get_variable(var), null);
 			code3a.add_instruction(quad);
 		}
 		
@@ -131,7 +131,7 @@ public class Compiler {
 
 		for (String var : o.getVariables().getVariables()){
 			try {
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("write "+var), table.get_variable(var), -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("write "+var), table.get_variable(var), null, null);
 				code3a.add_instruction(quad);
 			} catch (NullPointerException e) {
 				System.err.println("Output inconnue de la table des variables !");
@@ -153,21 +153,21 @@ public class Compiler {
 		for (Command com : c.getCommands()) {
 			if (com.getCommand().equals("nop")) {
 				NOP nop = new NOP();
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(nop, -1, -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(nop, null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("while")) {
 				WHILE While = new WHILE(compile(com.getExpr(), table), compile(com.getCommands(), table));
 //				CONDITION : compile(com.getExpr(), table)
 //				BOUCLE : 	compile(com.getCommands(), table)
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(While, -1, -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(While, null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("for")) {
 				FOR For = new FOR(compile(com.getExpr(), table), compile(com.getCommands(), table));
 //				CONDITION : compile(com.getExpr(), table)
 //				DO : 		compile(com.getCommands(), table)
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(For, -1, -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(For, null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("if")) {
@@ -176,7 +176,7 @@ public class Compiler {
 //				THEN : 		compile(com.getCommands_then(), table)
 //				Else : 		compile(com.getCommands_else(), table)
 				
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(If, -1, -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(If, null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals("foreach")) {
@@ -184,14 +184,14 @@ public class Compiler {
 //				CONDITION : compile(com.getExpr(), table)
 //				IN : 		compile(com.getExpr_in(), table)
 //				THEN : 		compile(com.getCommands(), table)
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(Foreach, -1, -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(Foreach, null, null, null);
 				code3a.add_instruction(quad);
 			}
 			else if (com.getCommand().equals(":=")) {
 			for (String var : com.getVariables().getVariables()) {
 				table.add_variable(var);
 				//Nécessite de compiler le getExprs ? car besoin de connaitre valeur avant d'affecter ?
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON(":="), table.get_variable(var), -1, -1);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON(":="), table.get_variable(var), null, null);
 				code3a.add_instruction(quad);
 			}
 		}
