@@ -14,8 +14,10 @@ public class TableVar {
 	}
 	
 	public void add_variable(String name) {
-		table.put(name, nextAddr);
-		nextAddr++;
+		if(!table.containsKey(name)) {
+			table.put(name, nextAddr);
+			nextAddr++;
+		}
 	}
 	
 	public Integer get_variable(String name) {

@@ -27,6 +27,10 @@ public class Instructions {
 	
 	@Override
 	public String toString() {
-		return instructions.toString();
+		String res = new String();
+		for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
+			res += quad.toString() + "\n";
+		}
+		return res;
 	}
 }

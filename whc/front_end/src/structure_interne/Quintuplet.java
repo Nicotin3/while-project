@@ -86,7 +86,7 @@ public class Quintuplet<E1, E2, E3, E4, E5> {
 
     @Override
     public String toString() {
-    	String res = new String("<" + element1.toString() + ", " + element2.toString() + ", " + element3.toString() + ", " + element4.toString() + ", " + element5.toString() + ">");
+    	String res = new String(element1.toString() + ", " + element2.toString() + ", " + element3.toString() + ", " + element4.toString() + ", " + element5.toString());
         return res;
     }
 }

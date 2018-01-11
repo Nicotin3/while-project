@@ -24,7 +24,10 @@ public class IF extends Op {
 	
 	@Override
 	public String toString() {
-		return "if" + Condition.toString() + Then.toString() + Else.toString();
+		if (Else == null) {
+			return "if " + Condition.toString() + "\n\tthen " + Then.toString();
+		}
+		return "if " + Condition.toString() + "\tthen " + Then.toString() + "\telse " + Else.toString();
 	}
 
 }

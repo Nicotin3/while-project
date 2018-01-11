@@ -1,15 +1,14 @@
 package structure_interne;
 
-public class AFFECT extends Op{
+public class WRITE extends Op {
+
 	String name;
 	
-	public AFFECT(String name) {
+	public WRITE(String name) {
 		this.name = name;
 	}
 	
-	@Override
 	public String toString() {
-		return "AFFECT " + name;
+		return "WRITE " + name;
 	}
-	
 }

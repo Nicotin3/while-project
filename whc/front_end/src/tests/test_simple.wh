@@ -1,10 +1,15 @@
 function test:
-read X, Y, Z
+read X, Y
 %
   nop ;
-  X := Y
+  W, G := X, Y ;
+  X := nil ;
+  if X then
+    Z := X else
+    X := Z
+  fi
 %
-write X, Y
+write X, Y, W
 
 function test2:
 read A

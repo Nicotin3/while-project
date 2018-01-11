@@ -1,12 +1,16 @@
 package structure_interne;
 
-import table_des_symboles.Instructions;
-
 public class EQUAL extends Op{
-
-	@Override
-	public String toString() {
-		return "=?";
+	String gauche;
+	String droite;
+	
+	public EQUAL(String gauche, String droite) {
+		this.gauche = gauche;
+		this.droite = droite;
 	}
 	
+	@Override
+	public String toString() {
+		return gauche + "EQUAL " + droite;
+	}
 }
