@@ -27,10 +27,11 @@ public class Instructions {
 	
 	@Override
 	public String toString() {
-		String res = new String();
+		String res = "{";
+		
 		for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
 			res += quad.toString() + "\n";
 		}
-		return res;
+		return res+"}";
 	}
 }

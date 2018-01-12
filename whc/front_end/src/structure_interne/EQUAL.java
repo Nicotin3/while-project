@@ -1,12 +1,14 @@
 package structure_interne;
 
+import table_des_symboles.Instructions;
+
 public class EQUAL extends Op{
-	String gauche;
-	String droite;
+	Instructions gauche;
+	Instructions droite;
 	
-	public EQUAL(String gauche, String droite) {
-		this.gauche = gauche;
-		this.droite = droite;
+	public EQUAL(Instructions instructions, Instructions instructions2) {
+		this.gauche = instructions;
+		this.droite = instructions2;
 	}
 	
 	@Override
