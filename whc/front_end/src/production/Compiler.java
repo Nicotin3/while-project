@@ -12,6 +12,7 @@ import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
 
+import javafx.util.Pair;
 import structure_interne.AFFECT;
 import structure_interne.BOUCHON;
 import structure_interne.EQUAL;
@@ -232,7 +233,7 @@ public class Compiler {
 		return code3a;
 	}
 
-	private Instructions compile(Expr expr, TableVar table) {
+	private Pair<Instructions, Integer> compile(Expr expr, TableVar table) {
 		Instructions code3a = new Instructions();
 		if (expr.getExpr()=="=?") {
 

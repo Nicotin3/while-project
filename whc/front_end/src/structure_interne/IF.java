@@ -4,18 +4,18 @@ import table_des_symboles.Instructions;
 
 public class IF extends Op {
 
-	Instructions Condition;
+	int Condition;
 	Instructions Then;
 	Instructions Else;
 	
-	public IF(Instructions Condition, Instructions Then, Instructions Else) {
+	public IF(int Condition, Instructions Then, Instructions Else) {
 		//Ajout de 3 champs correspondant à condition, then et else
 		this.Condition = Condition;
 		this.Then = Then;
 		this.Else = Else;
 	}
 	
-	public IF(Instructions Condition, Instructions Then) {
+	public IF(int Condition, Instructions Then) {
 		//Ajout de 3 champs correspondant à condition, then et else
 		this.Condition = Condition;
 		this.Then = Then;
@@ -25,9 +25,9 @@ public class IF extends Op {
 	@Override
 	public String toString() {
 		if (Else == null) {
-			return "if " + Condition.toString() + "\n\tthen " + Then.toString();
+			return "if " + Condition + "\n\tthen " + Then.toString();
 		}
-		return "if " + Condition.toString() + "\tthen " + Then.toString() + "\telse " + Else.toString();
+		return "if " + Condition + "\tthen " + Then.toString() + "\telse " + Else.toString();
 	}
 
 }
