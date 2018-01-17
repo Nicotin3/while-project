@@ -30,6 +30,7 @@ import table_des_symboles.Table;
 import table_des_symboles.TableVar;
 
 public class Compiler {
+	private static int nb_temp_var=0;
 
 	// Exemple d'instanciation de Quadruplet :
 	// Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op,
@@ -167,13 +168,13 @@ public class Compiler {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(new NOP(), null, null, null);
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals("while")) {
-				WHILE While = new WHILE(compile(com.getExpr(), table), compile(com.getCommands(), table));
+				WHILE While = new WHILE(compile(com.getExpr(), table).getValue(), compile(com.getCommands(), table));
 				// CONDITION : compile(com.getExpr(), table)
 				// BOUCLE : compile(com.getCommands(), table)
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(While, null, null, null);
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals("for")) {
-				FOR For = new FOR(compile(com.getExpr(), table), compile(com.getCommands(), table));
+				FOR For = new FOR(compile(com.getExpr(), table).getValue(), compile(com.getCommands(), table));
 				// CONDITION : compile(com.getExpr(), table)
 				// DO : compile(com.getCommands(), table)
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(For, null, null, null);
@@ -181,9 +182,13 @@ public class Compiler {
 			} else if (com.getCommand().equals("if")) {
 				IF If;
 				if (com.getCommands_else() == null) {
-					If = new IF(compile(com.getExpr(), table), compile(com.getCommands_then(), table));
+					Pair<Instructions, Integer> var=compile(com.getExpr(), table);
+					code3a.add_instructions(var.getKey());
+					If = new IF(var.getValue(), compile(com.getCommands_then(), table));
 				} else {
-					If = new IF(compile(com.getExpr(), table), compile(com.getCommands_then(), table),
+					Pair<Instructions, Integer> var=compile(com.getExpr(), table);
+					code3a.add_instructions(var.getKey());
+					If = new IF(var.getValue(), compile(com.getCommands_then(), table),
 							compile(com.getCommands_else(), table));
 				}
 				// CONDITION : compile(com.getExpr(), table)
@@ -194,7 +199,7 @@ public class Compiler {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(If, null, null, null);
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals("foreach")) {
-				FOREACH Foreach = new FOREACH(compile(com.getExpr(), table), compile(com.getExpr_in(), table),
+				FOREACH Foreach = new FOREACH(compile(com.getExpr(), table).getValue(), compile(com.getExpr_in(), table).getValue(),
 						compile(com.getCommands(), table));
 				// CONDITION : compile(com.getExpr(), table)
 				// IN : compile(com.getExpr_in(), table)
@@ -235,19 +240,39 @@ public class Compiler {
 
 	private Pair<Instructions, Integer> compile(Expr expr, TableVar table) {
 		Instructions code3a = new Instructions();
+		int value;
+		table.add_variable("temp"+nb_temp_var);
+		value = table.get_variable("temp"+nb_temp_var);
+		nb_temp_var++;
 		if (expr.getExpr()=="=?") {
-
-			Quadruplet<Op, Integer, Integer, Integer> quad = null;
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(
-					new EQUAL(compile(expr.getExprsimple1(), table), compile(expr.getExprsimple2(), table)), null, null,
-					null);
+			Pair<Instructions, Integer> var1 = compile(expr.getExprsimple1(), table);
+			Pair<Instructions, Integer> var2 = compile(expr.getExprsimple2(), table);
+			code3a.add_instructions(var1.getKey());
+			code3a.add_instructions(var2.getKey());
+			Quadruplet<Op, Integer, Integer, Integer> quad;
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new EQUAL(),table.get_variable("temp"+nb_temp_var), var1.getValue(), var2.getValue());
 			code3a.add_instruction(quad);
+			
 
 		} else {
-			if (expr.getExprsimple1() != null) {
-				code3a = compile(expr.getExprsimple1(), table);
+			if (expr.getExprsimple1() != null) {	
+				Pair<Instructions, Integer> var = compile(expr.getExprsimple1(), table);
+				code3a.add_instructions(var.getKey());
+				
+				Quadruplet<Op, Integer, Integer, Integer> quad;
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT("temp"+value),value, var.getValue() , null);
+				code3a.add_instruction(quad);
+
 			} else if (expr.getExprand() != null) {
-				code3a = compile(expr.getExprand(), table);
+				
+				Pair<Instructions, Integer> var = compile(expr.getExprand(), table);
+				code3a.add_instructions(var.getKey());
+				
+				Quadruplet<Op, Integer, Integer, Integer> quad;
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT("temp"+value),value, var.getValue() , null);
+				code3a.add_instruction(quad);
+
+				
 			} else
 				System.err.println("Expression inconnue, à implémenter : " + expr.getExpr());
 		}
@@ -263,29 +288,35 @@ public class Compiler {
 		// null, null);
 		// code3a.add_instruction(quad);
 		// }
-		return code3a;
+		return new Pair<Instructions, Integer>(code3a, value);
 	}
 
-	private Instructions compile(Exprand exprand, TableVar table) {
+	private Pair<Instructions, Integer> compile(Exprand exprand, TableVar table) {
 		Instructions code3a = new Instructions();
-		Quadruplet<Op, Integer, Integer, Integer> quad;
-
+		//Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value;
+		table.add_variable("temp"+nb_temp_var);
+		value = table.get_variable("temp"+nb_temp_var);
+		nb_temp_var++;
 		// TODO
-		
+
 		code3a.add_instruction(
 				new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprand "), null, null, null));
-		return code3a;
+		return new Pair<Instructions, Integer>(code3a, value);
 	}
 
-	private Instructions compile(Exprsimple exprsimple, TableVar table) {
+	private Pair<Instructions, Integer> compile(Exprsimple exprsimple, TableVar table) {
 		Instructions code3a = new Instructions();
-		Quadruplet<Op, Integer, Integer, Integer> quad;
-
+		//Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value;
+		table.add_variable("temp"+nb_temp_var);
+		value = table.get_variable("temp"+nb_temp_var);
+		nb_temp_var++;
 		// TODO
-		
+
 		code3a.add_instruction(
 				new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple "), null, null, null));
-		return code3a;
+		return new Pair<Instructions, Integer>(code3a, value);
 	}
 	////////////////////////////////////////////////////////////
 	////////// Methodes utilitaires
