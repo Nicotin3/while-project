@@ -5,10 +5,10 @@ import table_des_symboles.Instructions;
 public class FOREACH extends Op{
 
 	int Condition;
-	Instructions In;
+	int In;
 	Instructions Then;
 	
-	public FOREACH(int Condition, Instructions In, Instructions Then) {
+	public FOREACH(int Condition, int In, Instructions Then) {
 		this.Condition = Condition;
 		this.In = In;
 		this.Then = Then;
