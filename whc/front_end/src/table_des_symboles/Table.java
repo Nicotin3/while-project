@@ -25,8 +25,14 @@ public class Table {
 		return table.get(name);
 	}
 	
+	public Set<String> keySet() {
+		return table.keySet();
+	}
+	
 	@Override
 	public String toString() {
+		// TODO Surcharge de l'opérateur pour production code LUA (creez une autre
+		// fonction si vous le souhaitez)
 		StringBuilder s = new StringBuilder();
 		for (String func : table.keySet()) {
 			s.append(func + " : " + table.get(func) + "\n");

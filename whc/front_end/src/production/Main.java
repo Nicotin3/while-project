@@ -21,20 +21,21 @@ public class Main {
 		String fichierSource = "src/tests/test_simple.wh";
 		
 		// Récupération de la racine de l'ASA correspondant au programme
-		// Sources :
-		//		https://stackoverflow.com/questions/44716914/text-file-parsing-java-bean-instantiation-with-mwe2-xtext#44787099
-		//		https://typefox.io/how-and-why-use-xtext-without-the-ide
 		Injector injector = new WhStandaloneSetup().createInjectorAndDoEMFRegistration();
 		ResourceSet resourceSet = injector.getInstance(ResourceSet.class);
 		Resource resource = resourceSet.getResource(URI.createFileURI(fichierSource), true);
 		resource.load(null);
 		Model model = (Model) resource.getContents().get(0);
-		
 
-		//Execution
+		//Execution du compilateur
 		comp.compile(model);
 		Table table_globale = comp.getTable();
+		// Affichage code 3 adresses
+//		for (String f : table_globale.keySet()) {
+//			System.out.println(f + " : " + table_globale.get_function(f).getElement5());
+//		}
 
+		//Production code LUA
 		System.out.println(table_globale.toString());
 	}
 
