@@ -325,16 +325,19 @@ public class Compiler {
 			quad = new Quadruplet<Op, Integer, Integer, Integer>(new TL(), value, var.getValue(), null);
 			code3a.add_instruction(quad);
 			return new Pair<Instructions, Integer>(code3a, value);
+		} else if (Character.isUpperCase((exprsimple.getExpr().charAt(0)))){
+			if (table.get_variable(exprsimple.getExpr()) == null) {
+				table.add_variable(exprsimple.getExpr());
+			}
+			return new Pair<Instructions, Integer>(code3a, table.get_variable(exprsimple.getExpr()));
+		} else if (Character.isLowerCase((exprsimple.getExpr().charAt(0)))){
+			//TODO
+			return new Pair<Instructions, Integer>(code3a, 0);
 		} else {
-			Quadruplet<Op, Integer, Integer, Integer> quad;
-			table.add_variable("temp" + nb_temp_var);
-			int value = table.get_variable("temp" + nb_temp_var);
-			nb_temp_var++;
-			// TODO
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), value, null, null);
+			Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), null, null, null);
 			code3a.add_instruction(quad);
-			return new Pair<Instructions, Integer>(code3a, value);
-
+			System.err.println("Expression inconnue : " + exprsimple.getExpr());
+			return new Pair<Instructions, Integer>(code3a, 0);
 		}
 		
 	}
