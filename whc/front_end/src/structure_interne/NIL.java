@@ -8,6 +8,11 @@ public class NIL extends Op {
 
 	@Override
 	public String toString() {
-		return "nil";
+		return "NIL";
+	}
+
+	@Override
+	public String getOpName() {
+		return "NIL";
 	}
 }

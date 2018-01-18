@@ -81,7 +81,7 @@ public class Compiler {
 	private Instructions compile(Definition d, TableVar table) {
 		// Liste d'instructions
 		Instructions code3a = new Instructions();
-		// Nil est la variable numero 0 (premi�re variable ajout�
+		// Nil est la variable numero 0 (première variable ajoutée)
 		table.add_variable("nil");
 		code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new NIL(), table.get_variable("nil"), null, null));
 		// Appel des méthodes compile sous jacentes
@@ -132,12 +132,14 @@ public class Compiler {
 		// Parcours des output et vérification de la présence dans la
 		// table des variables. Puis génération code <WRITE,numVar,_,_>
 		for (String var : o.getVariables().getVariables()) {
-			try {
+			if (table.get_variable(var) != null) {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(
-						new WRITE(var), table.get_variable(var), null, null);
+						new WRITE(var), null, table.get_variable(var), null);
 				code3a.add_instruction(quad);
-			} catch (NullPointerException e) {
-				System.err.println("L'output" + var + " est inconnue de la table des variables !");
+			} else {
+				System.err.println("L'output " + var + " est inconnue de la table des variables !");
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new WRITE(var), null, 0, null);
+				code3a.add_instruction(quad);
 			}
 		}
 		return code3a;
@@ -201,6 +203,7 @@ public class Compiler {
 				
 				for (Expr exp : com.getExrps().getExprs()) {
 					Pair<Instructions, Integer> var = compile(exp, table);
+					code3a.add_instructions(var.getKey());
 					table.add_variable("temp"+nb_temp_var);
 					int value = table.get_variable("temp"+nb_temp_var);
 					file.add(value);
