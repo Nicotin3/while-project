@@ -10,4 +10,9 @@ public class NIL extends Op {
 	public String toString() {
 		return "nil";
 	}
+
+	@Override
+	public String getOpName() {
+		return "NIL";
+	}
 }
