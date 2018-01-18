@@ -23,6 +23,7 @@ import structure_interne.FOR;
 import structure_interne.FOREACH;
 import structure_interne.HD;
 import structure_interne.IF;
+import structure_interne.LIST;
 import structure_interne.NIL;
 import structure_interne.NOP;
 import structure_interne.OR;
@@ -270,15 +271,37 @@ public class Compiler {
 		
 		if (exprsimple.getExpr().equals("nil")) {
 			return new Pair<Instructions, Integer>(code3a, 0);
+			//Cons et list ne fonctionnent qu'avec 2 variables. Possibilité de changer !
 		} else if (exprsimple.getExpr().equals("cons")) {
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Expr gauche = exprsimple.getExprs().getExprs().get(0);
 			Expr droite = exprsimple.getExprs().getExprs().get(1);
+			Pair<Instructions, Integer> var1 = compile(gauche, table);
+			Pair<Instructions, Integer> var2 = compile(droite, table);
+			code3a.add_instructions(var1.getKey());
+			code3a.add_instructions(var2.getKey());
+			
 			table.add_variable("temp" + nb_temp_var);
 			int value = table.get_variable("temp" + nb_temp_var);
 			nb_temp_var++;
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(new CONS(), value, compile(gauche, table).getValue(),
-					compile(droite, table).getValue());
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new CONS(), value, var1.getValue(),
+					var2.getValue());
+			code3a.add_instruction(quad);
+			return new Pair<Instructions, Integer>(code3a, value);
+		} else if (exprsimple.getExpr().equals("list")) {
+			Quadruplet<Op, Integer, Integer, Integer> quad;
+			Expr gauche = exprsimple.getExprs().getExprs().get(0);
+			Expr droite = exprsimple.getExprs().getExprs().get(1);
+			Pair<Instructions, Integer> var1 = compile(gauche, table);
+			Pair<Instructions, Integer> var2 = compile(droite, table);
+			code3a.add_instructions(var1.getKey());
+			code3a.add_instructions(var2.getKey());
+			
+			table.add_variable("temp" + nb_temp_var);
+			int value = table.get_variable("temp" + nb_temp_var);
+			nb_temp_var++;
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new LIST(), value, var1.getValue(),
+					var2.getValue());
 			code3a.add_instruction(quad);
 			return new Pair<Instructions, Integer>(code3a, value);
 		} else if (exprsimple.getExpr().equals("hd")) {
