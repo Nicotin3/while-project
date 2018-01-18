@@ -20,6 +20,7 @@ import structure_interne.EQUAL;
 import structure_interne.FOR;
 import structure_interne.FOREACH;
 import structure_interne.IF;
+import structure_interne.NIL;
 import structure_interne.NOP;
 import structure_interne.OR;
 import structure_interne.Op;
@@ -77,6 +78,9 @@ public class Compiler {
 	private Instructions compile(Definition d, TableVar table) {
 		// Liste d'instructions
 		Instructions code3a = new Instructions();
+		// Nil est la variable numero 0 (premiére variable ajouté
+		table.add_variable("nil");
+		code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new NIL(), table.get_variable("nil"), null, null));
 		// Appel des mÃ©thodes compile sous jacentes
 		code3a.add_instructions(compile(d.getInput(), table));
 		code3a.add_instructions(compile(d.getCommands(), table));
@@ -233,37 +237,42 @@ public class Compiler {
 			quad = new Quadruplet<Op, Integer, Integer, Integer>(new EQUAL(), value,
 					var1.getValue(), var2.getValue());
 			code3a.add_instruction(quad);
+			return new Pair<Instructions, Integer>(code3a, value); 
 		} else {
 			if (expr.getExprsimple1() != null) {
 				Pair<Instructions, Integer> var = compile(expr.getExprsimple1(), table);
 				code3a.add_instructions(var.getKey());
-				
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)),value, var.getValue() , null);
 				code3a.add_instruction(quad);
+				return new Pair<Instructions, Integer>(code3a, value);
 
 			} else if (expr.getExprand() != null) {
 				Pair<Instructions, Integer> var = compile(expr.getExprand(), table);
 				code3a.add_instructions(var.getKey());
-				
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)),value, var.getValue() , null);
 				code3a.add_instruction(quad);
+				return new Pair<Instructions, Integer>(code3a, value);
 
 			} else {
 				System.err.println("Expression inconnue, Ã  implÃ©menter : " + expr.getExpr());
+				return new Pair<Instructions, Integer>(null, null);
 			}
 		}
-		return new Pair<Instructions, Integer>(code3a, value);
 	}
 	
 	private Pair<Instructions, Integer> compile(Exprsimple exprsimple, TableVar table) {
 		Instructions code3a = new Instructions();
 		Quadruplet<Op, Integer, Integer, Integer> quad;
-		int value;
 		table.add_variable("temp"+nb_temp_var);
-		value = table.get_variable("temp"+nb_temp_var);
+		int value = table.get_variable("temp"+nb_temp_var);
 		nb_temp_var++;
+		
+		if (exprsimple.getExpr()=="nil"){
+			return new Pair<Instructions, Integer>(code3a, 0);
+		}
+		
 		// TODO
-		quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), null, null, null);
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), value, null, null);
 		code3a.add_instruction(quad);
 		return new Pair<Instructions, Integer>(code3a, value);
 	}
