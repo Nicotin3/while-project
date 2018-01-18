@@ -81,11 +81,7 @@ public class Compiler {
 	private Instructions compile(Definition d, TableVar table) {
 		// Liste d'instructions
 		Instructions code3a = new Instructions();
-<<<<<<< HEAD
-		// Nil est la variable numero 0 (premi�re variable ajout�
-=======
 		// Nil est la variable numero 0 (première variable ajoutée)
->>>>>>> e63d896fddc9fba8eb901fdad5f368738e3fa136
 		table.add_variable("nil");
 		code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new NIL(), table.get_variable("nil"), null, null));
 		// Appel des méthodes compile sous jacentes
