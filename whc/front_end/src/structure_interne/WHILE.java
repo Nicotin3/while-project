@@ -4,15 +4,19 @@ import table_des_symboles.Instructions;
 
 public class WHILE extends Op {
 	
-	int Condition;
+	Instructions Condition;
 	Instructions Boucle;
-	public WHILE(int Condition, Instructions Boucle) {
+	public WHILE(Instructions Condition, Instructions Boucle) {
 			this.Condition = Condition;
 			this.Boucle = Boucle;
 	}
 	
 	@Override
 	public String toString() {
-		return "while";
+		return "WHILE " + Condition + "\tboucle " + Boucle.toString();
+	}
+	
+	public String getOpName() {
+		return "WHILE";
 	}
 }

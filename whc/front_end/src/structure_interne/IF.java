@@ -30,4 +30,7 @@ public class IF extends Op {
 		return "if " + Condition + "\tthen " + Then.toString() + "\telse " + Else.toString();
 	}
 
+	public String getOpName() {
+		return "IF";
+	}
 }

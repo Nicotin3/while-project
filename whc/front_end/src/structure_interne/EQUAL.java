@@ -9,6 +9,10 @@ public class EQUAL extends Op{
 	
 	@Override
 	public String toString() {
-		return  "EQUAL ";
+		return  "EQUAL";
+	}
+	
+	public String getOpName() {
+		return "EQUAL";
 	}
 }

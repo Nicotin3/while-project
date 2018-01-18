@@ -8,6 +8,10 @@ public class NOP extends Op{
 	
 	@Override
 	public String toString() {
-		return "nop";
+		return "NOP";
+	}
+	
+	public String getOpName() {
+		return "NOP";
 	}
 }
