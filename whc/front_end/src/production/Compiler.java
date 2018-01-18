@@ -234,6 +234,8 @@ public class Compiler {
 		Instructions code3a = new Instructions();
 		
 		if (expr.getExpr() == "=?") {
+			//Eviter de systématiquement passer par une variable temporaire en vérifiant taille de la liste
+			
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			int value;
 			table.add_variable("temp"+nb_temp_var);
@@ -332,6 +334,16 @@ public class Compiler {
 			return new Pair<Instructions, Integer>(code3a, table.get_variable(exprsimple.getExpr()));
 		} else if (Character.isLowerCase((exprsimple.getExpr().charAt(0)))){
 			//TODO
+			String name = exprsimple.getExpr();
+			if (tableFonctions.get_function(name) == null) {
+				System.err.println("Fonction inconnue de la table des fonctions !");
+				return new Pair<Instructions, Integer>(code3a, 0);
+			}
+			if (tableFonctions.get_function(name).getElement2() != exprsimple.getExprs().getExprs().size()) {
+				System.err.println("Nombre d'arguments incorrects ! Expected : " + tableFonctions.get_function(name).getElement2().toString() + ". Given : " + exprsimple.getExprs().getExprs().size());
+				return new Pair<Instructions, Integer>(code3a, 0);
+			}
+			
 			return new Pair<Instructions, Integer>(code3a, 0);
 		} else {
 			Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), null, null, null);
