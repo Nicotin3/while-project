@@ -4,10 +4,10 @@ import table_des_symboles.Instructions;
 
 public class FOR extends Op {
 	
-	int Condition;
+	Instructions Condition;
 	Instructions Boucle;
 	
-	public FOR(int Condition, Instructions Boucle) {
+	public FOR(Instructions Condition, Instructions Boucle) {
 		this.Condition = Condition;
 		this.Boucle = Boucle;
 	}

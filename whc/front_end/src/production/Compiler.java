@@ -5,6 +5,8 @@ import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
 import org.xtext.whpp.mydsl.wh.Expr;
 import org.xtext.whpp.mydsl.wh.Exprand;
+import org.xtext.whpp.mydsl.wh.Exprnot;
+import org.xtext.whpp.mydsl.wh.Expror;
 import org.xtext.whpp.mydsl.wh.Exprsimple;
 import org.xtext.whpp.mydsl.wh.Function;
 import org.xtext.whpp.mydsl.wh.Input;
@@ -12,12 +14,14 @@ import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
 import structure_interne.AFFECT;
+import structure_interne.AND;
 import structure_interne.BOUCHON;
 import structure_interne.EQUAL;
 import structure_interne.FOR;
 import structure_interne.FOREACH;
 import structure_interne.IF;
 import structure_interne.NOP;
+import structure_interne.OR;
 import structure_interne.Op;
 import structure_interne.Quadruplet;
 import structure_interne.READ;
@@ -152,34 +156,34 @@ public class Compiler {
 			} else if (com.getCommand().equals("for")) {
 				// CONDITION : compile(com.getExpr(), table)
 				// DO : compile(com.getCommands(), table)
-				FOR For = new FOR(compile(com.getExpr(), table).getValue(), compile(com.getCommands(), table));
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(For, null, null, null);
+				Pair<Instructions, Integer> var = compile(com.getExpr(), table);
+				FOR For = new FOR(var.getKey(), compile(com.getCommands(), table));
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(For, null, var.getValue(), null);
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals("if")) {
 				// CONDITION : compile(com.getExpr(), table)
 				// THEN : compile(com.getCommands_then(), table)
 				// Else : compile(com.getCommands_else(), table)
 				IF If;
+				Pair<Instructions, Integer> var=compile(com.getExpr(), table);
 				// Vérification de la présence du champs Else
 				if (com.getCommands_else() == null) {
-					Pair<Instructions, Integer> var=compile(com.getExpr(), table);
-					code3a.add_instructions(var.getKey());
-					If = new IF(var.getValue(), compile(com.getCommands_then(), table));
+					
+					If = new IF(var.getKey(), compile(com.getCommands_then(), table));
 				} else {
-					Pair<Instructions, Integer> var=compile(com.getExpr(), table);
-					code3a.add_instructions(var.getKey());
-					If = new IF(var.getValue(), compile(com.getCommands_then(), table),
-							compile(com.getCommands_else(), table));
+					If = new IF(var.getKey(), compile(com.getCommands_then(), table),compile(com.getCommands_else(), table));
 				}
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(If, null, null, null);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(If, null, var.getValue(), null);
 				code3a.add_instruction(quad);
+				
 			} else if (com.getCommand().equals("foreach")) {
 				// CONDITION : compile(com.getExpr(), table)
 				// IN : compile(com.getExpr_in(), table)
 				// THEN : compile(com.getCommands(), table)
-				FOREACH Foreach = new FOREACH(compile(com.getExpr(), table).getValue(), compile(com.getExpr_in(), table).getValue(),
-						compile(com.getCommands(), table));
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(Foreach, null, null, null);
+				Pair<Instructions, Integer> var = compile(com.getExpr(), table);
+				Pair<Instructions, Integer> var_in = compile(com.getExpr_in(), table);
+				FOREACH Foreach = new FOREACH(var.getKey(), var_in.getKey(), compile(com.getCommands(), table));
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(Foreach, null, var.getValue(), var_in.getValue());
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals(":=")) {
 				// Ajout des nouvelles variables déclarées dans la table des variables
@@ -226,7 +230,7 @@ public class Compiler {
 			Pair<Instructions, Integer> var2 = compile(expr.getExprsimple2(), table);
 			code3a.add_instructions(var1.getKey());
 			code3a.add_instructions(var2.getKey());
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(new EQUAL(), table.get_variable("temp" + nb_temp_var),
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new EQUAL(), value,
 					var1.getValue(), var2.getValue());
 			code3a.add_instruction(quad);
 		} else {
@@ -234,14 +238,14 @@ public class Compiler {
 				Pair<Instructions, Integer> var = compile(expr.getExprsimple1(), table);
 				code3a.add_instructions(var.getKey());
 				
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT("temp"+value),value, var.getValue() , null);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)),value, var.getValue() , null);
 				code3a.add_instruction(quad);
 
 			} else if (expr.getExprand() != null) {
 				Pair<Instructions, Integer> var = compile(expr.getExprand(), table);
 				code3a.add_instructions(var.getKey());
 				
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT("temp"+value),value, var.getValue() , null);
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)),value, var.getValue() , null);
 				code3a.add_instruction(quad);
 
 			} else {
@@ -271,13 +275,73 @@ public class Compiler {
 		table.add_variable("temp"+nb_temp_var);
 		value = table.get_variable("temp"+nb_temp_var);
 		nb_temp_var++;
+
+		if (exprand.getExpr() == "and") {
+			Pair<Instructions, Integer> var1 = compile(exprand.getExprG(), table);
+			Pair<Instructions, Integer> var2 = compile(exprand.getExprD(), table);
+			code3a.add_instructions(var1.getKey());
+			code3a.add_instructions(var2.getKey());
+			quad = new Quadruplet<Op,Integer, Integer, Integer>(new AND(), value, var1.getValue(), var2.getValue());
+			code3a.add_instruction(quad);
+
+		}
+		Pair<Instructions, Integer> var1 = compile(exprand.getExprG(), table);
+		code3a.add_instructions(var1.getKey());
 		// TODO
-		quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprand "), null, null, null);
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)), value, var1.getValue(), null);
 		code3a.add_instruction(quad);
 		return new Pair<Instructions, Integer>(code3a, value);
 	}
 
+	private Pair<Instructions, Integer> compile(Expror expror, TableVar table) {
+		Instructions code3a = new Instructions();
+		Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value;
+		table.add_variable("temp"+nb_temp_var);
+		value = table.get_variable("temp"+nb_temp_var);
+		nb_temp_var++;
+
+		if (expror.getExpr() == "or") {
+			Pair<Instructions, Integer> var1 = compile(expror.getExprG(), table);
+			Pair<Instructions, Integer> var2 = compile(expror.getExprD(), table);
+			code3a.add_instructions(var1.getKey());
+			code3a.add_instructions(var2.getKey());
+			quad = new Quadruplet<Op,Integer, Integer, Integer>(new OR(), value, var1.getValue(), var2.getValue());
+			code3a.add_instruction(quad);
+
+		}
+		Pair<Instructions, Integer> var1 = compile(expror.getExprG(), table);
+		code3a.add_instructions(var1.getKey());
+		// TODO
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)), value, var1.getValue(), null);
+		code3a.add_instruction(quad);
+		return new Pair<Instructions, Integer>(code3a, value);
+	}
+	
+	
+	
+	private Pair<Instructions, Integer> compile(Exprnot exprnot, TableVar table) {
+		Instructions code3a = new Instructions();
+		Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value;
+		table.add_variable("temp"+nb_temp_var);
+		value = table.get_variable("temp"+nb_temp_var);
+		nb_temp_var++;
+
+		//TODO
+		Pair<Instructions, Integer> var1 = new Pair<Instructions, Integer>(new Instructions(), value);
+		code3a.add_instructions(var1.getKey());
+		// TODO
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("not"), value, var1.getValue(), null);
+		code3a.add_instruction(quad);
+		return new Pair<Instructions, Integer>(code3a, value);
+	}
+	
 	/* ________________________Méthodes utilitaires________________________ */
+
+	
+
+	
 
 	/**
 	 * Donne le nombre d'entrées d'une fonction
