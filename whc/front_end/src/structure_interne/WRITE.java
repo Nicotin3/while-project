@@ -9,7 +9,7 @@ public class WRITE extends Op {
 	}
 	
 	public String toString() {
-		return "WRITE";
+		return "WRITE " + name;
 	}
 	
 	public String getOpName() {

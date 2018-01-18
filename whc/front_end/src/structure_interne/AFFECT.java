@@ -9,8 +9,7 @@ public class AFFECT extends Op{
 	
 	@Override
 	public String toString() {
-		return "AFFECT";
-		//TODO
+		return "AFFECT "+ name;
 	}
 	
 	public String getOpName() {
