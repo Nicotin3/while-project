@@ -21,6 +21,7 @@ import structure_interne.CONS;
 import structure_interne.EQUAL;
 import structure_interne.FOR;
 import structure_interne.FOREACH;
+import structure_interne.HD;
 import structure_interne.IF;
 import structure_interne.NIL;
 import structure_interne.NOP;
@@ -28,6 +29,7 @@ import structure_interne.OR;
 import structure_interne.Op;
 import structure_interne.Quadruplet;
 import structure_interne.READ;
+import structure_interne.TL;
 import structure_interne.WHILE;
 import structure_interne.WRITE;
 import table_des_symboles.Instructions;
@@ -138,7 +140,7 @@ public class Compiler {
 						new WRITE(var), null, table.get_variable(var), null);
 				code3a.add_instruction(quad);
 			} else {
-				System.err.println("L'output " + var + " est inconnue de la table des variables ! Remplacée par nil.");
+				System.err.println("L'output " + var + " est inconnue de la table des variables !");
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(new WRITE(var), null, 0, null);
 				code3a.add_instruction(quad);
 			}
@@ -266,33 +268,51 @@ public class Compiler {
 	private Pair<Instructions, Integer> compile(Exprsimple exprsimple, TableVar table) {
 		Instructions code3a = new Instructions();
 		
-		if (exprsimple.getExpr().equals("nil")){
+		if (exprsimple.getExpr().equals("nil")) {
 			return new Pair<Instructions, Integer>(code3a, 0);
-		} else if(exprsimple.getExpr().equals("cons")) {
+		} else if (exprsimple.getExpr().equals("cons")) {
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Expr gauche = exprsimple.getExprs().getExprs().get(0);
 			Expr droite = exprsimple.getExprs().getExprs().get(1);
-			table.add_variable("temp"+nb_temp_var);
-			int value = table.get_variable("temp"+nb_temp_var);
+			table.add_variable("temp" + nb_temp_var);
+			int value = table.get_variable("temp" + nb_temp_var);
 			nb_temp_var++;
-
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(new CONS(), value,
-					compile(gauche, table).getValue(), compile(droite, table).getValue());
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new CONS(), value, compile(gauche, table).getValue(),
+					compile(droite, table).getValue());
 			code3a.add_instruction(quad);
 			return new Pair<Instructions, Integer>(code3a, value);
-		}else{
+		} else if (exprsimple.getExpr().equals("hd")) {
+			Pair<Instructions, Integer> var = compile(exprsimple.getExpr2(), table);
+			code3a.add_instructions(var.getKey());
+			table.add_variable("temp" + nb_temp_var);
+			int value = table.get_variable("temp" + nb_temp_var);
+			nb_temp_var++;
 			Quadruplet<Op, Integer, Integer, Integer> quad;
-			table.add_variable("temp"+nb_temp_var);
-			int value = table.get_variable("temp"+nb_temp_var);
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new HD(), value, var.getValue(), null);
+			code3a.add_instruction(quad);
+			return new Pair<Instructions, Integer>(code3a, value);
+
+		} else if (exprsimple.getExpr().equals("tl")) {
+			Pair<Instructions, Integer> var = compile(exprsimple.getExpr2(), table);
+			code3a.add_instructions(var.getKey());
+			table.add_variable("temp" + nb_temp_var);
+			int value = table.get_variable("temp" + nb_temp_var);
+			nb_temp_var++;
+			Quadruplet<Op, Integer, Integer, Integer> quad;
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new TL(), value, var.getValue(), null);
+			code3a.add_instruction(quad);
+			return new Pair<Instructions, Integer>(code3a, value);
+		} else {
+			Quadruplet<Op, Integer, Integer, Integer> quad;
+			table.add_variable("temp" + nb_temp_var);
+			int value = table.get_variable("temp" + nb_temp_var);
 			nb_temp_var++;
 			// TODO
 			quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), value, null, null);
 			code3a.add_instruction(quad);
 			return new Pair<Instructions, Integer>(code3a, value);
-			
+
 		}
-		
-		
 		
 	}
 
