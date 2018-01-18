@@ -39,4 +39,16 @@ public class Table {
 		}
 		return s.toString();
 	}
+	public String toLua() {
+		StringBuilder s = new StringBuilder();
+		for (String func : table.keySet()) {
+			s.append("function f");
+			s.append(table.get(func).getElement1());
+			s.append("(bouchon entrees)\n");
+			s.append("bouchon body\n");
+			s.append("bouchon return\n");
+			s.append("end\n");
+		}
+		return s.toString();
+	}
 }
