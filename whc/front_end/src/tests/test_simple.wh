@@ -1,8 +1,7 @@
 function test:
 read X, Y
 %
-  nop ;
-  Y, X := X, Y
+  Y := nil
 %
 write X, Y, W
 
