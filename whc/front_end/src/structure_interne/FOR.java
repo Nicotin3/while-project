@@ -14,6 +14,10 @@ public class FOR extends Op {
 	
 	@Override
 	public String toString() {
-		return "for";
+		return "FOR "  + Condition + "\tboucle " + Boucle.toString();
+	}
+	
+	public String getOpName() {
+		return "FOR";
 	}
 }

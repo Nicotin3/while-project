@@ -11,4 +11,7 @@ public class AND extends Op {
 		return "and";
 	}
 
+	public String getOpName() {
+		return "AND";
+	}
 }

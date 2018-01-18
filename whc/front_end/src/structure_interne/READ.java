@@ -9,6 +9,10 @@ public class READ extends Op {
 	}
 	
 	public String toString() {
-		return "READ " + name;
+		return "READ";
+	}
+	
+	public String getOpName() {
+		return "READ";
 	}
 }

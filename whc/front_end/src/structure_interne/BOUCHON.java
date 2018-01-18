@@ -13,4 +13,7 @@ public class BOUCHON extends Op {
 		return "BOUCHON " + name;
 	}
 
+	public String getOpName() {
+		return "BOUCHON";
+	}
 }

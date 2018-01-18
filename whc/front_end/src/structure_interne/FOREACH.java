@@ -16,6 +16,10 @@ public class FOREACH extends Op{
 	
 	@Override
 	public String toString() {
-		return "foreach";
+		return "FOREACH " + Condition + "\tin " + In.toString() + Then + "\tthen" + Then.toString();
+	}
+	
+	public String getOpName() {
+		return "FOREACH";
 	}
 }

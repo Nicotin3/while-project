@@ -2,12 +2,7 @@ function test:
 read X, Y
 %
   nop ;
-  W, G := X, Y ;
-  X := nil ;
-  if X =? Y then
-    Z := X else
-    X := Z
-  fi
+  Y, X := X, Y
 %
 write X, Y, W
 

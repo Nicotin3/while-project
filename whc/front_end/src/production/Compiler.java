@@ -1,5 +1,6 @@
 package production;
 
+
 import org.xtext.whpp.mydsl.wh.Command;
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
@@ -32,6 +33,8 @@ import table_des_symboles.Instructions;
 import table_des_symboles.Table;
 import table_des_symboles.TableVar;
 import javafx.util.Pair;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class Compiler {
 	// Entier utilisé pour les variables temporaires
@@ -154,8 +157,9 @@ public class Compiler {
 			} else if (com.getCommand().equals("while")) {
 				// CONDITION : compile(com.getExpr(), table)
 				// BOUCLE : compile(com.getCommands(), table)
-				WHILE While = new WHILE(compile(com.getExpr(), table).getValue(), compile(com.getCommands(), table));
-				quad = new Quadruplet<Op, Integer, Integer, Integer>(While, null, null, null);
+				Pair<Instructions, Integer> var = compile(com.getExpr(), table);
+				WHILE While = new WHILE(var.getKey(), compile(com.getCommands(), table));
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(While, null, var.getValue(), null);
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals("for")) {
 				// CONDITION : compile(com.getExpr(), table)
@@ -192,27 +196,23 @@ public class Compiler {
 			} else if (com.getCommand().equals(":=")) {
 				// Ajout des nouvelles variables déclarées dans la table des variables
 				compile(com.getVariables(), table);
-				int numVar = 0;
+				
+				Queue<Integer> file = new ArrayDeque<Integer>();
+				
+				for (Expr exp : com.getExrps().getExprs()) {
+					Pair<Instructions, Integer> var = compile(exp, table);
+					table.add_variable("temp"+nb_temp_var);
+					int value = table.get_variable("temp"+nb_temp_var);
+					file.add(value);
+					quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT("temp"+nb_temp_var),
+							value, var.getValue(), null);
+					code3a.add_instruction(quad);
+					nb_temp_var++;
+				}
 				for (String var : com.getVariables().getVariables()) {
-					// TODO Nécessite de compiler le getExprs pour affecter le numéro
-					// de variable temporaire associé ?
-					// Gestion des appels de fonction ici ? => récupérer le code
-					// associé via son numéro de fonction, vérifier que le nombre de
-					// sorties et d'entrées sont correctes
-					
-					// TODO ERREUR ICI Affectations multiples (cas X=Y, Y=X)
-					// Appeler le compile d'Expr ???
-					int num = 0;
-					for (Expr exp : com.getExrps().getExprs()) {
-						if (numVar == num) {
-							quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(var),
-									table.get_variable(var), /*Appel compile ICI?*/table.get_variable((exp.getExprsimple1().getExpr())),
-									null);
-							code3a.add_instruction(quad);
-						}
-						num++;
-					}
-					numVar++;
+					quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(var),
+							table.get_variable(var), file.remove(), null);
+					code3a.add_instruction(quad);
 				}
 			} else {
 				System.err.println("Commande inconnue, à implémenter : " + com.getCommand());

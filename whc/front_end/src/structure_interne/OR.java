@@ -11,4 +11,7 @@ public class OR extends Op {
 		return "or";
 	}
 
+	public String getOpName() {
+		return "OR";
+	}
 }
