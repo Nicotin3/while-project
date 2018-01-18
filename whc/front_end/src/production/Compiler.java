@@ -20,6 +20,7 @@ import structure_interne.BOUCHON;
 import structure_interne.EQUAL;
 import structure_interne.FOR;
 import structure_interne.FOREACH;
+import structure_interne.HD;
 import structure_interne.IF;
 import structure_interne.NIL;
 import structure_interne.NOP;
@@ -27,6 +28,7 @@ import structure_interne.OR;
 import structure_interne.Op;
 import structure_interne.Quadruplet;
 import structure_interne.READ;
+import structure_interne.TL;
 import structure_interne.WHILE;
 import structure_interne.WRITE;
 import table_des_symboles.Instructions;
@@ -265,20 +267,45 @@ public class Compiler {
 	private Pair<Instructions, Integer> compile(Exprsimple exprsimple, TableVar table) {
 		Instructions code3a = new Instructions();
 		
-		if (exprsimple.getExpr().equals("nil")){
+		if (exprsimple.getExpr().equals("nil")) {
 			return new Pair<Instructions, Integer>(code3a, 0);
-		}else{
-			Quadruplet<Op, Integer, Integer, Integer> quad;
-			table.add_variable("temp"+nb_temp_var);
-			int value = table.get_variable("temp"+nb_temp_var);
-			nb_temp_var++;
-			// TODO
-			quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), value, null, null);
-			code3a.add_instruction(quad);
-			return new Pair<Instructions, Integer>(code3a, value);
-			
+		} else {
+			if (exprsimple.getExpr().equals("hd")) {
+				Pair<Instructions, Integer> var = compile(exprsimple.getExpr2(), table);
+				code3a.add_instructions(var.getKey());
+				table.add_variable("temp" + nb_temp_var);
+				int value = table.get_variable("temp" + nb_temp_var);
+				nb_temp_var++;
+				Quadruplet<Op, Integer, Integer, Integer> quad;
+				quad = new Quadruplet<Op, Integer, Integer, Integer>(new HD(), value, var.getValue(), null);
+				code3a.add_instruction(quad);
+				return new Pair<Instructions, Integer>(code3a, value);
+
+			} else {
+				if (exprsimple.getExpr().equals("tl")) {
+					Pair<Instructions, Integer> var = compile(exprsimple.getExpr2(), table);
+					code3a.add_instructions(var.getKey());
+					table.add_variable("temp" + nb_temp_var);
+					int value = table.get_variable("temp" + nb_temp_var);
+					nb_temp_var++;
+					Quadruplet<Op, Integer, Integer, Integer> quad;
+					quad = new Quadruplet<Op, Integer, Integer, Integer>(new TL(), value, var.getValue(), null);
+					code3a.add_instruction(quad);
+					return new Pair<Instructions, Integer>(code3a, value);
+
+				} else {
+					Quadruplet<Op, Integer, Integer, Integer> quad;
+					table.add_variable("temp" + nb_temp_var);
+					int value = table.get_variable("temp" + nb_temp_var);
+					nb_temp_var++;
+					// TODO
+					quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), value, null, null);
+					code3a.add_instruction(quad);
+					return new Pair<Instructions, Integer>(code3a, value);
+
+				}
+			}
 		}
-		
 		
 		
 	}
