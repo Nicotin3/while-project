@@ -17,6 +17,7 @@ import org.xtext.whpp.mydsl.wh.Variables;
 import structure_interne.AFFECT;
 import structure_interne.AND;
 import structure_interne.BOUCHON;
+import structure_interne.CONS;
 import structure_interne.EQUAL;
 import structure_interne.FOR;
 import structure_interne.FOREACH;
@@ -137,7 +138,7 @@ public class Compiler {
 						new WRITE(var), null, table.get_variable(var), null);
 				code3a.add_instruction(quad);
 			} else {
-				System.err.println("L'output " + var + " est inconnue de la table des variables !");
+				System.err.println("L'output " + var + " est inconnue de la table des variables ! Remplacée par nil.");
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(new WRITE(var), null, 0, null);
 				code3a.add_instruction(quad);
 			}
@@ -267,6 +268,18 @@ public class Compiler {
 		
 		if (exprsimple.getExpr().equals("nil")){
 			return new Pair<Instructions, Integer>(code3a, 0);
+		} else if(exprsimple.getExpr().equals("cons")) {
+			Quadruplet<Op, Integer, Integer, Integer> quad;
+			Expr gauche = exprsimple.getExprs().getExprs().get(0);
+			Expr droite = exprsimple.getExprs().getExprs().get(1);
+			table.add_variable("temp"+nb_temp_var);
+			int value = table.get_variable("temp"+nb_temp_var);
+			nb_temp_var++;
+
+			quad = new Quadruplet<Op, Integer, Integer, Integer>(new CONS(), value,
+					compile(gauche, table).getValue(), compile(droite, table).getValue());
+			code3a.add_instruction(quad);
+			return new Pair<Instructions, Integer>(code3a, value);
 		}else{
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			table.add_variable("temp"+nb_temp_var);
