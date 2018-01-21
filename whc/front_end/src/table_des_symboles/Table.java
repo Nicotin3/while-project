@@ -2,11 +2,13 @@ package table_des_symboles;
 
 import java.util.*;
 
+import javax.print.attribute.standard.PrinterLocation;
+
 import structure_interne.Quintuplet;
 
 public class Table {
 	//map de fonctions (nom -> code(integer) -> paramtre,return, key_tablesymbole_locale, key_table_code3adresse)
-	//Map de nom de fonction et d'un quintuplet correspondant aux données de la fonction : numéro de fonction, nb entrées, nb sorties, table de variable et liste d'instructions
+	//Map de nom de fonction et d'un quintuplet correspondant aux donnÃ©es de la fonction : numÃ©ro de fonction, nb entrÃ©es, nb sorties, table de variable et liste d'instructions
 	private HashMap<String, Quintuplet<Integer, Integer, Integer, TableVar, Instructions>> table;
 	private static int numFun = 0;
 	
@@ -31,7 +33,7 @@ public class Table {
 	
 	@Override
 	public String toString() {
-		// TODO Surcharge de l'opérateur pour production code LUA (creez une autre
+		// TODO Surcharge de l'opÃ©rateur pour production code LUA (creez une autre
 		// fonction si vous le souhaitez)
 		StringBuilder s = new StringBuilder();
 		for (String func : table.keySet()) {
@@ -42,10 +44,28 @@ public class Table {
 	public String toLua() {
 		StringBuilder s = new StringBuilder();
 		for (String func : table.keySet()) {
+			//Récupération du quintuplet 
+			Quintuplet<Integer, Integer, Integer, TableVar, Instructions> quintu = table.get(func);
+			
+			//Récupération de la liste d'instructions
+			Instructions instrus = quintu.getElement5();
+			
 			s.append("function f");
-			s.append(table.get(func).getElement1());
-			s.append("(bouchon entrees)\n");
-			s.append("bouchon body\n");
+			s.append(quintu.getElement1());
+			s.append("(");
+			
+			//gestion inputs
+			for(int i = 0 ; i<quintu.getElement2() ; i++) {
+				s.append("var");
+				s.append(instrus.get_instructions().get(i).getElement2());
+				if (i != quintu.getElement2()-1)
+					s.append(", ");
+			}
+			s.append(")\n");
+			
+			//gestion corps de la fonction
+			s.append(quintu.getElement5().toLua());
+			//s.append("bouchon body\n");
 			s.append("bouchon return\n");
 			s.append("end\n");
 		}
