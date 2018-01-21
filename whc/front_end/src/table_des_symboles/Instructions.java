@@ -34,4 +34,39 @@ public class Instructions {
 		}
 		return res+"}";
 	}
+	
+	public String toLua() {
+		StringBuilder s = new StringBuilder();
+		for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
+			
+			switch (quad.getElement1().getOpName()) {
+			case "READ":
+				break;
+			case "WRITE":
+				break;
+			case "NOP":
+				s.append("\t");
+				s.append("bouchon nop\n");
+				break;
+			case "AFFECT":
+				s.append("\t");
+				s.append("var");
+				s.append(quad.getElement2());
+				s.append(" = ");
+				s.append(quad.getElement3());
+				s.append("\n");
+				break;
+			case "SYMB":
+				s.append("\t");
+				s.append("bouchon symbole");
+				
+			//a completer ici
+			default:
+				s.append("bouchon OP non implementé\n");
+				break;
+			}
+		}
+		return s.toString();
+	}
+	
 }
