@@ -3,6 +3,8 @@
  */
 package org.xtext.whpp.mydsl.wh;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.whpp.mydsl.wh.Commands#getCommand <em>Command</em>}</li>
  *   <li>{@link org.xtext.whpp.mydsl.wh.Commands#getCommands <em>Commands</em>}</li>
  * </ul>
  *
@@ -25,55 +26,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface Commands extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Command</b></em>' attribute.
+   * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.whpp.mydsl.wh.Command}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Command</em>' attribute isn't clear,
+   * If the meaning of the '<em>Commands</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Command</em>' attribute.
-   * @see #setCommand(String)
-   * @see org.xtext.whpp.mydsl.wh.WhPackage#getCommands_Command()
-   * @model
-   * @generated
-   */
-  String getCommand();
-
-  /**
-   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Commands#getCommand <em>Command</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Command</em>' attribute.
-   * @see #getCommand()
-   * @generated
-   */
-  void setCommand(String value);
-
-  /**
-   * Returns the value of the '<em><b>Commands</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Commands</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Commands</em>' containment reference.
-   * @see #setCommands(Commands)
+   * @return the value of the '<em>Commands</em>' containment reference list.
    * @see org.xtext.whpp.mydsl.wh.WhPackage#getCommands_Commands()
    * @model containment="true"
    * @generated
    */
-  Commands getCommands();
-
-  /**
-   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Commands#getCommands <em>Commands</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Commands</em>' containment reference.
-   * @see #getCommands()
-   * @generated
-   */
-  void setCommands(Commands value);
+  EList<Command> getCommands();
 
 } // Commands

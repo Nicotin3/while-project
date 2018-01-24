@@ -1,18 +1,13 @@
-grammar org.xtext.whpp.mydsl.Wh with org.eclipse.xtext.common.Terminals hidden (WS)
+grammar org.xtext.whpp.mydsl.Wh with org.eclipse.xtext.common.Terminals
 
 generate wh "http://www.xtext.org/whpp/mydsl/Wh"
 
 Model:
-	program += Program
-;
-
-Program:
-	function=Function ('
-')+ (program=Program)?
+	(functions+=Function)*
 ;
 
 Function:
-	'function' name=ID ':' definition=Definition 
+	'function' name=SYMBOLE ':' definition=Definition 
 ;
 
 Definition:
@@ -22,34 +17,72 @@ Definition:
 ;
 
 Input:
-	(variable=Variable ',' input=Input) | (variable=Variable)
+	variables=Variables
 ;
 
 Output:
-	(variable=Variable ',' output=Output) | (variable=Variable)
+	variables=Variables
 ;
 
-Variable:
-	MAJUSCULE // base
-	// confort
-	//(MAJUSCULE | MINUSCULE | DIGIT)* 
-	//(('-' | '+' | '.' | '/' | '_' | '&' | '->') (MAJUSCULE | MINUSCULE | DIGIT)+)* ('?'|'!')
+Variables:
+	variables+=VARIABLE (',' variables+=VARIABLE)*	
 ;
 
 Commands:
-	(command=Command ';' commands=Commands) | (command=Command)
+	commands+=Command (';' commands+=Command)*
 ;
 
 Command:
-	'nop' 
+	command='nop' 
+	| variables=Variables command=':=' exrps=Exprs 
+	| command='while' expr=Expr 'do' commands=Commands 'od'
+	| command='for' expr=Expr 'do' commands=Commands 'od' 
+	| command='if' expr=Expr 'then' commands_then=Commands ('else' commands_else=Commands)? 'fi'
+	| command='foreach' expr=Expr 'in' expr_in=Expr 'do' commands=Commands 'od'
 ;
 
-terminal MAJUSCULE:
-	('A'..'Z')
+Exprs:
+	exprs+=Expr (',' exprs+=Expr)*
 ;
 
-terminal MINUSCULE:
-	('a'..'z')
+Expr:
+	=>exprsimple1=Exprsimple (=>expr='=?' exprsimple2=Exprsimple)? | exprand=Exprand
+;
+
+Exprsimple:
+	expr=('nil'|VARIABLE|SYMBOLE) |
+	'(' expr=('cons'|'list') exprs=Lexpr ')' |
+	'(' expr=('hd'|'tl')  expr2=Expr ')'   |
+	'(' expr=SYMBOLE exprs=Lexpr ')' 
+;
+
+Exprand :
+	exprG=Expror ( expr='and'  exprD=Exprand)?
+;
+Expror :
+	exprG=Exprnot ( expr='or'  exprD=Expror)?
+;
+Exprnot :
+	(expr='not' )? expr2=Expreq
+;
+Expreq :
+	 '('expr=Expr')'
+;
+Lexpr :
+	(exprs+=Expr)+
+;
+
+
+	
+terminal VARIABLE:
+	('A'..'Z') (('A'..'Z') | ('a'..'z') | DIGIT)* 
+	(('-' | '+' | '.' | '/' | '_' | '&' | '->') (('A'..'Z') | ('a'..'z') | DIGIT)+)* ('?'|'!')?
+;
+
+
+terminal SYMBOLE:
+	('a'..'z') (('A'..'Z') | ('a'..'z') | DIGIT)* 
+	(('-' | '+' | '.' | '/' | '_' | '&' | '->') (('A'..'Z') | ('a'..'z') | DIGIT)+)* ('?'|'!')?
 ;
 
 terminal DIGIT:

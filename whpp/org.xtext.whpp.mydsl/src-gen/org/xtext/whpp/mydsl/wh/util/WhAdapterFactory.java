@@ -81,11 +81,6 @@ public class WhAdapterFactory extends AdapterFactoryImpl
         return createModelAdapter();
       }
       @Override
-      public Adapter caseProgram(Program object)
-      {
-        return createProgramAdapter();
-      }
-      @Override
       public Adapter caseFunction(Function object)
       {
         return createFunctionAdapter();
@@ -106,9 +101,59 @@ public class WhAdapterFactory extends AdapterFactoryImpl
         return createOutputAdapter();
       }
       @Override
+      public Adapter caseVariables(Variables object)
+      {
+        return createVariablesAdapter();
+      }
+      @Override
       public Adapter caseCommands(Commands object)
       {
         return createCommandsAdapter();
+      }
+      @Override
+      public Adapter caseCommand(Command object)
+      {
+        return createCommandAdapter();
+      }
+      @Override
+      public Adapter caseExprs(Exprs object)
+      {
+        return createExprsAdapter();
+      }
+      @Override
+      public Adapter caseExpr(Expr object)
+      {
+        return createExprAdapter();
+      }
+      @Override
+      public Adapter caseExprsimple(Exprsimple object)
+      {
+        return createExprsimpleAdapter();
+      }
+      @Override
+      public Adapter caseExprand(Exprand object)
+      {
+        return createExprandAdapter();
+      }
+      @Override
+      public Adapter caseExpror(Expror object)
+      {
+        return createExprorAdapter();
+      }
+      @Override
+      public Adapter caseExprnot(Exprnot object)
+      {
+        return createExprnotAdapter();
+      }
+      @Override
+      public Adapter caseExpreq(Expreq object)
+      {
+        return createExpreqAdapter();
+      }
+      @Override
+      public Adapter caseLexpr(Lexpr object)
+      {
+        return createLexprAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -143,21 +188,6 @@ public class WhAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createModelAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Program <em>Program</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.whpp.mydsl.wh.Program
-   * @generated
-   */
-  public Adapter createProgramAdapter()
   {
     return null;
   }
@@ -223,6 +253,21 @@ public class WhAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Variables <em>Variables</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Variables
+   * @generated
+   */
+  public Adapter createVariablesAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Commands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -233,6 +278,141 @@ public class WhAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCommandsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Command <em>Command</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Command
+   * @generated
+   */
+  public Adapter createCommandAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Exprs <em>Exprs</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Exprs
+   * @generated
+   */
+  public Adapter createExprsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Expr <em>Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Expr
+   * @generated
+   */
+  public Adapter createExprAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Exprsimple <em>Exprsimple</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Exprsimple
+   * @generated
+   */
+  public Adapter createExprsimpleAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Exprand <em>Exprand</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Exprand
+   * @generated
+   */
+  public Adapter createExprandAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Expror <em>Expror</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Expror
+   * @generated
+   */
+  public Adapter createExprorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Exprnot <em>Exprnot</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Exprnot
+   * @generated
+   */
+  public Adapter createExprnotAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Expreq <em>Expreq</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Expreq
+   * @generated
+   */
+  public Adapter createExpreqAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.whpp.mydsl.wh.Lexpr <em>Lexpr</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.whpp.mydsl.wh.Lexpr
+   * @generated
+   */
+  public Adapter createLexprAdapter()
   {
     return null;
   }

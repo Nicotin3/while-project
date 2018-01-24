@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.whpp.mydsl.wh.Input;
+import org.xtext.whpp.mydsl.wh.Variables;
 import org.xtext.whpp.mydsl.wh.WhPackage;
 
 /**
@@ -23,8 +24,7 @@ import org.xtext.whpp.mydsl.wh.WhPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.whpp.mydsl.wh.impl.InputImpl#getVariable <em>Variable</em>}</li>
- *   <li>{@link org.xtext.whpp.mydsl.wh.impl.InputImpl#getInput <em>Input</em>}</li>
+ *   <li>{@link org.xtext.whpp.mydsl.wh.impl.InputImpl#getVariables <em>Variables</em>}</li>
  * </ul>
  *
  * @generated
@@ -32,34 +32,14 @@ import org.xtext.whpp.mydsl.wh.WhPackage;
 public class InputImpl extends MinimalEObjectImpl.Container implements Input
 {
   /**
-   * The default value of the '{@link #getVariable() <em>Variable</em>}' attribute.
+   * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVariable()
+   * @see #getVariables()
    * @generated
    * @ordered
    */
-  protected static final String VARIABLE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getVariable() <em>Variable</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVariable()
-   * @generated
-   * @ordered
-   */
-  protected String variable = VARIABLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getInput() <em>Input</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInput()
-   * @generated
-   * @ordered
-   */
-  protected Input input;
+  protected Variables variables;
 
   /**
    * <!-- begin-user-doc -->
@@ -87,9 +67,9 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getVariable()
+  public Variables getVariables()
   {
-    return variable;
+    return variables;
   }
 
   /**
@@ -97,36 +77,13 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVariable(String newVariable)
+  public NotificationChain basicSetVariables(Variables newVariables, NotificationChain msgs)
   {
-    String oldVariable = variable;
-    variable = newVariable;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.INPUT__VARIABLE, oldVariable, variable));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Input getInput()
-  {
-    return input;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetInput(Input newInput, NotificationChain msgs)
-  {
-    Input oldInput = input;
-    input = newInput;
+    Variables oldVariables = variables;
+    variables = newVariables;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhPackage.INPUT__INPUT, oldInput, newInput);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhPackage.INPUT__VARIABLES, oldVariables, newVariables);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -137,20 +94,20 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInput(Input newInput)
+  public void setVariables(Variables newVariables)
   {
-    if (newInput != input)
+    if (newVariables != variables)
     {
       NotificationChain msgs = null;
-      if (input != null)
-        msgs = ((InternalEObject)input).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhPackage.INPUT__INPUT, null, msgs);
-      if (newInput != null)
-        msgs = ((InternalEObject)newInput).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhPackage.INPUT__INPUT, null, msgs);
-      msgs = basicSetInput(newInput, msgs);
+      if (variables != null)
+        msgs = ((InternalEObject)variables).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhPackage.INPUT__VARIABLES, null, msgs);
+      if (newVariables != null)
+        msgs = ((InternalEObject)newVariables).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhPackage.INPUT__VARIABLES, null, msgs);
+      msgs = basicSetVariables(newVariables, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.INPUT__INPUT, newInput, newInput));
+      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.INPUT__VARIABLES, newVariables, newVariables));
   }
 
   /**
@@ -163,8 +120,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
-      case WhPackage.INPUT__INPUT:
-        return basicSetInput(null, msgs);
+      case WhPackage.INPUT__VARIABLES:
+        return basicSetVariables(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -179,10 +136,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
-      case WhPackage.INPUT__VARIABLE:
-        return getVariable();
-      case WhPackage.INPUT__INPUT:
-        return getInput();
+      case WhPackage.INPUT__VARIABLES:
+        return getVariables();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -197,11 +152,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
-      case WhPackage.INPUT__VARIABLE:
-        setVariable((String)newValue);
-        return;
-      case WhPackage.INPUT__INPUT:
-        setInput((Input)newValue);
+      case WhPackage.INPUT__VARIABLES:
+        setVariables((Variables)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -217,11 +169,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
-      case WhPackage.INPUT__VARIABLE:
-        setVariable(VARIABLE_EDEFAULT);
-        return;
-      case WhPackage.INPUT__INPUT:
-        setInput((Input)null);
+      case WhPackage.INPUT__VARIABLES:
+        setVariables((Variables)null);
         return;
     }
     super.eUnset(featureID);
@@ -237,29 +186,10 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
   {
     switch (featureID)
     {
-      case WhPackage.INPUT__VARIABLE:
-        return VARIABLE_EDEFAULT == null ? variable != null : !VARIABLE_EDEFAULT.equals(variable);
-      case WhPackage.INPUT__INPUT:
-        return input != null;
+      case WhPackage.INPUT__VARIABLES:
+        return variables != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (variable: ");
-    result.append(variable);
-    result.append(')');
-    return result.toString();
   }
 
 } //InputImpl

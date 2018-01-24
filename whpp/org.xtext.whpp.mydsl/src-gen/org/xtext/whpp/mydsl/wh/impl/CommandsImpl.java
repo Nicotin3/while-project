@@ -3,15 +3,21 @@
  */
 package org.xtext.whpp.mydsl.wh.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.xtext.whpp.mydsl.wh.Command;
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.WhPackage;
 
@@ -23,7 +29,6 @@ import org.xtext.whpp.mydsl.wh.WhPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.whpp.mydsl.wh.impl.CommandsImpl#getCommand <em>Command</em>}</li>
  *   <li>{@link org.xtext.whpp.mydsl.wh.impl.CommandsImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  *
@@ -32,34 +37,14 @@ import org.xtext.whpp.mydsl.wh.WhPackage;
 public class CommandsImpl extends MinimalEObjectImpl.Container implements Commands
 {
   /**
-   * The default value of the '{@link #getCommand() <em>Command</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCommand()
-   * @generated
-   * @ordered
-   */
-  protected static final String COMMAND_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getCommand() <em>Command</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCommand()
-   * @generated
-   * @ordered
-   */
-  protected String command = COMMAND_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference.
+   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCommands()
    * @generated
    * @ordered
    */
-  protected Commands commands;
+  protected EList<Command> commands;
 
   /**
    * <!-- begin-user-doc -->
@@ -87,70 +72,13 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getCommand()
+  public EList<Command> getCommands()
   {
-    return command;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCommand(String newCommand)
-  {
-    String oldCommand = command;
-    command = newCommand;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.COMMANDS__COMMAND, oldCommand, command));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Commands getCommands()
-  {
+    if (commands == null)
+    {
+      commands = new EObjectContainmentEList<Command>(Command.class, this, WhPackage.COMMANDS__COMMANDS);
+    }
     return commands;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCommands(Commands newCommands, NotificationChain msgs)
-  {
-    Commands oldCommands = commands;
-    commands = newCommands;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhPackage.COMMANDS__COMMANDS, oldCommands, newCommands);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCommands(Commands newCommands)
-  {
-    if (newCommands != commands)
-    {
-      NotificationChain msgs = null;
-      if (commands != null)
-        msgs = ((InternalEObject)commands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhPackage.COMMANDS__COMMANDS, null, msgs);
-      if (newCommands != null)
-        msgs = ((InternalEObject)newCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhPackage.COMMANDS__COMMANDS, null, msgs);
-      msgs = basicSetCommands(newCommands, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.COMMANDS__COMMANDS, newCommands, newCommands));
   }
 
   /**
@@ -164,7 +92,7 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
     switch (featureID)
     {
       case WhPackage.COMMANDS__COMMANDS:
-        return basicSetCommands(null, msgs);
+        return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -179,8 +107,6 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhPackage.COMMANDS__COMMAND:
-        return getCommand();
       case WhPackage.COMMANDS__COMMANDS:
         return getCommands();
     }
@@ -192,16 +118,15 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case WhPackage.COMMANDS__COMMAND:
-        setCommand((String)newValue);
-        return;
       case WhPackage.COMMANDS__COMMANDS:
-        setCommands((Commands)newValue);
+        getCommands().clear();
+        getCommands().addAll((Collection<? extends Command>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -217,11 +142,8 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhPackage.COMMANDS__COMMAND:
-        setCommand(COMMAND_EDEFAULT);
-        return;
       case WhPackage.COMMANDS__COMMANDS:
-        setCommands((Commands)null);
+        getCommands().clear();
         return;
     }
     super.eUnset(featureID);
@@ -237,29 +159,10 @@ public class CommandsImpl extends MinimalEObjectImpl.Container implements Comman
   {
     switch (featureID)
     {
-      case WhPackage.COMMANDS__COMMAND:
-        return COMMAND_EDEFAULT == null ? command != null : !COMMAND_EDEFAULT.equals(command);
       case WhPackage.COMMANDS__COMMANDS:
-        return commands != null;
+        return commands != null && !commands.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (command: ");
-    result.append(command);
-    result.append(')');
-    return result.toString();
   }
 
 } //CommandsImpl

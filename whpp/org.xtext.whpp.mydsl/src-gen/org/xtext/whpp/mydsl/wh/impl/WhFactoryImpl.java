@@ -66,12 +66,21 @@ public class WhFactoryImpl extends EFactoryImpl implements WhFactory
     switch (eClass.getClassifierID())
     {
       case WhPackage.MODEL: return createModel();
-      case WhPackage.PROGRAM: return createProgram();
       case WhPackage.FUNCTION: return createFunction();
       case WhPackage.DEFINITION: return createDefinition();
       case WhPackage.INPUT: return createInput();
       case WhPackage.OUTPUT: return createOutput();
+      case WhPackage.VARIABLES: return createVariables();
       case WhPackage.COMMANDS: return createCommands();
+      case WhPackage.COMMAND: return createCommand();
+      case WhPackage.EXPRS: return createExprs();
+      case WhPackage.EXPR: return createExpr();
+      case WhPackage.EXPRSIMPLE: return createExprsimple();
+      case WhPackage.EXPRAND: return createExprand();
+      case WhPackage.EXPROR: return createExpror();
+      case WhPackage.EXPRNOT: return createExprnot();
+      case WhPackage.EXPREQ: return createExpreq();
+      case WhPackage.LEXPR: return createLexpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -86,17 +95,6 @@ public class WhFactoryImpl extends EFactoryImpl implements WhFactory
   {
     ModelImpl model = new ModelImpl();
     return model;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Program createProgram()
-  {
-    ProgramImpl program = new ProgramImpl();
-    return program;
   }
 
   /**
@@ -148,10 +146,120 @@ public class WhFactoryImpl extends EFactoryImpl implements WhFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Variables createVariables()
+  {
+    VariablesImpl variables = new VariablesImpl();
+    return variables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Commands createCommands()
   {
     CommandsImpl commands = new CommandsImpl();
     return commands;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Command createCommand()
+  {
+    CommandImpl command = new CommandImpl();
+    return command;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Exprs createExprs()
+  {
+    ExprsImpl exprs = new ExprsImpl();
+    return exprs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expr createExpr()
+  {
+    ExprImpl expr = new ExprImpl();
+    return expr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Exprsimple createExprsimple()
+  {
+    ExprsimpleImpl exprsimple = new ExprsimpleImpl();
+    return exprsimple;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Exprand createExprand()
+  {
+    ExprandImpl exprand = new ExprandImpl();
+    return exprand;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expror createExpror()
+  {
+    ExprorImpl expror = new ExprorImpl();
+    return expror;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Exprnot createExprnot()
+  {
+    ExprnotImpl exprnot = new ExprnotImpl();
+    return exprnot;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expreq createExpreq()
+  {
+    ExpreqImpl expreq = new ExpreqImpl();
+    return expreq;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Lexpr createLexpr()
+  {
+    LexprImpl lexpr = new LexprImpl();
+    return lexpr;
   }
 
   /**
