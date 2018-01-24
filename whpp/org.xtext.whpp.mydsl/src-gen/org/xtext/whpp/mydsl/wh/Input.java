@@ -14,7 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.whpp.mydsl.wh.Input#getVariables <em>Variables</em>}</li>
+ *   <li>{@link org.xtext.whpp.mydsl.wh.Input#getVariable <em>Variable</em>}</li>
+ *   <li>{@link org.xtext.whpp.mydsl.wh.Input#getInput <em>Input</em>}</li>
  * </ul>
  *
  * @see org.xtext.whpp.mydsl.wh.WhPackage#getInput()
@@ -24,29 +25,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface Input extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Variables</b></em>' containment reference.
+   * Returns the value of the '<em><b>Variable</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variables</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Variable</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variables</em>' containment reference.
-   * @see #setVariables(Variables)
-   * @see org.xtext.whpp.mydsl.wh.WhPackage#getInput_Variables()
+   * @return the value of the '<em>Variable</em>' attribute.
+   * @see #setVariable(String)
+   * @see org.xtext.whpp.mydsl.wh.WhPackage#getInput_Variable()
+   * @model
+   * @generated
+   */
+  String getVariable();
+
+  /**
+   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Input#getVariable <em>Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Variable</em>' attribute.
+   * @see #getVariable()
+   * @generated
+   */
+  void setVariable(String value);
+
+  /**
+   * Returns the value of the '<em><b>Input</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Input</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Input</em>' containment reference.
+   * @see #setInput(Input)
+   * @see org.xtext.whpp.mydsl.wh.WhPackage#getInput_Input()
    * @model containment="true"
    * @generated
    */
-  Variables getVariables();
+  Input getInput();
 
   /**
-   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Input#getVariables <em>Variables</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Input#getInput <em>Input</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variables</em>' containment reference.
-   * @see #getVariables()
+   * @param value the new value of the '<em>Input</em>' containment reference.
+   * @see #getInput()
    * @generated
    */
-  void setVariables(Variables value);
+  void setInput(Input value);
 
 } // Input

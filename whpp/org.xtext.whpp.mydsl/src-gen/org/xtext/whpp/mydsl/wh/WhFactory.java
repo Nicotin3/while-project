@@ -33,6 +33,15 @@ public interface WhFactory extends EFactory
   Model createModel();
 
   /**
+   * Returns a new object of class '<em>Program</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Program</em>'.
+   * @generated
+   */
+  Program createProgram();
+
+  /**
    * Returns a new object of class '<em>Function</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -69,15 +78,6 @@ public interface WhFactory extends EFactory
   Output createOutput();
 
   /**
-   * Returns a new object of class '<em>Variables</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Variables</em>'.
-   * @generated
-   */
-  Variables createVariables();
-
-  /**
    * Returns a new object of class '<em>Commands</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -85,87 +85,6 @@ public interface WhFactory extends EFactory
    * @generated
    */
   Commands createCommands();
-
-  /**
-   * Returns a new object of class '<em>Command</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Command</em>'.
-   * @generated
-   */
-  Command createCommand();
-
-  /**
-   * Returns a new object of class '<em>Exprs</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exprs</em>'.
-   * @generated
-   */
-  Exprs createExprs();
-
-  /**
-   * Returns a new object of class '<em>Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Expr</em>'.
-   * @generated
-   */
-  Expr createExpr();
-
-  /**
-   * Returns a new object of class '<em>Exprsimple</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exprsimple</em>'.
-   * @generated
-   */
-  Exprsimple createExprsimple();
-
-  /**
-   * Returns a new object of class '<em>Exprand</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exprand</em>'.
-   * @generated
-   */
-  Exprand createExprand();
-
-  /**
-   * Returns a new object of class '<em>Expror</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Expror</em>'.
-   * @generated
-   */
-  Expror createExpror();
-
-  /**
-   * Returns a new object of class '<em>Exprnot</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exprnot</em>'.
-   * @generated
-   */
-  Exprnot createExprnot();
-
-  /**
-   * Returns a new object of class '<em>Expreq</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Expreq</em>'.
-   * @generated
-   */
-  Expreq createExpreq();
-
-  /**
-   * Returns a new object of class '<em>Lexpr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Lexpr</em>'.
-   * @generated
-   */
-  Lexpr createLexpr();
 
   /**
    * Returns the package supported by this factory.

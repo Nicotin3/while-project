@@ -6,7 +6,6 @@ import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
 import org.xtext.whpp.mydsl.wh.Expr;
 import org.xtext.whpp.mydsl.wh.Exprand;
-import org.xtext.whpp.mydsl.wh.Expreq;
 import org.xtext.whpp.mydsl.wh.Exprnot;
 import org.xtext.whpp.mydsl.wh.Expror;
 import org.xtext.whpp.mydsl.wh.Exprsimple;
@@ -26,7 +25,6 @@ import structure_interne.HD;
 import structure_interne.IF;
 import structure_interne.LIST;
 import structure_interne.NOP;
-import structure_interne.NOT;
 import structure_interne.OR;
 import structure_interne.Op;
 import structure_interne.Quadruplet;
@@ -389,82 +387,63 @@ public class Compiler {
 
 	private Pair<Instructions, Integer> compile(Exprand exprand, TableVar table) {
 		Instructions code3a = new Instructions();
-		
+		Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value = newTemp(table);
+
 		if (exprand.getExpr() == "and") {
-			int value = newTemp(table);
-			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Pair<Instructions, Integer> var1 = compile(exprand.getExprG(), table);
 			Pair<Instructions, Integer> var2 = compile(exprand.getExprD(), table);
 			code3a.add_instructions(var1.getKey());
 			code3a.add_instructions(var2.getKey());
 			quad = new Quadruplet<Op,Integer, Integer, Integer>(new AND(), value, var1.getValue(), var2.getValue());
 			code3a.add_instruction(quad);
-			return new Pair<Instructions, Integer>(code3a, value);
 
-		} else {
-			Pair<Instructions, Integer> var1 = compile(exprand.getExprG(), table);
-			code3a.add_instructions(var1.getKey());
-			return new Pair<Instructions, Integer>(code3a, var1.getValue());
 		}
-
+		Pair<Instructions, Integer> var1 = compile(exprand.getExprG(), table);
+		code3a.add_instructions(var1.getKey());
+		// TODO
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)), value, var1.getValue(), null);
+		code3a.add_instruction(quad);
+		return new Pair<Instructions, Integer>(code3a, value);
 	}
 
 	private Pair<Instructions, Integer> compile(Expror expror, TableVar table) {
 		Instructions code3a = new Instructions();
+		Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value = newTemp(table);
+
 		if (expror.getExpr() == "or") {
-			int value = newTemp(table);
-			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Pair<Instructions, Integer> var1 = compile(expror.getExprG(), table);
 			Pair<Instructions, Integer> var2 = compile(expror.getExprD(), table);
 			code3a.add_instructions(var1.getKey());
 			code3a.add_instructions(var2.getKey());
 			quad = new Quadruplet<Op,Integer, Integer, Integer>(new OR(), value, var1.getValue(), var2.getValue());
 			code3a.add_instruction(quad);
-			return new Pair<Instructions, Integer>(code3a, value);
 
-		} else {
-			Pair<Instructions, Integer> var1 = compile(expror.getExprG(), table);
-			code3a.add_instructions(var1.getKey());
-			return new Pair<Instructions, Integer>(code3a, var1.getValue());
 		}
+		Pair<Instructions, Integer> var1 = compile(expror.getExprG(), table);
+		code3a.add_instructions(var1.getKey());
+		// TODO
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new AFFECT(Integer.toString(value)), value, var1.getValue(), null);
+		code3a.add_instruction(quad);
+		return new Pair<Instructions, Integer>(code3a, value);
 	}
 	
 	
 	
 	private Pair<Instructions, Integer> compile(Exprnot exprnot, TableVar table) {
 		Instructions code3a = new Instructions();
-		
-		if (exprnot.getExpr() == "not") {
-			int value = newTemp(table);
-			Quadruplet<Op, Integer, Integer, Integer> quad;
-			Pair<Instructions, Integer> var1 = compile(exprnot.getExpr2(), table);
-			code3a.add_instructions(var1.getKey());
-			quad = new Quadruplet<Op,Integer, Integer, Integer>(new NOT(), value, var1.getValue(), null);
-			code3a.add_instruction(quad);
-			return new Pair<Instructions, Integer>(code3a, value);
+		Quadruplet<Op, Integer, Integer, Integer> quad;
+		int value = newTemp(table);
 
-		} else {
-			Pair<Instructions, Integer> var1 = compile(exprnot.getExpr2(), table);
-			code3a.add_instructions(var1.getKey());
-			return new Pair<Instructions, Integer>(code3a, var1.getValue());
-		}
-	}
-	
-	
-
-	private Pair<Instructions, Integer> compile(Expreq expr, TableVar table) {
-		Instructions code3a = new Instructions();
-		Pair<Instructions, Integer> var1 = compile(expr.getExpr(), table);
+		//TODO
+		Pair<Instructions, Integer> var1 = new Pair<Instructions, Integer>(new Instructions(), value);
 		code3a.add_instructions(var1.getKey());
-		return new Pair<Instructions, Integer>(code3a, var1.getValue());
-		
+		// TODO
+		quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("not"), value, var1.getValue(), null);
+		code3a.add_instruction(quad);
+		return new Pair<Instructions, Integer>(code3a, value);
 	}
-
-	
-	
-	
-	
-	
 	
 	/* ________________________Méthodes utilitaires________________________ */
 

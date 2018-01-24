@@ -46,7 +46,7 @@ Exprs:
 ;
 
 Expr:
-	=>exprsimple1=Exprsimple (=>expr='=?' exprsimple2=Exprsimple)? | exprand=Exprand
+	=>exprsimple1=Exprsimple (expr='=?' exprsimple2=Exprsimple)? | exprand=Exprand
 ;
 
 Exprsimple:

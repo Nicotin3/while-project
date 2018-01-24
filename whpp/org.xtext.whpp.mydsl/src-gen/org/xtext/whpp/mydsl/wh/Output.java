@@ -14,7 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.whpp.mydsl.wh.Output#getVariables <em>Variables</em>}</li>
+ *   <li>{@link org.xtext.whpp.mydsl.wh.Output#getVariable <em>Variable</em>}</li>
+ *   <li>{@link org.xtext.whpp.mydsl.wh.Output#getOutput <em>Output</em>}</li>
  * </ul>
  *
  * @see org.xtext.whpp.mydsl.wh.WhPackage#getOutput()
@@ -24,29 +25,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface Output extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Variables</b></em>' containment reference.
+   * Returns the value of the '<em><b>Variable</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variables</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Variable</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variables</em>' containment reference.
-   * @see #setVariables(Variables)
-   * @see org.xtext.whpp.mydsl.wh.WhPackage#getOutput_Variables()
+   * @return the value of the '<em>Variable</em>' attribute.
+   * @see #setVariable(String)
+   * @see org.xtext.whpp.mydsl.wh.WhPackage#getOutput_Variable()
+   * @model
+   * @generated
+   */
+  String getVariable();
+
+  /**
+   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Output#getVariable <em>Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Variable</em>' attribute.
+   * @see #getVariable()
+   * @generated
+   */
+  void setVariable(String value);
+
+  /**
+   * Returns the value of the '<em><b>Output</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Output</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Output</em>' containment reference.
+   * @see #setOutput(Output)
+   * @see org.xtext.whpp.mydsl.wh.WhPackage#getOutput_Output()
    * @model containment="true"
    * @generated
    */
-  Variables getVariables();
+  Output getOutput();
 
   /**
-   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Output#getVariables <em>Variables</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.whpp.mydsl.wh.Output#getOutput <em>Output</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variables</em>' containment reference.
-   * @see #getVariables()
+   * @param value the new value of the '<em>Output</em>' containment reference.
+   * @see #getOutput()
    * @generated
    */
-  void setVariables(Variables value);
+  void setOutput(Output value);
 
 } // Output

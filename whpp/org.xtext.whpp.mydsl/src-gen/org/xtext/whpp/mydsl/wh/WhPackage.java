@@ -68,13 +68,13 @@ public interface WhPackage extends EPackage
   int MODEL = 0;
 
   /**
-   * The feature id for the '<em><b>Functions</b></em>' containment reference list.
+   * The feature id for the '<em><b>Program</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__FUNCTIONS = 0;
+  int MODEL__PROGRAM = 0;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -86,6 +86,43 @@ public interface WhPackage extends EPackage
   int MODEL_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ProgramImpl <em>Program</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.whpp.mydsl.wh.impl.ProgramImpl
+   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getProgram()
+   * @generated
+   */
+  int PROGRAM = 1;
+
+  /**
+   * The feature id for the '<em><b>Function</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROGRAM__FUNCTION = 0;
+
+  /**
+   * The feature id for the '<em><b>Program</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROGRAM__PROGRAM = 1;
+
+  /**
+   * The number of structural features of the '<em>Program</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROGRAM_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.FunctionImpl <em>Function</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -93,7 +130,7 @@ public interface WhPackage extends EPackage
    * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getFunction()
    * @generated
    */
-  int FUNCTION = 1;
+  int FUNCTION = 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -130,7 +167,7 @@ public interface WhPackage extends EPackage
    * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getDefinition()
    * @generated
    */
-  int DEFINITION = 2;
+  int DEFINITION = 3;
 
   /**
    * The feature id for the '<em><b>Input</b></em>' containment reference.
@@ -176,16 +213,25 @@ public interface WhPackage extends EPackage
    * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getInput()
    * @generated
    */
-  int INPUT = 3;
+  int INPUT = 4;
 
   /**
-   * The feature id for the '<em><b>Variables</b></em>' containment reference.
+   * The feature id for the '<em><b>Variable</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INPUT__VARIABLES = 0;
+  int INPUT__VARIABLE = 0;
+
+  /**
+   * The feature id for the '<em><b>Input</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INPUT__INPUT = 1;
 
   /**
    * The number of structural features of the '<em>Input</em>' class.
@@ -194,7 +240,7 @@ public interface WhPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT_FEATURE_COUNT = 1;
+  int INPUT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.OutputImpl <em>Output</em>}' class.
@@ -204,16 +250,25 @@ public interface WhPackage extends EPackage
    * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getOutput()
    * @generated
    */
-  int OUTPUT = 4;
+  int OUTPUT = 5;
 
   /**
-   * The feature id for the '<em><b>Variables</b></em>' containment reference.
+   * The feature id for the '<em><b>Variable</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OUTPUT__VARIABLES = 0;
+  int OUTPUT__VARIABLE = 0;
+
+  /**
+   * The feature id for the '<em><b>Output</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OUTPUT__OUTPUT = 1;
 
   /**
    * The number of structural features of the '<em>Output</em>' class.
@@ -222,35 +277,7 @@ public interface WhPackage extends EPackage
    * @generated
    * @ordered
    */
-  int OUTPUT_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.VariablesImpl <em>Variables</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.VariablesImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getVariables()
-   * @generated
-   */
-  int VARIABLES = 5;
-
-  /**
-   * The feature id for the '<em><b>Variables</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLES__VARIABLES = 0;
-
-  /**
-   * The number of structural features of the '<em>Variables</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLES_FEATURE_COUNT = 1;
+  int OUTPUT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.CommandsImpl <em>Commands</em>}' class.
@@ -263,68 +290,13 @@ public interface WhPackage extends EPackage
   int COMMANDS = 6;
 
   /**
-   * The feature id for the '<em><b>Commands</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMANDS__COMMANDS = 0;
-
-  /**
-   * The number of structural features of the '<em>Commands</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMANDS_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.CommandImpl <em>Command</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.CommandImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getCommand()
-   * @generated
-   */
-  int COMMAND = 7;
-
-  /**
    * The feature id for the '<em><b>Command</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMMAND__COMMAND = 0;
-
-  /**
-   * The feature id for the '<em><b>Variables</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMAND__VARIABLES = 1;
-
-  /**
-   * The feature id for the '<em><b>Exrps</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMAND__EXRPS = 2;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMAND__EXPR = 3;
+  int COMMANDS__COMMAND = 0;
 
   /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference.
@@ -333,357 +305,16 @@ public interface WhPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMMAND__COMMANDS = 4;
+  int COMMANDS__COMMANDS = 1;
 
   /**
-   * The feature id for the '<em><b>Commands then</b></em>' containment reference.
+   * The number of structural features of the '<em>Commands</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMMAND__COMMANDS_THEN = 5;
-
-  /**
-   * The feature id for the '<em><b>Commands else</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMAND__COMMANDS_ELSE = 6;
-
-  /**
-   * The feature id for the '<em><b>Expr in</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMAND__EXPR_IN = 7;
-
-  /**
-   * The number of structural features of the '<em>Command</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMMAND_FEATURE_COUNT = 8;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprsImpl <em>Exprs</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExprsImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprs()
-   * @generated
-   */
-  int EXPRS = 8;
-
-  /**
-   * The feature id for the '<em><b>Exprs</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRS__EXPRS = 0;
-
-  /**
-   * The number of structural features of the '<em>Exprs</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRS_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprImpl <em>Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExprImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExpr()
-   * @generated
-   */
-  int EXPR = 9;
-
-  /**
-   * The feature id for the '<em><b>Exprsimple1</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__EXPRSIMPLE1 = 0;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__EXPR = 1;
-
-  /**
-   * The feature id for the '<em><b>Exprsimple2</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__EXPRSIMPLE2 = 2;
-
-  /**
-   * The feature id for the '<em><b>Exprand</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__EXPRAND = 3;
-
-  /**
-   * The number of structural features of the '<em>Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR_FEATURE_COUNT = 4;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprsimpleImpl <em>Exprsimple</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExprsimpleImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprsimple()
-   * @generated
-   */
-  int EXPRSIMPLE = 10;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRSIMPLE__EXPR = 0;
-
-  /**
-   * The feature id for the '<em><b>Exprs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRSIMPLE__EXPRS = 1;
-
-  /**
-   * The feature id for the '<em><b>Expr2</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRSIMPLE__EXPR2 = 2;
-
-  /**
-   * The number of structural features of the '<em>Exprsimple</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRSIMPLE_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprandImpl <em>Exprand</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExprandImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprand()
-   * @generated
-   */
-  int EXPRAND = 11;
-
-  /**
-   * The feature id for the '<em><b>Expr G</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRAND__EXPR_G = 0;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRAND__EXPR = 1;
-
-  /**
-   * The feature id for the '<em><b>Expr D</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRAND__EXPR_D = 2;
-
-  /**
-   * The number of structural features of the '<em>Exprand</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRAND_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprorImpl <em>Expror</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExprorImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExpror()
-   * @generated
-   */
-  int EXPROR = 12;
-
-  /**
-   * The feature id for the '<em><b>Expr G</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPROR__EXPR_G = 0;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPROR__EXPR = 1;
-
-  /**
-   * The feature id for the '<em><b>Expr D</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPROR__EXPR_D = 2;
-
-  /**
-   * The number of structural features of the '<em>Expror</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPROR_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprnotImpl <em>Exprnot</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExprnotImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprnot()
-   * @generated
-   */
-  int EXPRNOT = 13;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRNOT__EXPR = 0;
-
-  /**
-   * The feature id for the '<em><b>Expr2</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRNOT__EXPR2 = 1;
-
-  /**
-   * The number of structural features of the '<em>Exprnot</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRNOT_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.ExpreqImpl <em>Expreq</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.ExpreqImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExpreq()
-   * @generated
-   */
-  int EXPREQ = 14;
-
-  /**
-   * The feature id for the '<em><b>Expr</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPREQ__EXPR = 0;
-
-  /**
-   * The number of structural features of the '<em>Expreq</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPREQ_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.xtext.whpp.mydsl.wh.impl.LexprImpl <em>Lexpr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.whpp.mydsl.wh.impl.LexprImpl
-   * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getLexpr()
-   * @generated
-   */
-  int LEXPR = 15;
-
-  /**
-   * The feature id for the '<em><b>Exprs</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEXPR__EXPRS = 0;
-
-  /**
-   * The number of structural features of the '<em>Lexpr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEXPR_FEATURE_COUNT = 1;
+  int COMMANDS_FEATURE_COUNT = 2;
 
 
   /**
@@ -697,15 +328,47 @@ public interface WhPackage extends EPackage
   EClass getModel();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.whpp.mydsl.wh.Model#getFunctions <em>Functions</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.xtext.whpp.mydsl.wh.Model#getProgram <em>Program</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Functions</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Model#getFunctions()
+   * @return the meta object for the containment reference list '<em>Program</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Model#getProgram()
    * @see #getModel()
    * @generated
    */
-  EReference getModel_Functions();
+  EReference getModel_Program();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Program <em>Program</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Program</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Program
+   * @generated
+   */
+  EClass getProgram();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Program#getFunction <em>Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Function</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Program#getFunction()
+   * @see #getProgram()
+   * @generated
+   */
+  EReference getProgram_Function();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Program#getProgram <em>Program</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Program</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Program#getProgram()
+   * @see #getProgram()
+   * @generated
+   */
+  EReference getProgram_Program();
 
   /**
    * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Function <em>Function</em>}'.
@@ -793,15 +456,26 @@ public interface WhPackage extends EPackage
   EClass getInput();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Input#getVariables <em>Variables</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Input#getVariable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variables</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Input#getVariables()
+   * @return the meta object for the attribute '<em>Variable</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Input#getVariable()
    * @see #getInput()
    * @generated
    */
-  EReference getInput_Variables();
+  EAttribute getInput_Variable();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Input#getInput <em>Input</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Input</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Input#getInput()
+   * @see #getInput()
+   * @generated
+   */
+  EReference getInput_Input();
 
   /**
    * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Output <em>Output</em>}'.
@@ -814,36 +488,26 @@ public interface WhPackage extends EPackage
   EClass getOutput();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Output#getVariables <em>Variables</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Output#getVariable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variables</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Output#getVariables()
+   * @return the meta object for the attribute '<em>Variable</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Output#getVariable()
    * @see #getOutput()
    * @generated
    */
-  EReference getOutput_Variables();
+  EAttribute getOutput_Variable();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Variables <em>Variables</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Output#getOutput <em>Output</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variables</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Variables
+   * @return the meta object for the containment reference '<em>Output</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Output#getOutput()
+   * @see #getOutput()
    * @generated
    */
-  EClass getVariables();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.xtext.whpp.mydsl.wh.Variables#getVariables <em>Variables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Variables</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Variables#getVariables()
-   * @see #getVariables()
-   * @generated
-   */
-  EAttribute getVariables_Variables();
+  EReference getOutput_Output();
 
   /**
    * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Commands <em>Commands</em>}'.
@@ -856,391 +520,26 @@ public interface WhPackage extends EPackage
   EClass getCommands();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.whpp.mydsl.wh.Commands#getCommands <em>Commands</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Commands#getCommand <em>Command</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Commands</em>'.
+   * @return the meta object for the attribute '<em>Command</em>'.
+   * @see org.xtext.whpp.mydsl.wh.Commands#getCommand()
+   * @see #getCommands()
+   * @generated
+   */
+  EAttribute getCommands_Command();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Commands#getCommands <em>Commands</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Commands</em>'.
    * @see org.xtext.whpp.mydsl.wh.Commands#getCommands()
    * @see #getCommands()
    * @generated
    */
   EReference getCommands_Commands();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Command <em>Command</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Command</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command
-   * @generated
-   */
-  EClass getCommand();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Command#getCommand <em>Command</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Command</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getCommand()
-   * @see #getCommand()
-   * @generated
-   */
-  EAttribute getCommand_Command();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getVariables <em>Variables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variables</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getVariables()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Variables();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getExrps <em>Exrps</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exrps</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getExrps()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Exrps();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getExpr()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getCommands <em>Commands</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Commands</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getCommands()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Commands();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getCommands_then <em>Commands then</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Commands then</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getCommands_then()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Commands_then();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getCommands_else <em>Commands else</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Commands else</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getCommands_else()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Commands_else();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Command#getExpr_in <em>Expr in</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr in</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Command#getExpr_in()
-   * @see #getCommand()
-   * @generated
-   */
-  EReference getCommand_Expr_in();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Exprs <em>Exprs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Exprs</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprs
-   * @generated
-   */
-  EClass getExprs();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.whpp.mydsl.wh.Exprs#getExprs <em>Exprs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Exprs</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprs#getExprs()
-   * @see #getExprs()
-   * @generated
-   */
-  EReference getExprs_Exprs();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Expr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expr
-   * @generated
-   */
-  EClass getExpr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Expr#getExprsimple1 <em>Exprsimple1</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exprsimple1</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expr#getExprsimple1()
-   * @see #getExpr()
-   * @generated
-   */
-  EReference getExpr_Exprsimple1();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Expr#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expr#getExpr()
-   * @see #getExpr()
-   * @generated
-   */
-  EAttribute getExpr_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Expr#getExprsimple2 <em>Exprsimple2</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exprsimple2</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expr#getExprsimple2()
-   * @see #getExpr()
-   * @generated
-   */
-  EReference getExpr_Exprsimple2();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Expr#getExprand <em>Exprand</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exprand</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expr#getExprand()
-   * @see #getExpr()
-   * @generated
-   */
-  EReference getExpr_Exprand();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Exprsimple <em>Exprsimple</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Exprsimple</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprsimple
-   * @generated
-   */
-  EClass getExprsimple();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Exprsimple#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprsimple#getExpr()
-   * @see #getExprsimple()
-   * @generated
-   */
-  EAttribute getExprsimple_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Exprsimple#getExprs <em>Exprs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exprs</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprsimple#getExprs()
-   * @see #getExprsimple()
-   * @generated
-   */
-  EReference getExprsimple_Exprs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Exprsimple#getExpr2 <em>Expr2</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr2</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprsimple#getExpr2()
-   * @see #getExprsimple()
-   * @generated
-   */
-  EReference getExprsimple_Expr2();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Exprand <em>Exprand</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Exprand</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprand
-   * @generated
-   */
-  EClass getExprand();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Exprand#getExprG <em>Expr G</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr G</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprand#getExprG()
-   * @see #getExprand()
-   * @generated
-   */
-  EReference getExprand_ExprG();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Exprand#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprand#getExpr()
-   * @see #getExprand()
-   * @generated
-   */
-  EAttribute getExprand_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Exprand#getExprD <em>Expr D</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr D</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprand#getExprD()
-   * @see #getExprand()
-   * @generated
-   */
-  EReference getExprand_ExprD();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Expror <em>Expror</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expror</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expror
-   * @generated
-   */
-  EClass getExpror();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Expror#getExprG <em>Expr G</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr G</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expror#getExprG()
-   * @see #getExpror()
-   * @generated
-   */
-  EReference getExpror_ExprG();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Expror#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expror#getExpr()
-   * @see #getExpror()
-   * @generated
-   */
-  EAttribute getExpror_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Expror#getExprD <em>Expr D</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr D</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expror#getExprD()
-   * @see #getExpror()
-   * @generated
-   */
-  EReference getExpror_ExprD();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Exprnot <em>Exprnot</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Exprnot</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprnot
-   * @generated
-   */
-  EClass getExprnot();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.whpp.mydsl.wh.Exprnot#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprnot#getExpr()
-   * @see #getExprnot()
-   * @generated
-   */
-  EAttribute getExprnot_Expr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Exprnot#getExpr2 <em>Expr2</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr2</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Exprnot#getExpr2()
-   * @see #getExprnot()
-   * @generated
-   */
-  EReference getExprnot_Expr2();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Expreq <em>Expreq</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expreq</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expreq
-   * @generated
-   */
-  EClass getExpreq();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.whpp.mydsl.wh.Expreq#getExpr <em>Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Expreq#getExpr()
-   * @see #getExpreq()
-   * @generated
-   */
-  EReference getExpreq_Expr();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.whpp.mydsl.wh.Lexpr <em>Lexpr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Lexpr</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Lexpr
-   * @generated
-   */
-  EClass getLexpr();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.whpp.mydsl.wh.Lexpr#getExprs <em>Exprs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Exprs</em>'.
-   * @see org.xtext.whpp.mydsl.wh.Lexpr#getExprs()
-   * @see #getLexpr()
-   * @generated
-   */
-  EReference getLexpr_Exprs();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1276,12 +575,38 @@ public interface WhPackage extends EPackage
     EClass MODEL = eINSTANCE.getModel();
 
     /**
-     * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Program</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MODEL__FUNCTIONS = eINSTANCE.getModel_Functions();
+    EReference MODEL__PROGRAM = eINSTANCE.getModel_Program();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ProgramImpl <em>Program</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.whpp.mydsl.wh.impl.ProgramImpl
+     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getProgram()
+     * @generated
+     */
+    EClass PROGRAM = eINSTANCE.getProgram();
+
+    /**
+     * The meta object literal for the '<em><b>Function</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROGRAM__FUNCTION = eINSTANCE.getProgram_Function();
+
+    /**
+     * The meta object literal for the '<em><b>Program</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROGRAM__PROGRAM = eINSTANCE.getProgram_Program();
 
     /**
      * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.FunctionImpl <em>Function</em>}' class.
@@ -1354,12 +679,20 @@ public interface WhPackage extends EPackage
     EClass INPUT = eINSTANCE.getInput();
 
     /**
-     * The meta object literal for the '<em><b>Variables</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Variable</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference INPUT__VARIABLES = eINSTANCE.getInput_Variables();
+    EAttribute INPUT__VARIABLE = eINSTANCE.getInput_Variable();
+
+    /**
+     * The meta object literal for the '<em><b>Input</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INPUT__INPUT = eINSTANCE.getInput_Input();
 
     /**
      * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.OutputImpl <em>Output</em>}' class.
@@ -1372,30 +705,20 @@ public interface WhPackage extends EPackage
     EClass OUTPUT = eINSTANCE.getOutput();
 
     /**
-     * The meta object literal for the '<em><b>Variables</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Variable</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference OUTPUT__VARIABLES = eINSTANCE.getOutput_Variables();
+    EAttribute OUTPUT__VARIABLE = eINSTANCE.getOutput_Variable();
 
     /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.VariablesImpl <em>Variables</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.VariablesImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getVariables()
-     * @generated
-     */
-    EClass VARIABLES = eINSTANCE.getVariables();
-
-    /**
-     * The meta object literal for the '<em><b>Variables</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Output</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VARIABLES__VARIABLES = eINSTANCE.getVariables_Variables();
+    EReference OUTPUT__OUTPUT = eINSTANCE.getOutput_Output();
 
     /**
      * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.CommandsImpl <em>Commands</em>}' class.
@@ -1408,54 +731,12 @@ public interface WhPackage extends EPackage
     EClass COMMANDS = eINSTANCE.getCommands();
 
     /**
-     * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMANDS__COMMANDS = eINSTANCE.getCommands_Commands();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.CommandImpl <em>Command</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.CommandImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getCommand()
-     * @generated
-     */
-    EClass COMMAND = eINSTANCE.getCommand();
-
-    /**
      * The meta object literal for the '<em><b>Command</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute COMMAND__COMMAND = eINSTANCE.getCommand_Command();
-
-    /**
-     * The meta object literal for the '<em><b>Variables</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMAND__VARIABLES = eINSTANCE.getCommand_Variables();
-
-    /**
-     * The meta object literal for the '<em><b>Exrps</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMAND__EXRPS = eINSTANCE.getCommand_Exrps();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMAND__EXPR = eINSTANCE.getCommand_Expr();
+    EAttribute COMMANDS__COMMAND = eINSTANCE.getCommands_Command();
 
     /**
      * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
@@ -1463,255 +744,7 @@ public interface WhPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference COMMAND__COMMANDS = eINSTANCE.getCommand_Commands();
-
-    /**
-     * The meta object literal for the '<em><b>Commands then</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMAND__COMMANDS_THEN = eINSTANCE.getCommand_Commands_then();
-
-    /**
-     * The meta object literal for the '<em><b>Commands else</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMAND__COMMANDS_ELSE = eINSTANCE.getCommand_Commands_else();
-
-    /**
-     * The meta object literal for the '<em><b>Expr in</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMMAND__EXPR_IN = eINSTANCE.getCommand_Expr_in();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprsImpl <em>Exprs</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExprsImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprs()
-     * @generated
-     */
-    EClass EXPRS = eINSTANCE.getExprs();
-
-    /**
-     * The meta object literal for the '<em><b>Exprs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRS__EXPRS = eINSTANCE.getExprs_Exprs();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprImpl <em>Expr</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExprImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExpr()
-     * @generated
-     */
-    EClass EXPR = eINSTANCE.getExpr();
-
-    /**
-     * The meta object literal for the '<em><b>Exprsimple1</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPR__EXPRSIMPLE1 = eINSTANCE.getExpr_Exprsimple1();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPR__EXPR = eINSTANCE.getExpr_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Exprsimple2</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPR__EXPRSIMPLE2 = eINSTANCE.getExpr_Exprsimple2();
-
-    /**
-     * The meta object literal for the '<em><b>Exprand</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPR__EXPRAND = eINSTANCE.getExpr_Exprand();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprsimpleImpl <em>Exprsimple</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExprsimpleImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprsimple()
-     * @generated
-     */
-    EClass EXPRSIMPLE = eINSTANCE.getExprsimple();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPRSIMPLE__EXPR = eINSTANCE.getExprsimple_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Exprs</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRSIMPLE__EXPRS = eINSTANCE.getExprsimple_Exprs();
-
-    /**
-     * The meta object literal for the '<em><b>Expr2</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRSIMPLE__EXPR2 = eINSTANCE.getExprsimple_Expr2();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprandImpl <em>Exprand</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExprandImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprand()
-     * @generated
-     */
-    EClass EXPRAND = eINSTANCE.getExprand();
-
-    /**
-     * The meta object literal for the '<em><b>Expr G</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRAND__EXPR_G = eINSTANCE.getExprand_ExprG();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPRAND__EXPR = eINSTANCE.getExprand_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Expr D</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRAND__EXPR_D = eINSTANCE.getExprand_ExprD();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprorImpl <em>Expror</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExprorImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExpror()
-     * @generated
-     */
-    EClass EXPROR = eINSTANCE.getExpror();
-
-    /**
-     * The meta object literal for the '<em><b>Expr G</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPROR__EXPR_G = eINSTANCE.getExpror_ExprG();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPROR__EXPR = eINSTANCE.getExpror_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Expr D</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPROR__EXPR_D = eINSTANCE.getExpror_ExprD();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExprnotImpl <em>Exprnot</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExprnotImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExprnot()
-     * @generated
-     */
-    EClass EXPRNOT = eINSTANCE.getExprnot();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPRNOT__EXPR = eINSTANCE.getExprnot_Expr();
-
-    /**
-     * The meta object literal for the '<em><b>Expr2</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRNOT__EXPR2 = eINSTANCE.getExprnot_Expr2();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.ExpreqImpl <em>Expreq</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.ExpreqImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getExpreq()
-     * @generated
-     */
-    EClass EXPREQ = eINSTANCE.getExpreq();
-
-    /**
-     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPREQ__EXPR = eINSTANCE.getExpreq_Expr();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.whpp.mydsl.wh.impl.LexprImpl <em>Lexpr</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.whpp.mydsl.wh.impl.LexprImpl
-     * @see org.xtext.whpp.mydsl.wh.impl.WhPackageImpl#getLexpr()
-     * @generated
-     */
-    EClass LEXPR = eINSTANCE.getLexpr();
-
-    /**
-     * The meta object literal for the '<em><b>Exprs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LEXPR__EXPRS = eINSTANCE.getLexpr_Exprs();
+    EReference COMMANDS__COMMANDS = eINSTANCE.getCommands_Commands();
 
   }
 

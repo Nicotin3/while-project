@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtext.whpp.mydsl.wh.Function;
 import org.xtext.whpp.mydsl.wh.Model;
+import org.xtext.whpp.mydsl.wh.Program;
 import org.xtext.whpp.mydsl.wh.WhPackage;
 
 /**
@@ -29,7 +29,7 @@ import org.xtext.whpp.mydsl.wh.WhPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.whpp.mydsl.wh.impl.ModelImpl#getFunctions <em>Functions</em>}</li>
+ *   <li>{@link org.xtext.whpp.mydsl.wh.impl.ModelImpl#getProgram <em>Program</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,14 +37,14 @@ import org.xtext.whpp.mydsl.wh.WhPackage;
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model
 {
   /**
-   * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
+   * The cached value of the '{@link #getProgram() <em>Program</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFunctions()
+   * @see #getProgram()
    * @generated
    * @ordered
    */
-  protected EList<Function> functions;
+  protected EList<Program> program;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,13 +72,13 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Function> getFunctions()
+  public EList<Program> getProgram()
   {
-    if (functions == null)
+    if (program == null)
     {
-      functions = new EObjectContainmentEList<Function>(Function.class, this, WhPackage.MODEL__FUNCTIONS);
+      program = new EObjectContainmentEList<Program>(Program.class, this, WhPackage.MODEL__PROGRAM);
     }
-    return functions;
+    return program;
   }
 
   /**
@@ -91,8 +91,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case WhPackage.MODEL__FUNCTIONS:
-        return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
+      case WhPackage.MODEL__PROGRAM:
+        return ((InternalEList<?>)getProgram()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -107,8 +107,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case WhPackage.MODEL__FUNCTIONS:
-        return getFunctions();
+      case WhPackage.MODEL__PROGRAM:
+        return getProgram();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -124,9 +124,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case WhPackage.MODEL__FUNCTIONS:
-        getFunctions().clear();
-        getFunctions().addAll((Collection<? extends Function>)newValue);
+      case WhPackage.MODEL__PROGRAM:
+        getProgram().clear();
+        getProgram().addAll((Collection<? extends Program>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,8 +142,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case WhPackage.MODEL__FUNCTIONS:
-        getFunctions().clear();
+      case WhPackage.MODEL__PROGRAM:
+        getProgram().clear();
         return;
     }
     super.eUnset(featureID);
@@ -159,8 +159,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case WhPackage.MODEL__FUNCTIONS:
-        return functions != null && !functions.isEmpty();
+      case WhPackage.MODEL__PROGRAM:
+        return program != null && !program.isEmpty();
     }
     return super.eIsSet(featureID);
   }

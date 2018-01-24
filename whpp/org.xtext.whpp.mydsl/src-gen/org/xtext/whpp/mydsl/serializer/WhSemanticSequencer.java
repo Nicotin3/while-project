@@ -15,22 +15,13 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.xtext.whpp.mydsl.services.WhGrammarAccess;
-import org.xtext.whpp.mydsl.wh.Command;
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
-import org.xtext.whpp.mydsl.wh.Expr;
-import org.xtext.whpp.mydsl.wh.Exprand;
-import org.xtext.whpp.mydsl.wh.Expreq;
-import org.xtext.whpp.mydsl.wh.Exprnot;
-import org.xtext.whpp.mydsl.wh.Expror;
-import org.xtext.whpp.mydsl.wh.Exprs;
-import org.xtext.whpp.mydsl.wh.Exprsimple;
 import org.xtext.whpp.mydsl.wh.Function;
 import org.xtext.whpp.mydsl.wh.Input;
-import org.xtext.whpp.mydsl.wh.Lexpr;
 import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
-import org.xtext.whpp.mydsl.wh.Variables;
+import org.xtext.whpp.mydsl.wh.Program;
 import org.xtext.whpp.mydsl.wh.WhPackage;
 
 @SuppressWarnings("all")
@@ -47,35 +38,11 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == WhPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-			case WhPackage.COMMAND:
-				sequence_Command(context, (Command) semanticObject); 
-				return; 
 			case WhPackage.COMMANDS:
 				sequence_Commands(context, (Commands) semanticObject); 
 				return; 
 			case WhPackage.DEFINITION:
 				sequence_Definition(context, (Definition) semanticObject); 
-				return; 
-			case WhPackage.EXPR:
-				sequence_Expr(context, (Expr) semanticObject); 
-				return; 
-			case WhPackage.EXPRAND:
-				sequence_Exprand(context, (Exprand) semanticObject); 
-				return; 
-			case WhPackage.EXPREQ:
-				sequence_Expreq(context, (Expreq) semanticObject); 
-				return; 
-			case WhPackage.EXPRNOT:
-				sequence_Exprnot(context, (Exprnot) semanticObject); 
-				return; 
-			case WhPackage.EXPROR:
-				sequence_Expror(context, (Expror) semanticObject); 
-				return; 
-			case WhPackage.EXPRS:
-				sequence_Exprs(context, (Exprs) semanticObject); 
-				return; 
-			case WhPackage.EXPRSIMPLE:
-				sequence_Exprsimple(context, (Exprsimple) semanticObject); 
 				return; 
 			case WhPackage.FUNCTION:
 				sequence_Function(context, (Function) semanticObject); 
@@ -83,17 +50,14 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case WhPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
 				return; 
-			case WhPackage.LEXPR:
-				sequence_Lexpr(context, (Lexpr) semanticObject); 
-				return; 
 			case WhPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
 				return; 
 			case WhPackage.OUTPUT:
 				sequence_Output(context, (Output) semanticObject); 
 				return; 
-			case WhPackage.VARIABLES:
-				sequence_Variables(context, (Variables) semanticObject); 
+			case WhPackage.PROGRAM:
+				sequence_Program(context, (Program) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -102,29 +66,10 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Command returns Command
-	 *
-	 * Constraint:
-	 *     (
-	 *         command='nop' | 
-	 *         (variables=Variables command=':=' exrps=Exprs) | 
-	 *         (command='while' expr=Expr commands=Commands) | 
-	 *         (command='for' expr=Expr commands=Commands) | 
-	 *         (command='if' expr=Expr commands_then=Commands commands_else=Commands?) | 
-	 *         (command='foreach' expr=Expr expr_in=Expr commands=Commands)
-	 *     )
-	 */
-	protected void sequence_Command(ISerializationContext context, Command semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Commands returns Commands
 	 *
 	 * Constraint:
-	 *     (commands+=Command commands+=Command*)
+	 *     ((command=Command commands=Commands) | command=Command)
 	 */
 	protected void sequence_Commands(ISerializationContext context, Commands semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -157,107 +102,10 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Expr returns Expr
-	 *
-	 * Constraint:
-	 *     ((exprsimple1=Exprsimple (expr='=?' exprsimple2=Exprsimple)?) | exprand=Exprand)
-	 */
-	protected void sequence_Expr(ISerializationContext context, Expr semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Exprand returns Exprand
-	 *
-	 * Constraint:
-	 *     (exprG=Expror (expr='and' exprD=Exprand)?)
-	 */
-	protected void sequence_Exprand(ISerializationContext context, Exprand semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Expreq returns Expreq
-	 *
-	 * Constraint:
-	 *     expr=Expr
-	 */
-	protected void sequence_Expreq(ISerializationContext context, Expreq semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.EXPREQ__EXPR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.EXPREQ__EXPR));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getExpreqAccess().getExprExprParserRuleCall_1_0(), semanticObject.getExpr());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Exprnot returns Exprnot
-	 *
-	 * Constraint:
-	 *     (expr='not'? expr2=Expreq)
-	 */
-	protected void sequence_Exprnot(ISerializationContext context, Exprnot semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Expror returns Expror
-	 *
-	 * Constraint:
-	 *     (exprG=Exprnot (expr='or' exprD=Expror)?)
-	 */
-	protected void sequence_Expror(ISerializationContext context, Expror semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Exprs returns Exprs
-	 *
-	 * Constraint:
-	 *     (exprs+=Expr exprs+=Expr*)
-	 */
-	protected void sequence_Exprs(ISerializationContext context, Exprs semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Exprsimple returns Exprsimple
-	 *
-	 * Constraint:
-	 *     (
-	 *         expr='nil' | 
-	 *         expr=VARIABLE | 
-	 *         expr=SYMBOLE | 
-	 *         ((expr='cons' | expr='list') exprs=Lexpr) | 
-	 *         ((expr='hd' | expr='tl') expr2=Expr) | 
-	 *         (expr=SYMBOLE exprs=Lexpr)
-	 *     )
-	 */
-	protected void sequence_Exprsimple(ISerializationContext context, Exprsimple semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Function returns Function
 	 *
 	 * Constraint:
-	 *     (name=SYMBOLE definition=Definition)
+	 *     (name=ID definition=Definition)
 	 */
 	protected void sequence_Function(ISerializationContext context, Function semanticObject) {
 		if (errorAcceptor != null) {
@@ -267,7 +115,7 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.FUNCTION__DEFINITION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFunctionAccess().getNameSYMBOLETerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getFunctionAccess().getDefinitionDefinitionParserRuleCall_3_0(), semanticObject.getDefinition());
 		feeder.finish();
 	}
@@ -278,27 +126,9 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Input returns Input
 	 *
 	 * Constraint:
-	 *     variables=Variables
+	 *     ((variable=Variable input=Input) | variable=Variable)
 	 */
 	protected void sequence_Input(ISerializationContext context, Input semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.INPUT__VARIABLES) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.INPUT__VARIABLES));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getInputAccess().getVariablesVariablesParserRuleCall_0(), semanticObject.getVariables());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Lexpr returns Lexpr
-	 *
-	 * Constraint:
-	 *     exprs+=Expr+
-	 */
-	protected void sequence_Lexpr(ISerializationContext context, Lexpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -308,7 +138,7 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     functions+=Function+
+	 *     program+=Program
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -320,27 +150,21 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Output returns Output
 	 *
 	 * Constraint:
-	 *     variables=Variables
+	 *     ((variable=Variable output=Output) | variable=Variable)
 	 */
 	protected void sequence_Output(ISerializationContext context, Output semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.OUTPUT__VARIABLES) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.OUTPUT__VARIABLES));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getOutputAccess().getVariablesVariablesParserRuleCall_0(), semanticObject.getVariables());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Variables returns Variables
+	 *     Program returns Program
 	 *
 	 * Constraint:
-	 *     (variables+=VARIABLE variables+=VARIABLE*)
+	 *     (function=Function program=Program?)
 	 */
-	protected void sequence_Variables(ISerializationContext context, Variables semanticObject) {
+	protected void sequence_Program(ISerializationContext context, Program semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
