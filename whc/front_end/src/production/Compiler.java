@@ -376,7 +376,7 @@ public class Compiler {
 				int value = newTemp(table);
 				//Verifier nombre de sorties de la fonction, si pas assez combler avec nil, si trop ignorer
 				for (Expr arg : exprsimple.getExprs().getExprs()) {
-					code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new ARG(), null, compile(arg, table), null);
+					code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new ARG(), null, compile(arg, table).getValue(), null));
 				}
 				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new CALL(tableSymbole.get_function(name).getElement1()), value, null, null));
 				
