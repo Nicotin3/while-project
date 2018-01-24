@@ -1,6 +1,5 @@
 package production;
 
-
 import org.xtext.whpp.mydsl.wh.Command;
 import org.xtext.whpp.mydsl.wh.Commands;
 import org.xtext.whpp.mydsl.wh.Definition;
@@ -15,9 +14,11 @@ import org.xtext.whpp.mydsl.wh.Input;
 import org.xtext.whpp.mydsl.wh.Model;
 import org.xtext.whpp.mydsl.wh.Output;
 import org.xtext.whpp.mydsl.wh.Variables;
+import javafx.util.Pair;
 import structure_interne.AFFECT;
 import structure_interne.AND;
 import structure_interne.BOUCHON;
+import structure_interne.CALL;
 import structure_interne.CONS;
 import structure_interne.EQUAL;
 import structure_interne.FOR;
@@ -38,7 +39,6 @@ import structure_interne.WRITE;
 import table_des_symboles.Instructions;
 import table_des_symboles.Table;
 import table_des_symboles.TableVar;
-import javafx.util.Pair;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -364,15 +364,23 @@ public class Compiler {
 				return new Pair<Instructions, Integer>(code3a, value);
 			}
 			else {
-//				C'est une fonction
-				//TODO 
-				if (tableSymbole.get_function(name).getElement2() != exprsimple.getExprs().getExprs().size()) {
-					System.err.println("Nombre d'arguments incorrects ! Expected : " + tableSymbole.get_function(name).getElement2().toString() + ". Given : " + exprsimple.getExprs().getExprs().size());
+//				 C'est une fonction
+				int numFunc = tableSymbole.get_function(name).getElement1();
+				int argc = exprsimple.getExprs().getExprs().size();
+				// TODO
+				if (tableSymbole.get_function(name).getElement2() != argc) {
+					System.err.println("Nombre d'arguments incorrects ! Expected : "
+							+ tableSymbole.get_function(name).getElement2().toString() + ". Given : "
+							+ exprsimple.getExprs().getExprs().size());
 					return new Pair<Instructions, Integer>(code3a, -1);
 				}
-//				for (Expr exp : exprsimple.getExprs().getExprs()) {
-//					
-//				}
+
+				int value = newTemp(table);
+				for (Expr arg : exprsimple.getExprs().getExprs()) {
+					//Ajout dans code3a des quadruplets <ARG, _, 
+				}
+				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new CALL(numFunc, argc), value, null, null));
+				
 			}
 			
 			
