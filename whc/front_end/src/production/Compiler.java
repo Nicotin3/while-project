@@ -209,10 +209,12 @@ public class Compiler {
 				
 //				Vérification de la taille des listes de variables et d'expression
 				if (com.getExrps().getExprs().size() == 1 || com.getVariables().getVariables().size() == 1) {
+					Pair<Instructions, Integer> var =compile(com.getExrps().getExprs().get(0), table);
 					quad = new Quadruplet<Op, Integer, Integer, Integer>(
 							new AFFECT(com.getVariables().getVariables().get(0)),
 							table.get_variable(com.getVariables().getVariables().get(0)),
-							compile(com.getExrps().getExprs().get(0), table).getValue(), null);
+							var.getValue(), null);
+					code3a.add_instructions(var.getKey());
 					code3a.add_instruction(quad);
 				}
 				else {
@@ -366,6 +368,7 @@ public class Compiler {
 			}
 			else {
 //				 C'est une fonction
+				System.err.println(exprsimple.getExprs());
 				if (tableSymbole.get_function(name).getElement2() != exprsimple.getExprs().getExprs().size()) {
 					System.err.println("Nombre d'arguments incorrects ! Expected : "
 							+ tableSymbole.get_function(name).getElement2().toString() + ". Given : "
@@ -379,11 +382,11 @@ public class Compiler {
 					code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new ARG(), null, compile(arg, table).getValue(), null));
 				}
 				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new CALL(tableSymbole.get_function(name).getElement1()), value, null, null));
-				
+				return new Pair<Instructions, Integer>(code3a, value);
 			}
 			
 			
-			return new Pair<Instructions, Integer>(code3a, -1);
+			
 			
 		} else {
 			Quadruplet<Op, Integer, Integer, Integer> quad = new Quadruplet<Op, Integer, Integer, Integer>(new BOUCHON("Exprsimple"), null, null, null);

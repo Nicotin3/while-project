@@ -11,3 +11,10 @@ read A
   nop
 %
 write A
+
+function testfunc:
+read X
+%
+X:=(test2 nil)
+%
+write X
