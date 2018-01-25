@@ -145,9 +145,18 @@ public class Instructions {
 					s.append(tab).append("else\n");
 					s.append(quad.getElement1().getElse().toLuaCache(indent+1));					
 				}
+								
+				s.append(tab).append("end\n");
+				break;
 				
-				s.append(tab);
-				s.append("end");
+			case "WHILE":
+				s.append(tab).append("while ");
+				s.append((quad.getElement1()).getCondition().toLuaCache(0));
+				
+				s.append(tab).append("do\n");
+				
+				s.append(quad.getElement1().getBoucle().toLuaCache(indent+1));
+				s.append(tab).append("end\n");
 				break;
 				
 			case "FOR":
