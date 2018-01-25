@@ -42,6 +42,7 @@ public class Instructions {
 		return toLuaCache(1, it);
 	}
 	public String toLuaCache(int indent, ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it) {
+		List<Integer> varInit = new ArrayList<Integer>(); // liste des variables declarees dans la fonction
 		StringBuilder s = new StringBuilder();
 		StringBuilder tab = new StringBuilder();
 		for (int i = 0; i < indent; i++) {
@@ -55,6 +56,7 @@ public class Instructions {
 			switch (quad.getElement1().getOpName()) {	
 			
 			case "READ": // cas inutile ici car déjà géré avant, on passe donc
+				varInit.add(quad.getElement2());
 				break;
 				
 			case "WRITE":
@@ -75,6 +77,13 @@ public class Instructions {
 				break;
 				
 			case "AFFECT":
+				int elem2 = quad.getElement2();
+				s.append(tab);
+				if(!varInit.contains(elem2)) {
+					s.append(tab);
+					s.append("local var" + elem2 + "\n");
+					varInit.add(elem2);
+				}
 				s.append(tab);
 				s.append("var");
 				s.append(quad.getElement2());
@@ -85,7 +94,11 @@ public class Instructions {
 				
 			case "SYMB":
 				s.append(tab);
-				s.append("bouchon symbole\n");
+				s.append("var");
+				s.append(quad.getElement2());
+				s.append(" = ");
+				s.append((quad.getElement1()));
+				s.append("\n");
 				break;
 			
 			case "IF":
