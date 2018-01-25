@@ -78,7 +78,6 @@ public class Instructions {
 				
 			case "AFFECT":
 				int elem2 = quad.getElement2();
-				s.append(tab);
 				if(!varInit.contains(elem2)) {
 					s.append(tab);
 					s.append("local var" + elem2 + "\n");
