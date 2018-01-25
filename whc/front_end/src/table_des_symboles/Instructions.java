@@ -29,16 +29,18 @@ public class Instructions {
 	
 	@Override
 	public String toString() {
-		String res = "{";
+		String res = "{\n";
 		
 		for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
 			res += quad.toString() + "\n";
 		}
 		return res+"}";
 	}
+
 	public String toLua() {
 		return toLuaCache(1);
 	}
+	
 	public String toLuaCache(int indent) {
 		ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it = instructions.listIterator();
 		
@@ -73,7 +75,7 @@ public class Instructions {
 				break;
 				
 			case "NOP":
-				// le nop se traduit pas rien en lua
+				// le nop se traduit en rien en lua
 				break;
 				
 			case "AFFECT":
@@ -139,5 +141,4 @@ public class Instructions {
 		}
 		return s.toString();
 	}
-	
 }
