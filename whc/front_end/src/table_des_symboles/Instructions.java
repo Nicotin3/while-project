@@ -108,7 +108,7 @@ public class Instructions {
 			
 			case "IF":
 				s.append(tab).append("if ");
-				s.append((quad.getElement1()).getCondition().toLua());
+				s.append((quad.getElement1()).getCondition().toLuaCache(0));
 				
 				s.append(tab).append("then\n");
 				
