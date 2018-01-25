@@ -37,6 +37,7 @@ public class Main {
 
 		//Production code LUA
 		System.out.println(table_globale.toString());
+		System.out.println(table_globale.toLua());
 	}
 
 }
