@@ -48,25 +48,24 @@ public class Table {
 			Quintuplet<Integer, Integer, Integer, TableVar, Instructions> quintu = table.get(func);
 			
 			//Récupération de la liste d'instructions
-			Instructions instrus = quintu.getElement5();
+			Instructions instrus = quintu.getElement5(); // recuperation du quadruplet instruction <op, i1, i2, i3>
 			
-			s.append("function f");
-			s.append(quintu.getElement1());
+			s.append("\nfunction f");
+			s.append(quintu.getElement1()); // recuperation du nom de la fonction
 			s.append("(");
 			
 			//gestion inputs
-			for(int i = 0 ; i<quintu.getElement2() ; i++) {
+			for(int i = 0 ; i<quintu.getElement2() ; i++) { // nombre d'entree
 				s.append("var");
 				s.append(instrus.get_instructions().get(i).getElement2());
-				if (i != quintu.getElement2()-1)
+				if (i != quintu.getElement2()-1) // si derniere variable alors pas de virgule de separation
 					s.append(", ");
 			}
 			s.append(")\n");
 			
 			//gestion corps de la fonction
 			s.append(quintu.getElement5().toLua());
-			//s.append("bouchon body\n");
-			s.append("bouchon return\n");
+			
 			s.append("end\n");
 		}
 		return s.toString();

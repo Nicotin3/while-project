@@ -1,7 +1,9 @@
 package table_des_symboles;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import structure_interne.Op;
 import structure_interne.Quadruplet;
@@ -34,35 +36,65 @@ public class Instructions {
 		}
 		return res+"}";
 	}
-	
 	public String toLua() {
+		ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it = instructions.listIterator();
+		
+		return toLuaCache(2, it);
+	}
+	public String toLuaCache(int indent, ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it) {
 		StringBuilder s = new StringBuilder();
-		for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
+		Quadruplet<Op, Integer, Integer, Integer> quad;
+		while (it.hasNext()) {//for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
+			quad = it.next();
 			
-			switch (quad.getElement1().getOpName()) {
-			case "READ":
+			switch (quad.getElement1().getOpName()) {	
+			
+			case "READ": // cas inutile ici car déjà géré avant, on passe donc
 				break;
+				
 			case "WRITE":
+				for (int i = 0; i < indent; i++) {
+					s.append(" ");
+				}
+				s.append("return ");
+				s.append(quad.getElement3());
+				while (it.hasNext()) {
+					quad = it.next();
+					if (quad.getElement1().getOpName().equals("WRITE")){ // prochain est un write
+						s.append(", " + quad.getElement3());
+					}
+				}
+				s.append("\n");
 				break;
+				
 			case "NOP":
-				s.append("\t");
-				s.append("bouchon nop\n");
+				// le nop se traduit pas rien en lua
 				break;
+				
 			case "AFFECT":
-				s.append("\t");
+				for (int i = 0; i < indent; i++) {
+					s.append(" ");
+				}
 				s.append("var");
 				s.append(quad.getElement2());
 				s.append(" = ");
 				s.append(quad.getElement3());
 				s.append("\n");
 				break;
+				
 			case "SYMB":
-				s.append("\t");
-				s.append("bouchon symbole");
+				for (int i = 0; i < indent; i++) {
+					s.append(" ");
+				}
+				s.append("bouchon symbole\n");
+				break;
 				
 			//a completer ici
 			default:
-				s.append("bouchon OP non implementé\n");
+				for (int i = 0; i < indent; i++) {
+					s.append(" ");
+				}
+				s.append("bouchon, op non implementé\n");
 				break;
 			}
 		}
