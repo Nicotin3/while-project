@@ -7,6 +7,7 @@ import java.util.ListIterator;
 
 import structure_interne.Op;
 import structure_interne.Quadruplet;
+import structure_interne.SYMB;
 
 public class Instructions {
 	List<Quadruplet<Op, Integer, Integer, Integer>> instructions;
@@ -54,6 +55,8 @@ public class Instructions {
 		
 		while (it.hasNext()) {//for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
 			quad = it.next();
+			int elem2;
+			int elem3;
 			
 			switch (quad.getElement1().getOpName()) {	
 			
@@ -62,15 +65,31 @@ public class Instructions {
 				break;
 				
 			case "WRITE":
-				s.append(tab);
-				s.append("return var");
-				s.append(quad.getElement3());
+				StringBuilder tmp = new StringBuilder();
+				tmp.append(tab);
+				tmp.append("return var");
+				tmp.append(quad.getElement3());
 				while (it.hasNext()) {
 					quad = it.next();
 					if (quad.getElement1().getOpName().equals("WRITE")){ // prochain est un write
-						s.append(", var" + quad.getElement3());
+						tmp.append(", var" + quad.getElement3());
+					}
+					else if (quad.getElement1().getOpName().equals("SYMB")){ // retour d'une variable pas initialisee localement
+						elem2 = quad.getElement2();
+						if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+							s.append(tab);
+							s.append("local var" + elem2 + "\n");
+							varInit.add(elem2);
+						}
+						s.append(tab);
+						s.append("var");
+						s.append(quad.getElement2());
+						s.append(" = ");
+						s.append(((SYMB) (quad.getElement1())).getCorrespondingLuaSymb());
+						s.append("\n");
 					}
 				}
+				s.append(tmp);
 				s.append("\n");
 				break;
 				
@@ -79,16 +98,22 @@ public class Instructions {
 				break;
 				
 			case "AFFECT":
-				int elem2 = quad.getElement2();
+				elem2 = quad.getElement2();
+				elem3 = quad.getElement3();
 				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
 					s.append(tab);
 					s.append("local var" + elem2 + "\n");
 					varInit.add(elem2);
 				}
+				if(!varInit.contains(elem3)) { // l'element de lecture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem3 + "\n");
+					varInit.add(elem3);
+				}
 				s.append(tab);
 				s.append("var");
 				s.append(quad.getElement2());
-				s.append(" = ");
+				s.append(" = var");
 				s.append(quad.getElement3());
 				s.append("\n");
 				break;
@@ -104,7 +129,7 @@ public class Instructions {
 				s.append("var");
 				s.append(quad.getElement2());
 				s.append(" = ");
-				s.append((quad.getElement1()));
+				s.append(((SYMB) (quad.getElement1())).getCorrespondingLuaSymb());
 				s.append("\n");
 				break;
 			
