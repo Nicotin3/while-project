@@ -247,9 +247,9 @@ public class Compiler {
 
 	private Pair<Instructions, Integer> compile(Expr expr, TableVar table) {
 		Instructions code3a = new Instructions();
-		
-		if (expr.getExpr() == "=?") {
-			
+		//expr!=null --> (expr = "=?")
+		// on tombe sur un Equal (comparaison)
+		if (expr.getExpr() != null) {
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			int value = newTemp(table);
 			Pair<Instructions, Integer> var1 = compile(expr.getExprsimple1(), table);
@@ -356,7 +356,7 @@ public class Compiler {
 		} else if (Character.isLowerCase((exprsimple.getExpr().charAt(0)))){
 			String name = exprsimple.getExpr();
 			if (tableSymbole.get_function(name) == null) {
-				System.err.println("Fonction/Symbole inconnue de la table des symboles !");
+				System.err.println(name+"Fonction/Symbole inconnue de la table des symboles !");
 				return new Pair<Instructions, Integer>(code3a, -1);
 			}
 			if (tableSymbole.get_function(name).getElement2() == 0) {
@@ -368,7 +368,7 @@ public class Compiler {
 			}
 			else {
 //				 C'est une fonction
-				System.err.println(exprsimple.getExprs());
+				
 				if (tableSymbole.get_function(name).getElement2() != exprsimple.getExprs().getExprs().size()) {
 					System.err.println("Nombre d'arguments incorrects ! Expected : "
 							+ tableSymbole.get_function(name).getElement2().toString() + ". Given : "
@@ -379,7 +379,9 @@ public class Compiler {
 				int value = newTemp(table);
 				//Verifier nombre de sorties de la fonction, si pas assez combler avec nil, si trop ignorer
 				for (Expr arg : exprsimple.getExprs().getExprs()) {
-					code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new ARG(), null, compile(arg, table).getValue(), null));
+					Pair<Instructions, Integer> var = compile(arg, table);
+					code3a.add_instructions(var.getKey());
+					code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new ARG(), null, var.getValue(), null));
 				}
 				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new CALL(tableSymbole.get_function(name).getElement1()), value, null, null));
 				return new Pair<Instructions, Integer>(code3a, value);
