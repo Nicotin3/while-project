@@ -61,12 +61,12 @@ public class Instructions {
 				
 			case "WRITE":
 				s.append(tab);
-				s.append("return ");
+				s.append("return var");
 				s.append(quad.getElement3());
 				while (it.hasNext()) {
 					quad = it.next();
 					if (quad.getElement1().getOpName().equals("WRITE")){ // prochain est un write
-						s.append(", " + quad.getElement3());
+						s.append(", var" + quad.getElement3());
 					}
 				}
 				s.append("\n");
@@ -78,7 +78,7 @@ public class Instructions {
 				
 			case "AFFECT":
 				int elem2 = quad.getElement2();
-				if(!varInit.contains(elem2)) {
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
 					s.append(tab);
 					s.append("local var" + elem2 + "\n");
 					varInit.add(elem2);
@@ -92,6 +92,12 @@ public class Instructions {
 				break;
 				
 			case "SYMB":
+				elem2 = quad.getElement2();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + "\n");
+					varInit.add(elem2);
+				}
 				s.append(tab);
 				s.append("var");
 				s.append(quad.getElement2());
@@ -126,9 +132,7 @@ public class Instructions {
 				break;
 			//a completer ici
 			default:
-				for (int i = 0; i < indent; i++) {
-					s.append(" ");
-				}
+				s.append(tab);
 				s.append("bouchon, op non implementé\n");
 				break;
 			}
