@@ -44,29 +44,32 @@ public class Table {
 	public String toLua() {
 		StringBuilder s = new StringBuilder();
 		for (String func : table.keySet()) {
-			//Récupération du quintuplet 
-			Quintuplet<Integer, Integer, Integer, TableVar, Instructions> quintu = table.get(func);
 			
-			//Récupération de la liste d'instructions
-			Instructions instrus = quintu.getElement5(); // recuperation du quadruplet instruction <op, i1, i2, i3>
-			
-			s.append("\nfunction f");
-			s.append(quintu.getElement1()); // recuperation du nom de la fonction
-			s.append("(");
-			
-			//gestion inputs
-			for(int i = 0 ; i<quintu.getElement2() ; i++) { // nombre d'entree
-				s.append("var");
-				s.append(instrus.get_instructions().get(i).getElement2());
-				if (i != quintu.getElement2()-1) // si derniere variable alors pas de virgule de separation
-					s.append(", ");
+			if (!func.equals("nil")) { // on ignore la premiere entree "nil" de la table des fonctions -- verif a changer - au moins un param entree pour fonction
+				//Récupération du quintuplet 
+				Quintuplet<Integer, Integer, Integer, TableVar, Instructions> quintu = table.get(func);
+				
+				//Récupération de la liste d'instructions
+				Instructions instrus = quintu.getElement5(); // recuperation du quadruplet instruction <op, i1, i2, i3>
+				
+				s.append("\nfunction f");
+				s.append(quintu.getElement1()); // recuperation du nom de la fonction
+				s.append("(");
+				
+				//gestion inputs
+				for(int i = 0 ; i<quintu.getElement2() ; i++) { // nombre d'entree
+					s.append("var");
+					s.append(instrus.get_instructions().get(i).getElement2());
+					if (i != quintu.getElement2()-1) // si derniere variable alors pas de virgule de separation
+						s.append(", ");
+				}
+				s.append(")\n");
+				
+				//gestion corps de la fonction
+				s.append(quintu.getElement5().toLua());
+				
+				s.append("end\n");
 			}
-			s.append(")\n");
-			
-			//gestion corps de la fonction
-			s.append(quintu.getElement5().toLua());
-			
-			s.append("end\n");
 		}
 		return s.toString();
 	}
