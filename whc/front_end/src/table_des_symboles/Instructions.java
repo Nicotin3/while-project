@@ -37,11 +37,11 @@ public class Instructions {
 		return res+"}";
 	}
 	public String toLua() {
+		return toLuaCache(1);
+	}
+	public String toLuaCache(int indent) {
 		ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it = instructions.listIterator();
 		
-		return toLuaCache(1, it);
-	}
-	public String toLuaCache(int indent, ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it) {
 		List<Integer> varInit = new ArrayList<Integer>(); // liste des variables declarees dans la fonction
 		StringBuilder s = new StringBuilder();
 		StringBuilder tab = new StringBuilder();
@@ -107,16 +107,16 @@ public class Instructions {
 				break;
 			
 			case "IF":
-				s.append(tab).append("if");
+				s.append(tab).append("if ");
 				s.append((quad.getElement1()).getCondition().toLua());
 				
 				s.append(tab).append("then\n");
 				
-				s.append(tab).append(quad.getElement1().getThen().toLua());
+				s.append(quad.getElement1().getThen().toLuaCache(indent+1));
 				
 				if(quad.getElement1().getElse()!=null) {
 					s.append(tab).append("else\n");
-					s.append(tab).append(quad.getElement1().getElse().toLua());					
+					s.append(quad.getElement1().getElse().toLuaCache(indent+1));					
 				}
 				
 				s.append(tab);
