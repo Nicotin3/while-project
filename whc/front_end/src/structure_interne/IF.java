@@ -23,6 +23,21 @@ public class IF extends Op {
 	}
 	
 	@Override
+	public Instructions getCondition() {
+		return Condition;
+	}
+
+	@Override
+	public Instructions getThen() {
+		return Then;
+	}
+	
+	@Override
+	public Instructions getElse() {
+		return Else;
+	}
+
+	@Override
 	public String toString() {
 		if (Else == null) {
 			return "if " + Condition + "\n\tthen " + Then.toString();
@@ -32,5 +47,15 @@ public class IF extends Op {
 
 	public String getOpName() {
 		return "IF";
+	}
+
+	@Override
+	public Instructions getIn() {
+		return null;
+	}
+
+	@Override
+	public Instructions getBoucle() {
+		return null;
 	}
 }

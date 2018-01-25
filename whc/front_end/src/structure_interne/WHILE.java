@@ -19,4 +19,29 @@ public class WHILE extends Op {
 	public String getOpName() {
 		return "WHILE";
 	}
+
+	@Override
+	public Instructions getCondition() {
+		return Condition;
+	}
+
+	@Override
+	public Instructions getThen() {
+		return null;
+	}
+
+	@Override
+	public Instructions getElse() {
+		return null;
+	}
+
+	@Override
+	public Instructions getIn() {
+		return null;
+	}
+
+	@Override
+	public Instructions getBoucle() {
+		return Boucle;
+	}
 }

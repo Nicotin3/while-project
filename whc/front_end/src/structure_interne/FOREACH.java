@@ -22,4 +22,29 @@ public class FOREACH extends Op{
 	public String getOpName() {
 		return "FOREACH";
 	}
+
+	@Override
+	public Instructions getCondition() {
+		return Condition;
+	}
+
+	@Override
+	public Instructions getThen() {
+		return Then;
+	}
+
+	@Override
+	public Instructions getElse() {
+		return null;
+	}
+
+	@Override
+	public Instructions getIn() {
+		return In;
+	}
+
+	@Override
+	public Instructions getBoucle() {
+		return null;
+	}
 }

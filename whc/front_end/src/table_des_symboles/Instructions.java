@@ -39,11 +39,16 @@ public class Instructions {
 	public String toLua() {
 		ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it = instructions.listIterator();
 		
-		return toLuaCache(2, it);
+		return toLuaCache(1, it);
 	}
 	public String toLuaCache(int indent, ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it) {
 		StringBuilder s = new StringBuilder();
+		StringBuilder tab = new StringBuilder();
+		for (int i = 0; i < indent; i++) {
+			tab.append("  ");
+		}
 		Quadruplet<Op, Integer, Integer, Integer> quad;
+		
 		while (it.hasNext()) {//for (Quadruplet<Op, Integer, Integer, Integer> quad : instructions) {
 			quad = it.next();
 			
@@ -53,9 +58,7 @@ public class Instructions {
 				break;
 				
 			case "WRITE":
-				for (int i = 0; i < indent; i++) {
-					s.append(" ");
-				}
+				s.append(tab);
 				s.append("return ");
 				s.append(quad.getElement3());
 				while (it.hasNext()) {
@@ -72,9 +75,7 @@ public class Instructions {
 				break;
 				
 			case "AFFECT":
-				for (int i = 0; i < indent; i++) {
-					s.append(" ");
-				}
+				s.append(tab);
 				s.append("var");
 				s.append(quad.getElement2());
 				s.append(" = ");
@@ -83,12 +84,34 @@ public class Instructions {
 				break;
 				
 			case "SYMB":
-				for (int i = 0; i < indent; i++) {
-					s.append(" ");
-				}
+				s.append(tab);
 				s.append("bouchon symbole\n");
 				break;
+			
+			case "IF":
+				s.append(tab).append("if");
+				s.append((quad.getElement1()).getCondition().toLua());
 				
+				s.append(tab).append("then\n");
+				
+				s.append(tab).append(quad.getElement1().getThen().toLua());
+				
+				if(quad.getElement1().getElse()!=null) {
+					s.append(tab).append("else\n");
+					s.append(tab).append(quad.getElement1().getElse().toLua());					
+				}
+				
+				s.append(tab);
+				s.append("end");
+				break;
+				
+			case "FOR":
+				s.append(tab).append("for (pas fini)");
+				break;
+			
+			case "FOREACH":
+				s.append(tab).append("foreach (pas fini)");
+				break;
 			//a completer ici
 			default:
 				for (int i = 0; i < indent; i++) {
