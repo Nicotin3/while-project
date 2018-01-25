@@ -1,5 +1,5 @@
 function createTree()
-  tree = {}
+  local tree = {}
   return tree
 end
 
@@ -12,26 +12,26 @@ function getRight(tree)
 end
 
 function addLeft(tree)
-  left = {}
+  local left = {}
   tree[0] = left
   
   return tree
 end
 
-function addLeft(tree,fils)
+function addLeftWithValue(tree,fils)
   tree[0] = fils
   
   return tree
 end
 
 function addRight(tree)
-  right = {}
+  local right = {}
   tree[1] = right
-  
+    
   return tree
 end
 
-function addRight(tree,fils)
+function addRightWithValue(tree,fils)
   tree[1] = fils
   
   return tree
@@ -41,7 +41,7 @@ function toNumber(tree)
   if (tree == nil) then
     return 0
   else
-    return 1+toNumber(getLeft())
+    return 1 + toNumber(getRight(tree)) 
   end
 end
  
@@ -50,10 +50,9 @@ function addTwo(tree)
   tree[0], tree[1] = left, right
  end
  
- tree = createTree()
- addLeft(tree)
- print(getLeft(tree))
+local tree = createTree()
+addRight(tree)
+print(toNumber(tree))
+print(getLeft(tree))
  
- tree2 = createTree()
- addLeft(tree)
- print(getLeft(tree))
+ 
