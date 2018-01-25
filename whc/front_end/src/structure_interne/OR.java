@@ -10,7 +10,7 @@ public class OR extends Op {
 	
 	@Override
 	public String toString() {
-		return "or";
+		return "OR";
 	}
 
 	public String getOpName() {

@@ -77,10 +77,11 @@ public class Compiler {
 		TableVar tableVar = new TableVar();
 		// Liste d'instructions en code 3 adresses
 		Instructions code3a = new Instructions();
+		// Ajout de la fonction et son code associé dans la table des fonctions
+		tableSymbole.add_function(f.getName(), getNbInput(f), getNbOutput(f), tableVar, code3a);		
 		// Appel des méthodes compile sous jacentes à Function
 		code3a.add_instructions(compile(f.getDefinition(), tableVar));
-		// Ajout de la fonction et son code associé dans la table des fonctions
-		tableSymbole.add_function(f.getName(), getNbInput(f), getNbOutput(f), tableVar, code3a);
+		
 	}
 
 	/**
@@ -401,8 +402,8 @@ public class Compiler {
 
 	private Pair<Instructions, Integer> compile(Exprand exprand, TableVar table) {
 		Instructions code3a = new Instructions();
-		
-		if (exprand.getExpr() == "and") {
+		//on tombe sur une expression and expression 
+		if (exprand.getExpr() != null) {
 			int value = newTemp(table);
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Pair<Instructions, Integer> var1 = compile(exprand.getExprG(), table);
@@ -423,7 +424,8 @@ public class Compiler {
 
 	private Pair<Instructions, Integer> compile(Expror expror, TableVar table) {
 		Instructions code3a = new Instructions();
-		if (expror.getExpr() == "or") {
+		//on tombe sur une expression or expression 
+		if (expror.getExpr() != null) {
 			int value = newTemp(table);
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Pair<Instructions, Integer> var1 = compile(expror.getExprG(), table);
@@ -445,8 +447,8 @@ public class Compiler {
 	
 	private Pair<Instructions, Integer> compile(Exprnot exprnot, TableVar table) {
 		Instructions code3a = new Instructions();
-		
-		if (exprnot.getExpr() == "not") {
+		//on tombe sur une not expression
+		if (exprnot.getExpr() != null) {
 			int value = newTemp(table);
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Pair<Instructions, Integer> var1 = compile(exprnot.getExpr2(), table);

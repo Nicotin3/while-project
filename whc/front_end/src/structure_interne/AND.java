@@ -10,7 +10,7 @@ public class AND extends Op {
 
 	@Override
 	public String toString() {
-		return "and";
+		return "AND";
 	}
 
 	public String getOpName() {

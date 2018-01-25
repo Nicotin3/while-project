@@ -10,7 +10,7 @@ public class NOT extends Op {
 
 	@Override
 	public String toString() {
-		return "not";
+		return "NOT";
 	}
 	
 	@Override
