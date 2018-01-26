@@ -215,23 +215,41 @@ public class Instructions {
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
+				s.append(tab);
 				s.append("var").append(elem2).append("= var");
-				s.append(elem3).append(" and var").append(elem4);
+				s.append(elem3).append(" and var").append(elem4).append("\n");
 				break;
 				
 			case "OR":
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
+				s.append(tab);
 				s.append("var").append(elem2).append(" = var");
-				s.append(elem3).append(" or var").append(elem4);
+				s.append(elem3).append(" or var").append(elem4).append("\n");
 				break;
 				
 			case "NOT":
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
-				s.append("var").append(elem2).append("= not var").append(elem3);
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
+				s.append(tab);
+				s.append("var").append(elem2).append("= not var").append(elem3).append("\n");
 				break;
 
 			case "CONS":
@@ -273,6 +291,26 @@ public class Instructions {
 				s.append("var" + quad.getElement4() + "\n");
 				break;
 				
+			case "HD":
+				elem2=quad.getElement2();
+				elem3=quad.getElement3();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
+				s.append(tab);
+				s.append("var").append(elem2).append(" = ");
+				s.append("treelib.getLeft( var").append(elem3).append(" )\n");
+				break;
+			case "TL":
+				elem2=quad.getElement2();
+				elem3=quad.getElement3();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
 			default:
 				s.append(tab);
 				s.append("bouchon, op non implementé :"+ quad.getElement1().toString()  +"\n");
