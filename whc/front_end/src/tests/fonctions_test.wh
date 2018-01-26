@@ -24,4 +24,4 @@ function gcd : read X, Y % Q, R := (div X Y) ; if (isNotZero R) then GCD := (gcd
 
 function fact : read X % F := (cons nil nil) ; while (isNotZero X) do X, F := (decr X), (mult F X) od % F
 
-function fib : read X % if (isZero X) or (isOne X) then F := (cons nil nil) else F := (add (fib (decr X)) (fib (decr (decr X)))) fi % F
+function fib : read X % if ((isZero X)) or ((isOne X)) then F := (cons nil nil) else F := (add (fib (decr X)) (fib (decr (decr X)))) fi % F
