@@ -65,7 +65,7 @@ public class Table {
 					if (i != quintu.getElement2()-1) // si derniere variable alors pas de virgule de separation
 						s.append(", ");
 				}
-				s.append(")\n");
+				s.append(") -- Nom de fonction : " + func + "\n");
 				
 				//gestion corps de la fonction
 				s.append(quintu.getElement5().toLua());
