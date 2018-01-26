@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
+
 import structure_interne.CALL;
 import structure_interne.FOR;
 import structure_interne.IF;
@@ -66,8 +67,8 @@ public class Instructions {
 			
 			switch (quad.getElement1().getOpName()) {	
 			
-			case "READ": // cas inutile ici car dÃ©jÃ  gÃ©rÃ© avant, on passe donc
-				varInit.add(quad.getElement2());
+			case "READ": // cas inutile ici car deja gere avant, on passe donc
+				varInit.add(quad.getElement2()); // on ajoute la variable aux variables initialisees
 				break;
 				
 			case "WRITE":
@@ -214,41 +215,23 @@ public class Instructions {
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
-				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
-					s.append(tab);
-					s.append("local var" + elem2 + " = treelib.createTree()\n");
-					varInit.add(elem2);
-				}
-				s.append(tab);
 				s.append("var").append(elem2).append("= var");
-				s.append(elem3).append(" and var").append(elem4).append("\n");
+				s.append(elem3).append(" and var").append(elem4);
 				break;
 				
 			case "OR":
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
-				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
-					s.append(tab);
-					s.append("local var" + elem2 + " = treelib.createTree()\n");
-					varInit.add(elem2);
-				}
-				s.append(tab);
 				s.append("var").append(elem2).append(" = var");
-				s.append(elem3).append(" or var").append(elem4).append("\n");
+				s.append(elem3).append(" or var").append(elem4);
 				break;
 				
 			case "NOT":
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
-				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
-					s.append(tab);
-					s.append("local var" + elem2 + " = treelib.createTree()\n");
-					varInit.add(elem2);
-				}
-				s.append(tab);
-				s.append("var").append(elem2).append("= not var").append(elem3).append("\n");
+				s.append("var").append(elem2).append("= not var").append(elem3);
 				break;
 
 			case "CONS":
@@ -259,41 +242,35 @@ public class Instructions {
 				s.append(tab);
 				s.append("treelib.addRightWithValue(var" + quad.getElement2() +", var" + quad.getElement4() + ")\n");
 				break;
-				
+			
+			case "LIST":
+				s.append(tab);
+				s.append("local var" + quad.getElement2() + " = treelib.createTree()\n");
+				s.append(tab);
+				s.append("treelib.addLeftWithValue(var" + quad.getElement2() +", var" + quad.getElement3() + ")\n");
+				s.append(tab);
+				s.append("treelib.addRight(var" + quad.getElement2() + ")\n");
+				s.append(tab);
+				s.append("treelib.addLeftWithValue(treelib.getRight(var" + quad.getElement2() +"), var" + quad.getElement3() + ")\n");
+				break;
 			case "ARG":
 				pile.push(quad.getElement3());
 				break;
 			case "CALL":
-				s.append("var").append(quad.getElement2());
+				s.append(tab);
+				s.append("local var").append(quad.getElement2());
 				s.append(" = f").append(((CALL)quad.getElement1()).getNum()).append("(");
 				String tempvar="var"+pile.pop();
 				for (int i=0;i<((CALL)quad.getElement1()).getNb_param()-1;i++)
-					tempvar+= ",var"+pile.pop();
-				s.append(tempvar).append(")");
+					tempvar = "var"+pile.pop()+", "+tempvar;
+				s.append(tempvar).append(")\n");
 				break;
-			case "HD":
-				elem2=quad.getElement2();
-				elem3=quad.getElement3();
-				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
-					s.append(tab);
-					s.append("local var" + elem2 + " = treelib.createTree()\n");
-					varInit.add(elem2);
-				}
+				
+			case "EQUAL":
 				s.append(tab);
-				s.append("var").append(elem2).append(" = ");
-				s.append("treelib.getLeft( var").append(elem3).append(" )\n");
-				break;
-			case "TL":
-				elem2=quad.getElement2();
-				elem3=quad.getElement3();
-				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
-					s.append(tab);
-					s.append("local var" + elem2 + " = treelib.createTree()\n");
-					varInit.add(elem2);
-				}
-				s.append(tab);
-				s.append("var").append(quad.getElement2()).append(" = ");
-				s.append("treelib.getRight( var").append(quad.getElement3()).append(" )\n");
+				s.append("var" + quad.getElement2() + " = ");
+				s.append("var" + quad.getElement3() + "==");
+				s.append("var" + quad.getElement4() + "\n");
 				break;
 				
 			default:
