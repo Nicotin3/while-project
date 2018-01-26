@@ -1,3 +1,5 @@
+local treelib = require("tree")
+
 function test(X,Y)
   local W, G; --optionnel
   W, G = X, Y;
@@ -10,4 +12,6 @@ function test(X,Y)
   return X, Y, W
 end
 
-print(test(10,10))
+local tree = treelib.createTree()
+treelib.addRight(tree)
+print(treelib.toNumber(tree))

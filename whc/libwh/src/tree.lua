@@ -1,43 +1,45 @@
-function createTree()
+local treelib = {}
+
+function treelib.createTree()
   local tree = {}
   return tree
 end
 
-function getLeft(tree)
+function treelib.getLeft(tree)
   return tree[0]
 end
 
-function getRight(tree)
+function treelib.getRight(tree)
   return tree[1]
 end
 
-function addLeft(tree)
+function treelib.addLeft(tree)
   local left = {}
   tree[0] = left
   
   return tree
 end
 
-function addLeftWithValue(tree,fils)
+function treelib.addLeftWithValue(tree,fils)
   tree[0] = fils
   
   return tree
 end
 
-function addRight(tree)
+function treelib.addRight(tree)
   local right = {}
   tree[1] = right
     
   return tree
 end
 
-function addRightWithValue(tree,fils)
+function treelib.addRightWithValue(tree,fils)
   tree[1] = fils
   
   return tree
 end
 
-function toNumber(tree)
+function treelib.toNumber(tree)
   if (tree == nil) then
     return 0
   else
@@ -45,14 +47,9 @@ function toNumber(tree)
   end
 end
  
-function addTwo(tree)
+function treelib.addTwo(tree)
   left, right = {}
   tree[0], tree[1] = left, right
  end
- 
-local tree = createTree()
-addRight(tree)
-print(toNumber(tree))
-print(getLeft(tree))
  
  
