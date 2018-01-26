@@ -42,6 +42,9 @@ public class Table {
 	}
 	public String toLua() {
 		StringBuilder s = new StringBuilder();
+		
+		s.append("local treelib = require 'tree' -- import du module\n"); // import du module tree
+
 		for (String func : table.keySet()) {
 			
 			if (!func.equals("nil")) { // on ignore la premiere entree "nil" de la table des fonctions -- verif a changer - au moins un param entree pour fonction
