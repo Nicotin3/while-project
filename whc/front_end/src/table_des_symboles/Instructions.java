@@ -324,6 +324,7 @@ public class Instructions {
 					s.append(tab);
 					s.append("local var" + elem2 + " = treelib.createTree()\n");
 					varInit.add(elem2);
+					break;
 				}
 			default:
 				s.append(tab);
