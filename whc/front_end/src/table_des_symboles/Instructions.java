@@ -84,15 +84,16 @@ public class Instructions {
 						elem2 = quad.getElement2();
 						if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
 							s.append(tab);
-							s.append("local var" + elem2 + "\n");
+							s.append("local var" + elem2 + " = treelib.createTree()\n");
 							varInit.add(elem2);
 						}
-						s.append(tab);
+						// un nil n'est finalement pas un nil mais un tableau vide (arbre vide)
+						/*s.append(tab);
 						s.append("var");
 						s.append(quad.getElement2());
 						s.append(" = ");
 						s.append(((SYMB) (quad.getElement1())).getCorrespondingLuaSymb());
-						s.append("\n");
+						s.append("\n");*/
 					}
 				}
 				s.append(tmp);
@@ -110,12 +111,12 @@ public class Instructions {
 				elem3 = quad.getElement3();
 				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
 					s.append(tab);
-					s.append("local var" + elem2 + "\n");
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
 					varInit.add(elem2);
 				}
 				if(!varInit.contains(elem3)) { // l'element de lecture est forcement une variable
 					s.append(tab);
-					s.append("local var" + elem3 + "\n");
+					s.append("local var" + elem3 + " = treelib.createTree()\n");
 					varInit.add(elem3);
 				}
 				s.append(tab);
@@ -130,15 +131,16 @@ public class Instructions {
 				elem2 = quad.getElement2();
 				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
 					s.append(tab);
-					s.append("local var" + elem2 + "\n");
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
 					varInit.add(elem2);
 				}
-				s.append(tab);
+				// un nil n'est finalement pas un nil mais un tableau vide (arbre vide)
+				/*s.append(tab);
 				s.append("var");
 				s.append(quad.getElement2());
 				s.append(" = ");
 				s.append(((SYMB) (quad.getElement1())).getCorrespondingLuaSymb());
-				s.append("\n");
+				s.append("\n");*/
 				break;
 			
 			case "IF":
@@ -194,11 +196,13 @@ public class Instructions {
 				}
 				
 				// ecriture du for
+				// condition
 				tmp.append("i = 0, ");
 				tmp.append("treelib.toNumber("+ "var" + quad.getElement3() + ")" );
 				tmp.append(" do\n");
+				// instructions
 				tmp.append(((FOR) (quad.getElement1())).getBoucle().toLuaCache(indent+1));
-				tmp.append(tab).append("od\n");
+				tmp.append(tab).append("end\n");
 				s.append(tmp);
 				break;
 			
@@ -222,16 +226,25 @@ public class Instructions {
 				s.append(elem3).append(" or var").append(elem4);
 				break;
 				
-			case "Not":
+			case "NOT":
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
 				s.append("var").append(elem2).append("= not var").append(elem3);
 				break;
+			
+			case "CONS":
+				s.append(tab);
+				s.append("local var" + quad.getElement2() + " = treelib.createTree()\n");
+				s.append(tab);
+				s.append("treelib.addLeftWithValue(var" + quad.getElement2() +", var" + quad.getElement3() + ")\n");
+				s.append(tab);
+				s.append("treelib.addRightWithValue(var" + quad.getElement2() +", var" + quad.getElement4() + ")\n");
+				break;
 				
 			default:
 				s.append(tab);
-				s.append("bouchon, op non implementé\n");
+				s.append("bouchon, op non implementé :"+ quad.getElement1().toString()  +"\n");
 				break;
 			}
 		}
