@@ -299,10 +299,16 @@ public class Instructions {
 				break;
 				
 			case "EQUAL":
+				elem2 = quad.getElement2();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
 				s.append(tab);
-				s.append("var" + quad.getElement2() + " = ");
-				s.append("var" + quad.getElement3() + "==");
-				s.append("var" + quad.getElement4() + "\n");
+				s.append("var" + quad.getElement2() + " = (");
+				s.append("treelib.toNumber(var" + quad.getElement3() + ") == ");
+				s.append("treelib.toNumber(var" + quad.getElement4() + "))\n");
 				break;
 				
 			case "HD":
