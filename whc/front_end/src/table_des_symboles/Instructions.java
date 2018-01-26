@@ -160,8 +160,8 @@ public class Instructions {
 				tmp.append(((IF) quad.getElement1()).getThen().toLuaCache(indent+1));
 				
 				if(((IF) quad.getElement1()).getElse() != null) {
-					s.append(tab).append("else\n");
-					s.append(((IF) quad.getElement1()).getElse().toLuaCache(indent+1));					
+					tmp.append(tab).append("else\n");
+					tmp.append(((IF) quad.getElement1()).getElse().toLuaCache(indent+1));					
 				}
 								
 				tmp.append(tab).append("end\n");

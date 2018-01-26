@@ -20,7 +20,7 @@ public class Main {
 		//Création du compileur
 		Compiler comp = new Compiler();
 		//Fichier d'entrée
-		String nomFichier = "test_simple";
+		String nomFichier = "fonctions_test";
 		
 		String fichierSource = "src/tests/"+nomFichier+".wh";
 		
