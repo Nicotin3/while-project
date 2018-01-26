@@ -7,7 +7,6 @@ import javax.print.attribute.standard.PrinterLocation;
 import structure_interne.Quintuplet;
 
 public class Table {
-	//map de fonctions (nom -> code(integer) -> paramtre,return, key_tablesymbole_locale, key_table_code3adresse)
 	//Map de nom de fonction et d'un quintuplet correspondant aux donnÃ©es de la fonction : numÃ©ro de fonction, nb entrÃ©es, nb sorties, table de variable et liste d'instructions
 	private HashMap<String, Quintuplet<Integer, Integer, Integer, TableVar, Instructions>> table;
 	private static int numFun = 0;

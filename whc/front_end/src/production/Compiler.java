@@ -44,7 +44,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class Compiler {
-	// Entier utilisé pour les variables temporaires
+	// Entier utilisÃ© pour les variables temporaires
 	private static int nb_temp_var=0;
 	// Table des symboles
 	Table tableSymbole;
@@ -58,7 +58,7 @@ public class Compiler {
 		return tableSymbole;
 	}
 
-	/* __________________________Méthodes compile__________________________ */
+	/* __________________________MÃ©thodes compile__________________________ */
 
 	/**
 	 * Model
@@ -73,13 +73,13 @@ public class Compiler {
 	 * Function
 	 */
 	private void compile(Function f) {
-		// Table des variables internes à la fonction
+		// Table des variables internes Ã  la fonction
 		TableVar tableVar = new TableVar();
 		// Liste d'instructions en code 3 adresses
 		Instructions code3a = new Instructions();
-		// Ajout de la fonction et son code associé dans la table des fonctions
+		// Ajout de la fonction et son code associÃ© dans la table des fonctions
 		tableSymbole.add_function(f.getName(), getNbInput(f), getNbOutput(f), tableVar, code3a);		
-		// Appel des méthodes compile sous jacentes à Function
+		// Appel des mÃ©thodes compile sous jacentes Ã  Function
 		code3a.add_instructions(compile(f.getDefinition(), tableVar));
 		
 	}
@@ -91,7 +91,7 @@ public class Compiler {
 		// Liste d'instructions
 		Instructions code3a = new Instructions();
 
-		// Appel des méthodes compile sous jacentes
+		// Appel des mÃ©thodes compile sous jacentes
 		code3a.add_instructions(compile(d.getInput(), table));
 		code3a.add_instructions(compile(d.getCommands(), table));
 		code3a.add_instructions(compile(d.getOutput(), table));
@@ -103,7 +103,7 @@ public class Compiler {
 	 * Variables
 	 */
 	private void compile(Variables v, TableVar table) {
-		// Les nouvelles variables valent nil à leur déclaration.
+		// Les nouvelles variables valent nil Ã  leur dÃ©claration.
 
 		// Si les variables ne sont pas dans la table, les ajoutent et leur
 		// attribuent une place unique. Sinon rien.
@@ -120,7 +120,7 @@ public class Compiler {
 		// Parcours des input et ajout dans la table des variables
 		compile(i.getVariables(), table);
 		Quadruplet<Op, Integer, Integer, Integer> quad;
-		// Génération du code 3 adresse <READ,numVar,_,_>
+		// GÃ©nÃ©ration du code 3 adresse <READ,numVar,_,_>
 		for (String var : i.getVariables().getVariables()) {
 			quad = new Quadruplet<Op, Integer, Integer, Integer>(
 					new READ(var), table.get_variable(var), null, null);
@@ -135,15 +135,15 @@ public class Compiler {
 	private Instructions compile(Output o, TableVar table) {
 		Instructions code3a = new Instructions();
 		Quadruplet<Op, Integer, Integer, Integer> quad;
-		// Parcours des output et vérification de la présence dans la
-		// table des variables. Puis génération code <WRITE,numVar,_,_>
+		// Parcours des output et vÃ©rification de la prÃ©sence dans la
+		// table des variables. Puis gÃ©nÃ©ration code <WRITE,numVar,_,_>
 		for (String var : o.getVariables().getVariables()) {
 			if (table.get_variable(var) != null) {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(
 						new WRITE(var), null, table.get_variable(var), null);
 				code3a.add_instruction(quad);
 			} else {
-				System.err.println("L'output " + var + " est inconnue de la table des variables ! Remplacée par nil\n");
+				System.err.println("L'output " + var + " est inconnue de la table des variables ! RemplacÃ©e par nil\n");
 				int value = newTemp(table);
 				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(
 						new SYMB(tableSymbole.get_function("nil").getElement1()), value, null, null));
@@ -160,7 +160,7 @@ public class Compiler {
 	private Instructions compile(Commands c, TableVar table) {
 		Instructions code3a = new Instructions();
 		Quadruplet<Op, Integer, Integer, Integer> quad;
-		// Parcours des commandes pour génération code 3 adresse associé.
+		// Parcours des commandes pour gÃ©nÃ©ration code 3 adresse associÃ©.
 		for (Command com : c.getCommands()) {
 			if (com.getCommand().equals("nop")) {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(new NOP(), null, null, null);
@@ -185,7 +185,7 @@ public class Compiler {
 				// Else : compile(com.getCommands_else(), table)
 				IF If;
 				Pair<Instructions, Integer> var=compile(com.getExpr(), table);
-				// Vérification de la présence du champs Else
+				// VÃ©rification de la prÃ©sence du champs Else
 				if (com.getCommands_else() == null) {
 					
 					If = new IF(var.getKey(), compile(com.getCommands_then(), table));
@@ -205,10 +205,10 @@ public class Compiler {
 				quad = new Quadruplet<Op, Integer, Integer, Integer>(Foreach, null, var.getValue(), var_in.getValue());
 				code3a.add_instruction(quad);
 			} else if (com.getCommand().equals(":=")) {
-				// Ajout des nouvelles variables déclarées dans la table des variables
+				// Ajout des nouvelles variables dÃ©clarÃ©es dans la table des variables
 				compile(com.getVariables(), table);
 				
-//				Vérification de la taille des listes de variables et d'expression
+//				VÃ©rification de la taille des listes de variables et d'expression
 				if (com.getExrps().getExprs().size() == 1 || com.getVariables().getVariables().size() == 1) {
 					Pair<Instructions, Integer> var =compile(com.getExrps().getExprs().get(0), table);
 					quad = new Quadruplet<Op, Integer, Integer, Integer>(
@@ -239,7 +239,7 @@ public class Compiler {
 					}
 				}
 			} else {
-				System.err.println("Commande inconnue, à implémenter : " + com.getCommand());
+				System.err.println("Commande inconnue, Ã  implÃ©menter : " + com.getCommand());
 			}
 		}
 
@@ -273,7 +273,7 @@ public class Compiler {
 				return new Pair<Instructions, Integer>(code3a, var.getValue());
 
 			} else {
-				System.err.println("Expression inconnue, à implémenter : " + expr.getExpr());
+				System.err.println("Expression inconnue, Ã  implÃ©menter : " + expr.getExpr());
 				return new Pair<Instructions, Integer>(null, null);
 			}
 		}
@@ -290,7 +290,7 @@ public class Compiler {
 			return new Pair<Instructions, Integer>(code3a, value);
 
 //			On tombe sur un cons
-//			Cons et list ne fonctionnent qu'avec 2 variables. Possibilité de changer !
+//			Cons et list ne fonctionnent qu'avec 2 variables. PossibilitÃ© de changer !
 		} else if (exprsimple.getExpr().equals("cons")) {
 			Quadruplet<Op, Integer, Integer, Integer> quad;
 			Expr gauche = exprsimple.getExprs().getExprs().get(0);
@@ -345,7 +345,7 @@ public class Compiler {
 //			On tombe sur une variable
 		} else if (Character.isUpperCase((exprsimple.getExpr().charAt(0)))){
 			if (table.get_variable(exprsimple.getExpr()) == null) {
-				System.err.println("La variable "+ exprsimple.getExpr() +" est inconnue ! Initialisée à nil.");
+				System.err.println("La variable "+ exprsimple.getExpr() +" est inconnue ! InitialisÃ©e Ã  nil.");
 				table.add_variable(exprsimple.getExpr());
 				int value = table.get_variable(exprsimple.getExpr());
 				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(
@@ -384,7 +384,7 @@ public class Compiler {
 					code3a.add_instructions(var.getKey());
 					code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new ARG(), null, var.getValue(), null));
 				}
-				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new CALL(tableSymbole.get_function(name).getElement1()), value, null, null));
+				code3a.add_instruction(new Quadruplet<Op, Integer, Integer, Integer>(new CALL(tableSymbole.get_function(name).getElement1(),tableSymbole.get_function(name).getElement2()), value, null, null));
 				return new Pair<Instructions, Integer>(code3a, value);
 			}
 			
@@ -480,18 +480,18 @@ public class Compiler {
 	
 	
 	
-	/* ________________________Méthodes utilitaires________________________ */
+	/* ________________________MÃ©thodes utilitaires________________________ */
 
 	
 
 	
 
 	/**
-	 * Donne le nombre d'entrées d'une fonction
+	 * Donne le nombre d'entrÃ©es d'une fonction
 	 * 
 	 * @param f
-	 *            : fonction dont on doit déterminer le nombre d'entrées
-	 * @return le nombre d'entrées
+	 *            : fonction dont on doit dÃ©terminer le nombre d'entrÃ©es
+	 * @return le nombre d'entrÃ©es
 	 */
 	private int getNbInput(Function f) {
 		int nbInput = 0;
@@ -507,7 +507,7 @@ public class Compiler {
 	 * Donne le nombre de sorties d'une fonction
 	 * 
 	 * @param f
-	 *            : fonction dont on doit déterminer le nombre de sorties
+	 *            : fonction dont on doit dÃ©terminer le nombre de sorties
 	 * @return le nombre de sorties
 	 */
 	private int getNbOutput(Function f) {
@@ -523,7 +523,7 @@ public class Compiler {
 	/**
 	 * Ajoute une nouvelle variable temporaire dans la table des variables
 	 * @param table : la table des variables
-	 * @return le numéro correspondant à la variable temporaire
+	 * @return le numÃ©ro correspondant Ã  la variable temporaire
 	 */
 	private int newTemp(TableVar table) {
 		table.add_variable("temp" + nb_temp_var);

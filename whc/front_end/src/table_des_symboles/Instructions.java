@@ -3,7 +3,9 @@ package table_des_symboles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Stack;
 
+import structure_interne.CALL;
 import structure_interne.IF;
 import structure_interne.Op;
 import structure_interne.Quadruplet;
@@ -49,6 +51,7 @@ public class Instructions {
 		List<Integer> varInit = new ArrayList<Integer>(); // liste des variables declarees dans la fonction
 		StringBuilder s = new StringBuilder();
 		StringBuilder tab = new StringBuilder();
+		Stack<Integer> pile = new Stack<Integer>();
 		
 		for (int i = 0; i < indent; i++) {
 			tab.append("  ");
@@ -64,7 +67,7 @@ public class Instructions {
 			
 			switch (quad.getElement1().getOpName()) {	
 			
-			case "READ": // cas inutile ici car déjà géré avant, on passe donc
+			case "READ": // cas inutile ici car dÃ©jÃ  gÃ©rÃ© avant, on passe donc
 				varInit.add(quad.getElement2());
 				break;
 				
@@ -192,18 +195,29 @@ public class Instructions {
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
-				s.append("var").append(elem2).append("= var");
+				s.append("var").append(elem2).append(" = var");
 				s.append(elem3).append(" or var").append(elem4);
 				break;
-			case "Not":
+			case "NOT":
 				elem2=quad.getElement2();
 				elem3=quad.getElement3();
 				elem4= quad.getElement4();
 				s.append("var").append(elem2).append("= not var").append(elem3);
 				break;
+			case "ARG":
+				pile.push(quad.getElement3());
+				break;
+			case "CALL":
+				s.append("var").append(quad.getElement2());
+				s.append(" = f").append(((CALL)quad.getElement1()).getNum()).append("(");
+				String tempvar="var"+pile.pop();
+				for (int i=0;i<((CALL)quad.getElement1()).getNb_param()-1;i++)
+					tempvar+= ",var"+pile.pop();
+				s.append(tempvar).append(")");
+				break;
 			default:
 				s.append(tab);
-				s.append("bouchon, op non implementé\n");
+				s.append("bouchon, op non implementÃ©\n");
 				break;
 			}
 		}
