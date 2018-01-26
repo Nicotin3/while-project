@@ -1,7 +1,6 @@
 package table_des_symboles;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -60,6 +59,7 @@ public class Instructions {
 			quad = it.next();
 			int elem2;
 			int elem3;
+			int elem4;
 			StringBuilder tmp = new StringBuilder(); // potentiellement besoin de le remontrer au dessus du while puis du for
 			
 			switch (quad.getElement1().getOpName()) {	
@@ -180,6 +180,27 @@ public class Instructions {
 				s.append(tab).append("foreach (pas fini)");
 				break;
 			//a completer ici
+				
+			case "AND":
+				elem2=quad.getElement2();
+				elem3=quad.getElement3();
+				elem4= quad.getElement4();
+				s.append("var").append(elem2).append("= var");
+				s.append(elem3).append(" and var").append(elem4);
+				break;
+			case "OR":
+				elem2=quad.getElement2();
+				elem3=quad.getElement3();
+				elem4= quad.getElement4();
+				s.append("var").append(elem2).append("= var");
+				s.append(elem3).append(" or var").append(elem4);
+				break;
+			case "Not":
+				elem2=quad.getElement2();
+				elem3=quad.getElement3();
+				elem4= quad.getElement4();
+				s.append("var").append(elem2).append("= not var").append(elem3);
+				break;
 			default:
 				s.append(tab);
 				s.append("bouchon, op non implementé\n");
