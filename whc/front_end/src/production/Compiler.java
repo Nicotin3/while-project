@@ -41,6 +41,8 @@ import table_des_symboles.Instructions;
 import table_des_symboles.Table;
 import table_des_symboles.TableVar;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 public class Compiler {
@@ -48,10 +50,14 @@ public class Compiler {
 	private static int nb_temp_var=0;
 	// Table des symboles
 	Table tableSymbole;
+	
+
+	List <String>list_func = new ArrayList<String>();
 
 	public Compiler() {
 		tableSymbole = new Table();
 		tableSymbole.add_function("nil", 0, 0, new TableVar(), new Instructions());
+		
 	}
 
 	public Table getTable() {
@@ -61,11 +67,20 @@ public class Compiler {
 	/* __________________________MÃ©thodes compile__________________________ */
 
 	/**
+	 * @return the list_func
+	 */
+	public List<String> getList_func() {
+		return list_func;
+	}
+
+	/**
 	 * Model
 	 */
 	public void compile(Model m) {
 		for (Function f : m.getFunctions()) {
 			compile(f);
+			list_func.add(f.getName());
+			
 		}
 	}
 

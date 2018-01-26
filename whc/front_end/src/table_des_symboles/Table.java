@@ -30,23 +30,24 @@ public class Table {
 		return table.keySet();
 	}
 	
-	@Override
-	public String toString() {
+	public String toString(List<String> list) {
 		// TODO Surcharge de l'opÃ©rateur pour production code LUA (creez une autre
 		// fonction si vous le souhaitez)
 		StringBuilder s = new StringBuilder();
-		for (String func : table.keySet()) {
-			s.append(func + " : " + table.get(func) + "\n");
+		for (int i=0;i<list.size();i++) {
+			
+			s.append(list.get(i) + " : " + table.get(list.get(i)) + "\n");
 		}
 		return s.toString();
 	}
-	public String toLua() {
+	public String toLua(List<String> list) {
 		StringBuilder s = new StringBuilder();
 		
 		s.append("local treelib = require 'tree' -- import du module\n"); // import du module tree
 
-		for (String func : table.keySet()) {
+		for (int k=0;k<list.size();k++) {
 			
+			String func = list.get(k);
 			if (!func.equals("nil")) { // on ignore la premiere entree "nil" de la table des fonctions -- verif a changer - au moins un param entree pour fonction
 				//Récupération du quintuplet 
 				Quintuplet<Integer, Integer, Integer, TableVar, Instructions> quintu = table.get(func);

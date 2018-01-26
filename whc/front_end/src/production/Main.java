@@ -33,6 +33,7 @@ public class Main {
 
 		//Execution du compilateur
 		comp.compile(model);
+		
 		Table table_globale = comp.getTable();
 		// Affichage code 3 adresses
 //		for (String f : table_globale.keySet()) {
@@ -40,12 +41,12 @@ public class Main {
 //		}
 
 		//Production code LUA
-		System.out.println(table_globale.toString());
-		System.out.println(table_globale.toLua());
+		System.out.println(table_globale.toString(comp.getList_func()));
+		System.out.println(table_globale.toLua(comp.getList_func()));
 		
 		//Ecriture dans ficher
 		try (PrintWriter out = new PrintWriter("../libwh/src/"+nomFichier+".lua", "UTF-8")){
-			out.write(table_globale.toLua());
+			out.write(table_globale.toLua(comp.getList_func()));
 		}
 			}
 
