@@ -253,8 +253,12 @@ public class Instructions {
 				break;
 
 			case "CONS":
-				s.append(tab);
-				s.append("local var" + quad.getElement2() + " = treelib.createTree()\n");
+				elem2 = quad.getElement2();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
 				s.append(tab);
 				s.append("treelib.addLeftWithValue(var" + quad.getElement2() +", var" + quad.getElement3() + ")\n");
 				s.append(tab);
@@ -262,8 +266,12 @@ public class Instructions {
 				break;
 			
 			case "LIST":
-				s.append(tab);
-				s.append("local var" + quad.getElement2() + " = treelib.createTree()\n");
+				elem2 = quad.getElement2();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
 				s.append(tab);
 				s.append("treelib.addLeftWithValue(var" + quad.getElement2() +", var" + quad.getElement3() + ")\n");
 				s.append(tab);
@@ -275,8 +283,14 @@ public class Instructions {
 				pile.push(quad.getElement3());
 				break;
 			case "CALL":
+				elem2 = quad.getElement2();
+				if(!varInit.contains(elem2)) { // l'element d'ecriture est forcement une variable
+					s.append(tab);
+					s.append("local var" + elem2 + " = treelib.createTree()\n");
+					varInit.add(elem2);
+				}
 				s.append(tab);
-				s.append("local var").append(quad.getElement2());
+				s.append("var" + elem2);
 				s.append(" = f").append(((CALL)quad.getElement1()).getNum()).append("(");
 				String tempvar="var"+pile.pop();
 				for (int i=0;i<((CALL)quad.getElement1()).getNb_param()-1;i++)
