@@ -10,40 +10,10 @@ public class AND extends Op {
 
 	@Override
 	public String toString() {
-		return "AND";
+		return "and";
 	}
 
 	public String getOpName() {
 		return "AND";
-	}
-
-	@Override
-	public Instructions getCondition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Instructions getThen() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Instructions getElse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Instructions getIn() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Instructions getBoucle() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

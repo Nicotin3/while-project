@@ -21,21 +21,6 @@ public class IF extends Op {
 		this.Then = Then;
 		this.Else = null;
 	}
-	
-	@Override
-	public Instructions getCondition() {
-		return Condition;
-	}
-
-	@Override
-	public Instructions getThen() {
-		return Then;
-	}
-	
-	@Override
-	public Instructions getElse() {
-		return Else;
-	}
 
 	@Override
 	public String toString() {
@@ -49,13 +34,29 @@ public class IF extends Op {
 		return "IF";
 	}
 
-	@Override
-	public Instructions getIn() {
-		return null;
+	public Instructions getCondition() {
+		return Condition;
 	}
 
-	@Override
-	public Instructions getBoucle() {
-		return null;
+	public void setCondition(Instructions condition) {
+		Condition = condition;
 	}
+
+	public Instructions getThen() {
+		return Then;
+	}
+
+	public void setThen(Instructions then) {
+		Then = then;
+	}
+
+	public Instructions getElse() {
+		return Else;
+	}
+
+	public void setElse(Instructions else1) {
+		Else = else1;
+	}
+	
+	
 }

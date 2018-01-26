@@ -20,28 +20,21 @@ public class WHILE extends Op {
 		return "WHILE";
 	}
 
-	@Override
 	public Instructions getCondition() {
 		return Condition;
 	}
 
-	@Override
-	public Instructions getThen() {
-		return null;
+	public void setCondition(Instructions condition) {
+		Condition = condition;
 	}
 
-	@Override
-	public Instructions getElse() {
-		return null;
-	}
-
-	@Override
-	public Instructions getIn() {
-		return null;
-	}
-
-	@Override
 	public Instructions getBoucle() {
 		return Boucle;
 	}
+
+	public void setBoucle(Instructions boucle) {
+		Boucle = boucle;
+	}
+	
+	
 }
