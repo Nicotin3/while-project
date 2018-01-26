@@ -5,9 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import structure_interne.IF;
 import structure_interne.Op;
 import structure_interne.Quadruplet;
 import structure_interne.SYMB;
+import structure_interne.WHILE;
 
 public class Instructions {
 	List<Quadruplet<Op, Integer, Integer, Integer>> instructions;
@@ -43,11 +45,12 @@ public class Instructions {
 	}
 	
 	public String toLuaCache(int indent) {
+		// init variables
 		ListIterator<Quadruplet<Op, Integer, Integer, Integer>> it = instructions.listIterator();
-		
 		List<Integer> varInit = new ArrayList<Integer>(); // liste des variables declarees dans la fonction
 		StringBuilder s = new StringBuilder();
 		StringBuilder tab = new StringBuilder();
+		
 		for (int i = 0; i < indent; i++) {
 			tab.append("  ");
 		}
@@ -57,6 +60,7 @@ public class Instructions {
 			quad = it.next();
 			int elem2;
 			int elem3;
+			StringBuilder tmp = new StringBuilder(); // potentiellement besoin de le remontrer au dessus du while puis du for
 			
 			switch (quad.getElement1().getOpName()) {	
 			
@@ -65,7 +69,7 @@ public class Instructions {
 				break;
 				
 			case "WRITE":
-				StringBuilder tmp = new StringBuilder();
+				tmp = new StringBuilder();
 				tmp.append(tab);
 				tmp.append("return var");
 				tmp.append(quad.getElement3());
@@ -95,6 +99,8 @@ public class Instructions {
 				
 			case "NOP":
 				// le nop se traduit en rien en lua
+				s.append(tab);
+				s.append("-- nop\n");
 				break;
 				
 			case "AFFECT":
@@ -135,28 +141,35 @@ public class Instructions {
 			
 			case "IF":
 				s.append(tab).append("if ");
-				s.append((quad.getElement1()).getCondition().toLuaCache(0));
+				s.append(((IF) (quad.getElement1())).getCondition().toLuaCache(0));
 				
 				s.append(tab).append("then\n");
 				
-				s.append(quad.getElement1().getThen().toLuaCache(indent+1));
+				s.append(((IF) quad.getElement1()).getThen().toLuaCache(indent+1));
 				
-				if(quad.getElement1().getElse()!=null) {
+				if(((IF) quad.getElement1()).getElse()!=null) {
 					s.append(tab).append("else\n");
-					s.append(quad.getElement1().getElse().toLuaCache(indent+1));					
+					s.append(((IF) quad.getElement1()).getElse().toLuaCache(indent+1));					
 				}
 								
 				s.append(tab).append("end\n");
 				break;
 				
 			case "WHILE":
-				s.append(tab).append("while ");
-				s.append((quad.getElement1()).getCondition().toLuaCache(0));
+				tmp = new StringBuilder();
+				tmp.append(tab).append("while ");
 				
-				s.append(tab).append("do\n");
+				if (((WHILE) (quad.getElement1())).getCondition().equals(null)) {
+					tmp.append(((WHILE) (quad.getElement1())).getCondition().toLuaCache(0));
+				}
 				
-				s.append(quad.getElement1().getBoucle().toLuaCache(indent+1));
-				s.append(tab).append("end\n");
+				
+				tmp.append(tab).append("do\n");
+				
+				tmp.append(((WHILE) (quad.getElement1())).getBoucle().toLuaCache(indent+1));
+				tmp.append(tab).append("end\n");
+				
+				s.append(tmp);
 				break;
 				
 			case "FOR":
