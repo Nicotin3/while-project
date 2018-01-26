@@ -1,9 +1,9 @@
-local treelib = require("tree")
+local treelib = require 'tree' -- import du module
 
 function test(X,Y)
-  local W, G; --optionnel
-  W, G = X, Y;
-  X = nil;
+  local W, G --optionnel
+  W, G = X, Y
+  X = nil
   if X == Y then Z = X
   else
     X = Z

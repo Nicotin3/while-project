@@ -1,55 +1,65 @@
-local treelib = {}
+local treelib = {} -- creation du module
 
-function treelib.createTree()
+local function createTree()
   local tree = {}
   return tree
 end
+treelib.createTree = createTree
 
-function treelib.getLeft(tree)
+local function getLeft(tree)
   return tree[0]
 end
+treelib.getLeft = getLeft
 
-function treelib.getRight(tree)
+local function getRight(tree)
   return tree[1]
 end
+treelib.getRight = getRight
 
-function treelib.addLeft(tree)
+local function addLeft(tree)
   local left = {}
   tree[0] = left
   
   return tree
 end
+treelib.addLeft = addLeft
 
-function treelib.addLeftWithValue(tree,fils)
+local function addLeftWithValue(tree,fils)
   tree[0] = fils
   
   return tree
 end
+treelib.addLeftWithValue = addLeftWithValue
 
-function treelib.addRight(tree)
+local function addRight(tree)
   local right = {}
   tree[1] = right
     
   return tree
 end
+treelib.addRight = addRight
 
-function treelib.addRightWithValue(tree,fils)
+local function addRightWithValue(tree,fils)
   tree[1] = fils
   
   return tree
 end
+treelib.addRightWithValue = addRightWithValue
 
-function treelib.toNumber(tree)
+local function toNumber(tree)
   if (tree == nil) then
     return 0
   else
     return 1 + toNumber(getRight(tree)) 
   end
 end
+treelib.toNumber = toNumber
  
-function treelib.addTwo(tree)
+local function addTwo(tree)
   left, right = {}
   tree[0], tree[1] = left, right
  end
- 
+treelib.addTwo = addTwo
+
+return treelib --export
  
