@@ -1,6 +1,8 @@
 package production;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -18,7 +20,9 @@ public class Main {
 		//Création du compileur
 		Compiler comp = new Compiler();
 		//Fichier d'entrée
-		String fichierSource = "src/tests/test_simple.wh";
+		String nomFichier = "test_simple";
+		
+		String fichierSource = "src/tests/"+nomFichier+".wh";
 		
 		// Récupération de la racine de l'ASA correspondant au programme
 		Injector injector = new WhStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -38,6 +42,11 @@ public class Main {
 		//Production code LUA
 		System.out.println(table_globale.toString());
 		System.out.println(table_globale.toLua());
-	}
+		
+		//Ecriture dans ficher
+		try (PrintWriter out = new PrintWriter("../libwh/src/"+nomFichier+".lua", "UTF-8")){
+			out.write(table_globale.toLua());
+		}
+			}
 
 }
