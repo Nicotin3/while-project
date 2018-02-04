@@ -2,8 +2,6 @@ package table_des_symboles;
 
 import java.util.*;
 
-import javax.print.attribute.standard.PrinterLocation;
-
 import structure_interne.Quintuplet;
 
 public class Table {

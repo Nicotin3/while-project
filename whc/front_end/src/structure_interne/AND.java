@@ -1,7 +1,5 @@
 package structure_interne;
 
-import table_des_symboles.Instructions;
-
 public class AND extends Op {
 	
 	public AND() {
