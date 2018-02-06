@@ -17,7 +17,7 @@ Repertoires :
 whc :
 
   front_end :
-  Le projet du compilateur (front_end)
+  Le projet du compilateur (front_end) de WHILE vers Lua
   --> Comment l'utiliser ? Modifier le nom du fichier à compiler dans  la classe Main.java (front_end/src/production/Main.java)
                            Ce fichier doit se trouver dans le repertoire tests (front_end/src/tests)
                            Le fichier produit se trouve dans le repertoire libwh/src
