@@ -3,7 +3,8 @@ NAME
 SYNOPSIS
     whc sth.wh	[--all] [1] [--if] [3] [–o] [lua-version-sth.wh]
 DESCRIPTION
-    whc takes a program file which and compile it into the same program in Lua. The program in Lua is located in the directory libwh/src
+    whc takes a program file WHILE and compile it into the same program in Lua. The program in WHILE has to be located in front_end/src/tests.
+    The result program in Lua is located in the directory libwh/src and has the same name + ".lua".
 OPTIONS
 
     --help   Display this page
