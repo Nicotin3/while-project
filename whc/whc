@@ -1,0 +1,94 @@
+#!/bin/bash
+
+#Ignore les arguments ne commençant pas par un tiret, sauf le premier.
+#Si la même option est renseignée plusieurs fois, seul la dernière est prise en compte.
+
+#https://www.quennec.fr/book/export/html/341
+#https://stackoverflow.com/questions/402377/using-getopts-in-bash-shell-script-to-get-long-and-short-command-line-options
+
+
+if [ $(($#%2)) -ne 1 ]; then
+    echo "Incorrect number of arguments. See whc --help for help."
+    exit 1
+fi
+
+tableau[0]=$1
+
+if [ $1 != ${1%.*}.wh ]; then
+#    if [ $1 != ${1%.*}.whpp ]; then
+	if [ $1 != "--help" ]; then
+	    echo "First argument should be a .wh file. See whc --help for help."
+	    exit 1
+	else
+	    cat "whc.help"
+	    exit 0
+	fi
+#    fi
+else
+    shift
+fi
+
+
+
+optspec=":o:-:"
+while getopts "$optspec" optchar; do
+    case "${optchar}" in
+        -)
+            case "${OPTARG}" in
+                all)
+                    val="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
+		    if [ `echo "${val}" | grep "^[0-9]*$"` ] ; then
+		        tableau[1]=-${OPTARG}
+		        tableau[2]=${val}
+		    else
+		        echo "The argument of option -${OPTARG} should be numeric."
+			exit 1
+		    fi
+                    ;;
+                if)
+                    val="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
+		    if [ `echo "${val}" | grep "^[0-9]*$"` ] ; then
+		        tableau[3]=-${OPTARG}
+		        tableau[4]=${val}
+		    else
+			echo "The argument of option -${OPTARG} should be numeric."
+			exit 1
+		    fi
+                    ;;
+                while)
+                    val="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
+		    if [ `echo "${val}" | grep "^[0-9]*$"` ] ; then
+		        tableau[5]=-${OPTARG}
+		        tableau[6]=${val}
+		    else
+			echo "The argument of option -${OPTARG} should be numeric."
+			exit 1
+		    fi
+                    ;;
+                for)
+                    val="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
+		    if [ `echo "${val}" | grep "^[0-9]*$"` ] ; then
+		        tableau[7]=-${OPTARG}
+		        tableau[8]=${val}
+		    else
+			echo "The argument of option -${OPTARG} should be numeric."
+			exit 1
+		    fi
+                    ;;
+                *)
+		    echo "Incorrect usage. See whc --help for help."
+		    exit 1
+                    ;;
+            esac;;
+        o)
+	    tableau[9]=-${optchar}
+	    tableau[10]=${OPTARG}
+            ;;
+        *)
+            echo "Incorrect usage. See whc --help for help."
+	    exit 1
+            ;;
+    esac
+done
+
+echo "java front_end/src/production/Main.java ${tableau[*]}"

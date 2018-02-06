@@ -1,0 +1,13 @@
+NAME
+    whc - WHILE compiler
+SYNOPSIS
+    whc sth.wh	[--all] [1] [--if] [3] [–o] [lua-version-sth.wh]
+DESCRIPTION
+    whc takes a program file which and compile it into the same program in Lua. The program in Lua is located in the directory libwh/src
+OPTIONS
+
+    --help   Display this page
+BUGS
+SEE ALSO
+AUTHORS
+    Nicolas Beyou, Allan Bonhomme, Erwan Bouet, Louis Boureau, Sylvain Lotout, Amir Romdhane
