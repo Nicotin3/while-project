@@ -19,10 +19,29 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		//Création du compileur
 		Compiler comp = new Compiler();
-		//Fichier d'entrée
-		String nomFichier = "fonctions_test";
 		
-		String fichierSource = "src/tests/"+nomFichier+".wh";
+		// Gestion des options
+		//Premier argument : nom du fichier source .wh, vérification du nombre d'arguments dans le script.
+		
+		String fichierSource = args[0];
+		//Fichier d'entrée
+		String nomFichier = fichierSource.substring(0, fichierSource.length()-3);
+		String fichierResultat = new String ("../libwh/src/"+nomFichier+".lua"); //Par défaut : sth.lua si l'entrée est sth.wh
+		
+		for (int i = 0; i < args.length; i++) {
+			if(args[i].equalsIgnoreCase("-all")){
+			}
+			if(args[i].equalsIgnoreCase("-if")){
+			}
+			if(args[i].equalsIgnoreCase("-while")){
+			}
+			if(args[i].equalsIgnoreCase("-for")){
+			}
+			if(args[i].equalsIgnoreCase("-o")){
+				fichierResultat = args[i+1];
+			}
+		}
+		
 		
 		// Récupération de la racine de l'ASA correspondant au programme
 		Injector injector = new WhStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -45,7 +64,7 @@ public class Main {
 		System.out.println(table_globale.toLua(comp.getList_func()));
 		
 		//Ecriture dans ficher
-		try (PrintWriter out = new PrintWriter("../libwh/src/"+nomFichier+".lua", "UTF-8")){
+		try (PrintWriter out = new PrintWriter(fichierResultat, "UTF-8")){
 			out.write(table_globale.toLua(comp.getList_func()));
 		}
 			}
