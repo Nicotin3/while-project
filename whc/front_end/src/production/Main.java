@@ -23,7 +23,7 @@ public class Main {
 		
 		String nomFichier = args[0];
 		
-		String fichierSource = "src/tests/"+nomFichier+".wh";
+		String fichierSource = "src/tests/"+nomFichier;
 		
 		// Récupération de la racine de l'ASA correspondant au programme
 		Injector injector = new WhStandaloneSetup().createInjectorAndDoEMFRegistration();
