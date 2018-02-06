@@ -20,10 +20,9 @@ public class Main {
 		//Création du compileur
 		Compiler comp = new Compiler();
 		//Fichier d'entrée
+		String nomFichier = "fonctions_test";
 		
-		String nomFichier = args[0];
-		
-		String fichierSource = "src/tests/"+nomFichier;
+		String fichierSource = "src/tests/"+nomFichier+".wh";
 		
 		// Récupération de la racine de l'ASA correspondant au programme
 		Injector injector = new WhStandaloneSetup().createInjectorAndDoEMFRegistration();
